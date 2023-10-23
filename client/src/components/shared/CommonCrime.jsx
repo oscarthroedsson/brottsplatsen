@@ -1,5 +1,18 @@
 //Förse med ett listformat
-export default function List() {
+
+import { useEffect, useState } from "react";
+
+export default function CommonCrime(prop) {
+  const [array, setArray] = useState([]);
+
+  useEffect(() => {
+    const data = async () => {
+      const response = fetch("http://localhost:3000/api/common_crime", {});
+      const result = await response.json();
+      setArray(result);
+    };
+  }, []);
+
   return (
     <>
       {/* <div>

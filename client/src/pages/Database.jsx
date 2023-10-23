@@ -8,7 +8,7 @@ import categorys from "../data/categorys";
 import months from "../data/dates";
 import ReactDatePicker from "../components/shared/ReactDatePicker";
 import StackedBarChart from "../components/shared/StackedBarChart";
-import List from "../components/shared/List";
+import List from "../components/shared/CommonCrime";
 
 import apiCalls from "../API/apiCalls";
 import { getDashboard } from "../API/apiCalls";
@@ -32,10 +32,8 @@ export default function Databas() {
   let valueTwo = 256;
   let valueThree = 321;
 
-  //* parse Dates
-
   //* Tries the API
-  async function tryAPI() {
+  async function setData() {
     let inputObject = {
       category: category,
       place: place,
@@ -64,6 +62,7 @@ export default function Databas() {
     }
   }
 
+  //? vad fan gör denna?!?!
   const dataCitites = new Set();
   data.forEach((e) => dataCitites.add(e.location.name));
   let cities = Array.from(dataCitites);
@@ -157,7 +156,7 @@ export default function Databas() {
                     <button
                       onClick={() => {
                         setRun(true);
-                        tryAPI();
+                        setData();
                       }}
                       className="mt-8 w-full text-white bg-main-color py-2 rounded-md sm:max-w-xs"
                     >
