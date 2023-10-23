@@ -1,8 +1,4 @@
-// import data from "../../data/jsonAPI"; //Byt ut mot API/back-end
-
-// import months from "../../data/dates.js";
-// import { parseIsoDate } from "../../functions/parseIsoDate";
-
+//Förse med ett listformat
 export default function List() {
   return (
     <>

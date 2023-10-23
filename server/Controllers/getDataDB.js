@@ -1,7 +1,7 @@
 import fetch from "node-fetch"; //importerar fetch för att kunna hämta data från api
 import wholeColl from "../config/getDataBaseData.js"; //hämtar hela collectionen jag vill söka i från mongoDB
-import getTrends from "../Controllers/functions/trends.js"; //hämtar funktionen getMostCommon som hämtar de 5 vanligaste brotten
-import commonCrime from "../Controllers/functions/mostCommonCrime.js";
+import getTrends from "./trendsController.js"; //hämtar funktionen getMostCommon som hämtar de 5 vanligaste brotten
+import commonCrime from "./commonCrimeController.js";
 import cordinatesCrime from "../Controllers/functions/cordinatesCrime.js";
 
 //! | Ej klar

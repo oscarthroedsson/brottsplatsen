@@ -1,4 +1,4 @@
-import wholeColl from "../../config/getDataBaseData.js";
+import wholeColl from "../config/getDataBaseData.js";
 //.category, .place, .timespan.from/to
 async function cordinatesCrime(obj) {
   console.log("cordinatesCrime", obj);

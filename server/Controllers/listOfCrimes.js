@@ -1,7 +1,6 @@
-import wholeColl from "../../config/getDataBaseData.js";
+import wholeColl from "../config/getDataBaseData.js";
 
-//.category, .place, .timespan.from/to
-async function getMostCommon(obj) {
+async function listOfCrimes(obj) {
   // console.log(obj);
   let from = new Date(obj.timeSpan.fromDate);
   let to = new Date(obj.timeSpan.toDate);
@@ -13,15 +12,13 @@ async function getMostCommon(obj) {
     .aggregate([
       {
         $match: {
-          datetime: {
-            $gte: from,
-            $lte: to,
+          type: {
+            $eq: obj.category,
           },
         },
       },
       { $group: { _id: "$type", count: { $sum: 1 } } },
       { $sort: { count: -1 } },
-      { $limit: 5 },
     ])
     .toArray();
 
@@ -29,5 +26,3 @@ async function getMostCommon(obj) {
 
   return result;
 }
-
-export default getMostCommon;

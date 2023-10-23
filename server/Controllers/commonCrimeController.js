@@ -1,4 +1,4 @@
-import wholeColl from "../../config/getDataBaseData.js";
+import wholeColl from "../config/getDataBaseData.js";
 
 //obj = .category, .place, .timespan.from/to
 async function mostCommonCrime(obj) {
