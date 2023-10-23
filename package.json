@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "both": "concurrently -n \"client,server\" -p \"{name} |\" \"cd client && npm run dev\" \"cd server && nodemon app.js\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^7.0.1"
+  }
+}

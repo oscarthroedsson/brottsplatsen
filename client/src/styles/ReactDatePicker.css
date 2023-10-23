@@ -1,0 +1,8 @@
+/*! Nothing else make the container fill the parent */
+.react-datepicker-wrapper {
+  width: 100% !important;
+}
+
+.react-datepicker-wrapper {
+  max-width: 320px !important;
+}
