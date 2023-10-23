@@ -1,9 +1,7 @@
-import Nav from "../components/nav";
+import Nav from "../components/Nav";
 import { useParams } from "react-router-dom";
 
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-
-import crimeData from "../data/jsonAPI";
 
 import timeIcon from "../icons/fillTimeDark.png";
 import dateIcon from "../icons/fillDateDark.png";
@@ -13,6 +11,8 @@ import infoIcon from "../icons/lineInfoMain.png";
 import { useCallback, useState } from "react";
 
 export default function CrimeSite() {
+  //TODO | Måste lägga in API att hämta rätt crime
+
   const { id } = useParams();
   const crimeId = parseInt(id);
   const crime = crimeData.find((obj) => obj.id === crimeId);

@@ -1,8 +1,6 @@
 /*Visar en lista av alla händelser och låter besökaren se alla brott korrelerade till händelsen*/
 import { Link } from "react-router-dom";
-import { useEffect, useReducer, useRef, useState } from "react";
-import categoryList from "../data/categorys";
-import crimes from "../data/jsonAPI.js";
+import { useEffect, useState } from "react";
 
 import clock from "../icons/fillTimeMain.png";
 import calander from "../icons/fillDateDark.png";

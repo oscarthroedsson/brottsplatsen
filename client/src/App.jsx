@@ -26,7 +26,10 @@ function App() {
     let ignore = false;
     const fetchData = async () => {
       try {
-        const res = await countCrimes();
+        const res = await fetch(
+          "http://localhost:3000/api/Total_Num_Of_Crimes",
+          {}
+        );
         console.log("APP.JS | typeOf: ", typeof numOfCrimes);
         setNumOfCrimes(res);
       } catch (err) {

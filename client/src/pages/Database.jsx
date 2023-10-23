@@ -1,19 +1,24 @@
 import { useState } from "react";
+
+//# Components
 import Nav from "../components/Nav";
-
-import menuArrow from "../icons/arrow.png";
-import SelectElement from "../components/shared/SelectElement.jsx";
-import data from "../data/jsonAPI"; //Byt ut mot API/back-end
-import categorys from "../data/categorys";
-import months from "../data/dates";
 import ReactDatePicker from "../components/shared/ReactDatePicker";
-import StackedBarChart from "../components/shared/StackedBarChart";
-import List from "../components/shared/CommonCrime";
 
-import apiCalls from "../API/apiCalls";
-import { getDashboard } from "../API/apiCalls";
+import SelectElement from "../components/shared/SelectElement.jsx";
+import StackedBarChart from "../components/shared/StackedBarChart";
+import CommonnCrime from "../components/shared/CommonCrime";
+import GoogleMaps from "../components/shared/GoogleMaps";
+
+//# Functions
 import parseIsoDate from "../functions/parseIsoDate.js";
 
+//# Data
+import months from "../data/dates";
+
+//# IMG
+import menuArrow from "../icons/arrow.png";
+
+//# Database Component
 export default function Databas() {
   //* Handles menus
   const [showMenu, setShowMenu] = useState(true);
@@ -39,9 +44,6 @@ export default function Databas() {
       place: place,
       timeSpan: month ? parseIsoDate(month) : timePeriod,
     };
-
-    const data = await getDashboard(inputObject);
-    const result = JSON.stringify(data);
   }
 
   //* Controll search menu
@@ -206,20 +208,25 @@ export default function Databas() {
                   valueTwo={valueTwo}
                   valueThree={valueThree}
                 />
-              </div>
-              <div className="">
-                {run && (
-                  <List
-                    place={place}
-                    category={category}
-                    fromDate={timePeriod.fromDate}
-                    toDate={timePeriod.toDate}
-                  />
-                )}
+
+                <div className="">
+                  {run && (
+                    <CommonnCrime
+                      place={place}
+                      category={category}
+                      fromDate={timePeriod.fromDate}
+                      toDate={timePeriod.toDate}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-            <div>{/* google maps */}</div>
-            <div>{/* common list */}</div>
+            <div>
+              <GoogleMaps />
+            </div>
+            <div>
+              <CommonnCrime />
+            </div>
           </main>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import wholeColl from "../config/getDataBaseData.js";
 
-async function listOfCrimes(obj) {
+async function sortLatestCrime(obj) {
   // console.log(obj);
   let from = new Date(obj.timeSpan.fromDate);
   let to = new Date(obj.timeSpan.toDate);
@@ -26,3 +26,5 @@ async function listOfCrimes(obj) {
 
   return result;
 }
+
+export default sortLatestCrime;

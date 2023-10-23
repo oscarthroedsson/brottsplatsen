@@ -1,4 +1,3 @@
-import crimes from "../data/jsonAPI";
 import location2 from "../icons/location2.svg";
 
 import amount from "../icons/boxBrightAmount.png";
