@@ -28,6 +28,10 @@ router.get("/api/sort_latest_crime", sortLatestCrime);
 
 router.get("/api/night_crimes");
 
+router.get("/api/categorys");
+
+router.get("/api/crime_by_category");
+
 //post
 
 export default router;

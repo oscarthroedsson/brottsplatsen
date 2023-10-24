@@ -14,6 +14,7 @@ export default function ListCategorys() {
   //Nya state för pagination
   const [choosedCategory, setCategory] = useState("");
   const [sortedCrimes, setSortedCrimes] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [minListItem, setMinListItem] = useState(0);
   const [maxListItem, setMaxListItem] = useState(3);
@@ -25,10 +26,26 @@ export default function ListCategorys() {
 
   //* Sort and updates everytime a category is choosed
   useEffect(() => {
-    const sorted = crimes.filter((c) => c.type === choosedCategory);
-    setSortedCrimes(sorted);
-    setNumOfPages(sorted.length / maxPages);
-  }, [setCategory, choosedCategory]);
+    const categorys = async () => {
+      const result = await fetch("/api/categorys");
+      const data = await result.json();
+      return data;
+    };
+
+    setCategoryList(categorys);
+  }, []);
+
+  useEffect(() => {
+    const crimes = async () => {
+      const result = await fetch("/api/crimes");
+      const data = await result.json();
+      return data;
+    };
+
+    crimes().then((data) => {
+      setSortedCrimes(data);
+    });
+  }, []);
 
   if (numOfPages < 1) {
     setNumOfPages(1);
@@ -83,21 +100,18 @@ export default function ListCategorys() {
           <div className="centerElements flex-wrap mt-16">
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
               {sortedCrimes ? (
-                sortedCrimes
-                  .filter((c) => c.type === choosedCategory)
-                  .slice(minListItem, maxListItem)
-                  .map((crime) => {
-                    return (
-                      <>
-                        <li
-                          className="w-full lg:w-[400px] xl:w-[350px]"
-                          key={crime.id}
-                        >
-                          <CrimeBox crime={crime} />
-                        </li>
-                      </>
-                    );
-                  })
+                sortedCrimes.map((crime) => {
+                  return (
+                    <>
+                      <li
+                        className="w-full lg:w-[400px] xl:w-[350px]"
+                        key={crime.id}
+                      >
+                        <CrimeBox crime={crime} />
+                      </li>
+                    </>
+                  );
+                })
               ) : (
                 <p>Loading</p>
               )}
@@ -130,13 +144,7 @@ export default function ListCategorys() {
   );
 }
 
-function CrimeBox({ crime }) {
-  const date = new Date(crime.datetime);
-  const hour = date.getHours() + 1;
-  const min = date.getMinutes() + 1;
-  const month = date.getMonth() + 1;
-  const day = date.getDay() + 1;
-
+function CrimeBox(crime) {
   return (
     <Link to={`/brott/${crime.type}/${crime.location.name}/${crime.id}`}>
       <div className="infoboxes spreadStart flex-col mb-3 p-5 h-[150px]">

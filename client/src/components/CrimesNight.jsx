@@ -5,23 +5,28 @@ import common from "../icons/boxBrightCommon.png";
 import location3 from "../icons/boxBrightLocation.png";
 import records from "../icons/boxBrightRecords.png";
 import nightImg from "../images/nightColored.png";
+import { useEffect, useState } from "react";
 
 export default function CrimesNight() {
+  const [nightCrimes, setNightCrimes] = useState([]);
+  const [commonPlace, setCommonPlace] = useState();
+  const [commonCrime, setCommonCrime] = useState();
+
   let usp = [
     {
       img: amount,
       heading: "Antal",
-      text: "Det skedde 21st händelser i natt",
+      text: `Det skedde ${nightCrimes.length}st händelser i natt`,
     },
     {
       img: location3,
       heading: "Plats",
-      text: "Flest händelser skedde i ",
+      text: `Flest händelser skedde i ${commonPlace}`,
     },
     {
       img: common,
       heading: "Vanligaste",
-      text: "I natt var Mord den vanligaste händelsen",
+      text: `I natt var ${commonCrime} den vanligaste händelsen`,
     },
     {
       img: records,
@@ -30,18 +35,54 @@ export default function CrimesNight() {
     },
   ];
 
-  function isNightCrime(datetime) {
-    //kolla månad
-    const date = new Date(datetime);
-    const time = date.getHours();
+  //Get all crimes that happened to night: from 23:00 yesterday to 06:00 today
+  useEffect(() => {
+    const result = async () => {
+      const response = await fetch("/api/night_crimes");
+      const data = await response.json();
+      return data;
+    };
+    result().then((data) => {
+      setNightCrimes(data);
+    });
+    //calls function that sort out the most common place and crime in the nightreport
+    mostCommonPlace(nightCrimes);
+    mostCommonCrimes(nightCrimes);
+  });
 
-    if (time >= 23 || time < 6) {
-      return true;
+  //finds the most common place and crime in the nightreport
+  function mostCommonPlace(crimeArray) {
+    if (crimeArray.length > 0) {
+      const result = crimeArray.reduce((acc, crime) => {
+        if (acc[crime.location.name]) {
+          acc[crime.location.name]++;
+        } else {
+          acc[crime.location.name] = 1;
+        }
+        return acc;
+      });
+      setCommonPlace(result);
+    } else {
+      console.log("ERROR CrimesNight -> mostCommonPlace: crimeArray is empty");
     }
-
-    return false;
   }
-  const nightCrimes = crimes.filter((crime) => isNightCrime(crime.datetime));
+
+  //finds the most common place and crime in the nightreport
+  function mostCommonCrimes(crimeArray) {
+    if (crimeArray.length > 0) {
+      const result = crimeArray.reduce((acc, crime) => {
+        if (acc[crime.type]) {
+          acc[crime.type]++;
+        } else {
+          acc[crime.type] = 1;
+        }
+        return acc;
+      });
+      setCommonCrime(result);
+    } else {
+      console.log("ERROR CrimesNight -> mostCommonCrimes: crimeArray is empty");
+    }
+  }
 
   return (
     <>
