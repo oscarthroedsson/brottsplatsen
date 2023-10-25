@@ -34,7 +34,7 @@ async function reciveApiData() {
     console.log("ERROR API: ", e);
   }
   //set 30min timer after the code has run- the code is re-run after 30min
-  setTimeout(reciveApiData, 1800000);
+  setTimeout(reciveApiData, 20000);
 }
 
 reciveApiData();

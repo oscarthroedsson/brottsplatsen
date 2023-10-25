@@ -3,22 +3,18 @@ import { Link } from "react-router-dom";
 
 import Nav from "./components/nav";
 import ListBox from "./components/ListBox";
-import CommonCrime from "./components/CommonCrime";
+import CommonCrimeBox from "./components/CommonCrimeBox";
 import WeekData from "./components/WeekData";
 
 import CrimesNight from "./components/crimesNight";
 import ListCategorys from "./components/CrimeCategorys";
 import UspSection from "./components/UspSection";
 
-//api calls
-import countCrimes from "./API/apiCalls";
-
 let timeStamp = new Date();
 let hour = timeStamp.getHours();
 let renderNightCrimes = hour > 6 && hour < 12;
 
 function App() {
-  console.log("APP.JSX KÖRS");
   const [latestCrimes, setLastestCrimes] = useState([]);
   const [numOfCrimes, setNumOfCrimes] = useState(0);
 
@@ -27,17 +23,18 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/Total_Num_Of_Crimes",
-          {}
+          "http://localhost:3000/api/Total_Num_Of_Crimes"
         );
         console.log("APP.JS | typeOf: ", typeof numOfCrimes);
-        setNumOfCrimes(res);
+        const data = await res.json();
+        setNumOfCrimes(data);
       } catch (err) {
         console.error("useEffect app.js got error: ", err);
       }
     };
 
     fetchData();
+
     //clean up function
     return () => {
       ignore = true;
@@ -67,9 +64,9 @@ function App() {
           <p>rapporterade händelser i år</p>
         </div>
         <section className=" xs:top-16 md:top-32 flex-wrap flex-auto xsRelative flex items-center">
-          <ListBox></ListBox>
-          <CommonCrime></CommonCrime>
-          <WeekData></WeekData>
+          <ListBox />
+          <CommonCrimeBox />
+          <WeekData />
         </section>
       </header>
 

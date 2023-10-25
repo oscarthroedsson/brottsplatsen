@@ -11,6 +11,20 @@ export default function CrimesNight() {
   const [nightCrimes, setNightCrimes] = useState([]);
   const [commonPlace, setCommonPlace] = useState();
   const [commonCrime, setCommonCrime] = useState();
+  const [nightRecord, setNightRecord] = useState(false);
+
+  useEffect(() => {
+    try {
+      const crimes = async () => {
+        const response = await fetch("http://localhost:3000/api/night_crimes");
+        const data = await response.json();
+        setNightCrimes(data);
+      };
+      crimes();
+    } catch (err) {
+      console.log("CrimesNight | error in useEffect: ", err);
+    }
+  }, []);
 
   let usp = [
     {
@@ -31,58 +45,13 @@ export default function CrimesNight() {
     {
       img: records,
       heading: "Rekord",
-      text: "Lyckligtvis slogs inga rekord i natt. ",
+      text: nightRecord
+        ? "Lyckligtvis slogs inga rekord i natt."
+        : "Tyvärr slogs det ett rekord i natt",
     },
   ];
 
-  //Get all crimes that happened to night: from 23:00 yesterday to 06:00 today
-  useEffect(() => {
-    const result = async () => {
-      const response = await fetch("/api/night_crimes");
-      const data = await response.json();
-      return data;
-    };
-    result().then((data) => {
-      setNightCrimes(data);
-    });
-    //calls function that sort out the most common place and crime in the nightreport
-    mostCommonPlace(nightCrimes);
-    mostCommonCrimes(nightCrimes);
-  });
-
-  //finds the most common place and crime in the nightreport
-  function mostCommonPlace(crimeArray) {
-    if (crimeArray.length > 0) {
-      const result = crimeArray.reduce((acc, crime) => {
-        if (acc[crime.location.name]) {
-          acc[crime.location.name]++;
-        } else {
-          acc[crime.location.name] = 1;
-        }
-        return acc;
-      });
-      setCommonPlace(result);
-    } else {
-      console.log("ERROR CrimesNight -> mostCommonPlace: crimeArray is empty");
-    }
-  }
-
-  //finds the most common place and crime in the nightreport
-  function mostCommonCrimes(crimeArray) {
-    if (crimeArray.length > 0) {
-      const result = crimeArray.reduce((acc, crime) => {
-        if (acc[crime.type]) {
-          acc[crime.type]++;
-        } else {
-          acc[crime.type] = 1;
-        }
-        return acc;
-      });
-      setCommonCrime(result);
-    } else {
-      console.log("ERROR CrimesNight -> mostCommonCrimes: crimeArray is empty");
-    }
-  }
+  console.log("nightRecord", nightRecord);
 
   return (
     <>
@@ -101,7 +70,7 @@ export default function CrimesNight() {
                 </hgroup>
                 <p className="mt-3 text-lg">
                   Följande händelser har rapporterats in från poliser i landet i
-                  natt mellan 23:00 igår till 06:00 i morse.{" "}
+                  natt mellan 23:00 igår till 06:00 i morse.
                 </p>
               </div>
               <div className="xs:hidden xl:flex items-center justify-center absolute left-[55rem] h-40 w-96">
@@ -127,7 +96,7 @@ export default function CrimesNight() {
                           <h3 className="text-size3-p font-semibold leading-7 text-gray-900">
                             {obj.heading}
                           </h3>
-                          <p>{obj.text}</p>
+                          <p>hej</p>
                         </dd>
                       </div>
                     </>
@@ -145,7 +114,7 @@ export default function CrimesNight() {
                   p-4 xl:ml-auto"
                 >
                   {/* Loop som går igenom alla händelser under natten */}
-                  <div>
+                  {/* <div>
                     <h3 className="text-size1-p font-medium-p">{crime.type}</h3>
                     <hgroup className="my-2">
                       <h4 className="xs:text-size0-p w-full flex gap-1">
@@ -154,7 +123,7 @@ export default function CrimesNight() {
                       </h4>
                       <p className="xs:text-size0-p">{crime.summary}</p>
                     </hgroup>
-                  </div>
+                  </div> */}
                   <button className="ml-auto mt-2 align-end bg-dark-bg rounded-sm text-right w-fit px-2 py-1  text-white text-size0-p">
                     Läs mer
                   </button>

@@ -27,12 +27,16 @@ export default function ListCategorys() {
   //* Sort and updates everytime a category is choosed
   useEffect(() => {
     const categorys = async () => {
-      const result = await fetch("/api/categorys");
-      const data = await result.json();
-      return data;
+      const result = await fetch("http://localhost:3000/api/categorys")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          setCategoryList(data);
+        });
+      result();
     };
-
-    setCategoryList(categorys);
+    categorys();
   }, []);
 
   useEffect(() => {

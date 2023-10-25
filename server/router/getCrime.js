@@ -3,22 +3,24 @@ const router = express.Router();
 
 // import wholeColl from "../config/getDataBaseData";
 import totNumOfCrimes from "../Controllers/totNumOfCrimes.js";
+import wholeList from "../Controllers/wholeListController.js";
 import trendsController from "../Controllers/trendsController.js";
+import getPastMonth from "../Controllers/getPastMonth.js";
 import commonCrimeController from "../Controllers/commonCrimeController.js";
 import coordinatesController from "../Controllers/coordinatesController.js";
 import sortLatestCrime from "../Controllers/sortLatestCrime.js";
+import nightCrimes from "../Controllers/night_crimes_controller.js";
 
 //get
-router.get("/api/data", (req, res, next) => {
-  console.log("GET: reciveOne got called");
-  res.send({ msg: "get skickade tillbaka något" });
-  next();
-});
 
 //# | inte  implementerade med client
 router.get("/api/Total_Num_Of_Crimes", totNumOfCrimes);
 
-router.get("api/get_trends", trendsController);
+router.get("/api/whole_list", wholeList);
+
+router.get("/api/get_trends", trendsController);
+
+router.get("/api/get_past_month", getPastMonth);
 
 router.get("/api/common_crime", commonCrimeController);
 
@@ -26,7 +28,7 @@ router.get("/api/cordinates_crime", coordinatesController);
 
 router.get("/api/sort_latest_crime", sortLatestCrime);
 
-router.get("/api/night_crimes");
+router.get("/api/night_crimes", nightCrimes);
 
 router.get("/api/categorys");
 

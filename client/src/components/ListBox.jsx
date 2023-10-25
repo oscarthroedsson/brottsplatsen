@@ -1,21 +1,35 @@
+import { useEffect, useState } from "react";
 import arrow from "../icons/arrow.png";
 
 export default function ListBox() {
-  //functions
+  const [latestCrimes, setLatestCrimes] = useState([]);
+
+  useEffect(() => {
+    const list = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/whole_list");
+        const data = await response.json();
+        setLatestCrimes(data);
+      } catch (error) {
+        console.log("ListBox error: ", error);
+      }
+    };
+    list();
+  }, []);
 
   return (
     <div className="centerElements flex-col ">
       <div className=" p-3 infoContainer ">
         <p className="text-size0-p m-1">Senaste Rapporterna</p>
         <ul>
-          {Array.from({ length: 3 }).map((_, i) => (
+          {latestCrimes.slice(0, 3).map((crime) => (
             <li
-              key={i}
+              key={crime._id}
               className="text-black m-1.5 p-1 px-2 width text-size0-p bg-white flex justify-between hover:bg-light-bg"
             >
-              <p>Rån</p>
-              <p>Malmö</p>
-              <button className="bg-dark-bg rounded-sm w-5 flex items-center">
+              <p>{crime.type}</p>
+              <p>{crime.location.name}</p>
+              <button className="bg-dark-bg rounded-sm w-5 flex items-center -rotate-90">
                 <img src={arrow} alt="" />
               </button>
             </li>
