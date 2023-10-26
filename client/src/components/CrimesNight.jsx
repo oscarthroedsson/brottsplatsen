@@ -8,17 +8,14 @@ import nightImg from "../images/nightColored.png";
 import { useEffect, useState } from "react";
 
 export default function CrimesNight() {
-  const [nightCrimes, setNightCrimes] = useState([]);
-  const [commonPlace, setCommonPlace] = useState();
-  const [commonCrime, setCommonCrime] = useState();
-  const [nightRecord, setNightRecord] = useState(false);
+  const [nightCrimes, setNightCrimes] = useState({ doc: [] });
 
   useEffect(() => {
     try {
       const crimes = async () => {
         const response = await fetch("http://localhost:3000/api/night_crimes");
         const data = await response.json();
-        setNightCrimes(data);
+        setNightCrimes(data[0]);
       };
       crimes();
     } catch (err) {
@@ -30,28 +27,24 @@ export default function CrimesNight() {
     {
       img: amount,
       heading: "Antal",
-      text: `Det skedde ${nightCrimes.length}st händelser i natt`,
+      text: `Det skedde ${nightCrimes.numOfCrimes}st händelser i natt`,
     },
     {
       img: location3,
       heading: "Plats",
-      text: `Flest händelser skedde i ${commonPlace}`,
+      text: `Flest händelser skedde i ${nightCrimes.CommonLocation}`,
     },
     {
       img: common,
       heading: "Vanligaste",
-      text: `I natt var ${commonCrime} den vanligaste händelsen`,
+      text: `I natt var ${nightCrimes.commonType} den vanligaste händelsen`,
     },
     {
       img: records,
       heading: "Rekord",
-      text: nightRecord
-        ? "Lyckligtvis slogs inga rekord i natt."
-        : "Tyvärr slogs det ett rekord i natt",
+      text: "Lyckligtvis slogs inga rekord i natt.",
     },
   ];
-
-  console.log("nightRecord", nightRecord);
 
   return (
     <>
@@ -79,14 +72,14 @@ export default function CrimesNight() {
             </div>
             <div className="mx-auto mt-16 mb-24 max-w-2xl sm:my-20 lg:max-w-7xl xl:my-26">
               <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-4xl lg:grid-cols-2 lg:gap-y-16">
-                {usp.map((obj) => {
+                {usp.map((uspObj) => {
                   return (
                     <>
                       <div className="relative pl-16">
                         <dl className="">
                           <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center">
                             <img
-                              src={obj.img}
+                              src={uspObj.img}
                               alt=""
                               className="w-10 radius-10"
                             />
@@ -94,9 +87,9 @@ export default function CrimesNight() {
                         </dl>
                         <dd>
                           <h3 className="text-size3-p font-semibold leading-7 text-gray-900">
-                            {obj.heading}
+                            {uspObj.heading}
                           </h3>
-                          <p>hej</p>
+                          <p>{uspObj.text}</p>
                         </dd>
                       </div>
                     </>
@@ -106,7 +99,7 @@ export default function CrimesNight() {
             </div>
           </div>
           <div className="twoColumn mb-16 w-full lg:flex lg:flex-wrap xl:gap-16">
-            {nightCrimes.map((crime) => {
+            {nightCrimes.doc.map((crime) => {
               return (
                 <article
                   key={crime.id}
@@ -114,16 +107,16 @@ export default function CrimesNight() {
                   p-4 xl:ml-auto"
                 >
                   {/* Loop som går igenom alla händelser under natten */}
-                  {/* <div>
+                  <div>
                     <h3 className="text-size1-p font-medium-p">{crime.type}</h3>
                     <hgroup className="my-2">
                       <h4 className="xs:text-size0-p w-full flex gap-1">
                         <img src={location2} alt="" className="w-4 h-4" />
-                        {crime.location.name}
+                        {crime.location}
                       </h4>
                       <p className="xs:text-size0-p">{crime.summary}</p>
                     </hgroup>
-                  </div> */}
+                  </div>
                   <button className="ml-auto mt-2 align-end bg-dark-bg rounded-sm text-right w-fit px-2 py-1  text-white text-size0-p">
                     Läs mer
                   </button>

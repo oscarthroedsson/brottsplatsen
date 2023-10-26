@@ -12,7 +12,6 @@ export default function CommonCrime() {
         if (response.ok) {
           const data = await response.json();
           setCrimePrevMonth(data);
-          console.log("data: ", data);
         } else {
           console.log("Server returned an error:", response.status);
         }

@@ -23,7 +23,6 @@ async function mostCommonCrime(obj) {
       { $limit: 5 },
     ])
     .toArray();
-  console.log("MOST COMMON", result);
 }
 
 export default mostCommonCrime;

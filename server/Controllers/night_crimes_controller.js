@@ -1,7 +1,7 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 async function getNightCrimes(req, res) {
-  console.log("");
+  console.log("getNightCrimes körs");
   let startDay = new Date();
   let oneDayBack = startDay.getDate() - 1;
   startDay = startDay.setDate(oneDayBack);
@@ -79,12 +79,10 @@ async function getNightCrimes(req, res) {
       },
       {
         $project: {
-          night: {
-            commonType: { $arrayElemAt: ["$mostCommonType._id", 0] },
-            commonLocation: { $arrayElemAt: ["$mostCommonLocation._id", 0] },
-            numOfCrimes: { $arrayElemAt: ["$totalCrimes.count", 0] },
-            doc: "$doc",
-          },
+          commonType: { $arrayElemAt: ["$mostCommonType._id", 0] },
+          commonLocation: { $arrayElemAt: ["$mostCommonLocation._id", 0] },
+          numOfCrimes: { $arrayElemAt: ["$totalCrimes.count", 0] },
+          doc: "$doc",
         },
       },
     ])

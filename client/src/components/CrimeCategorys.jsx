@@ -56,7 +56,7 @@ export default function ListCategorys() {
   }
 
   function goForward() {
-    console.log("+", currentPage);
+    // console.log("+", currentPage);
     if (maxListItem + numOfBoxes <= sortedCrimes.length) {
       setCurrentPage(currentPage + 1);
       setMinListItem(minListItem + numOfBoxes);
@@ -65,7 +65,7 @@ export default function ListCategorys() {
   }
 
   function goBackward() {
-    console.log("-", currentPage);
+    // console.log("-", currentPage);
     if (minListItem - numOfBoxes >= 0) {
       setCurrentPage(currentPage - 1);
       setMinListItem(minListItem - numOfBoxes);

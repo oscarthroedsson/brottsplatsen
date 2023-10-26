@@ -6,7 +6,7 @@ import ListBox from "./components/ListBox";
 import CommonCrimeBox from "./components/CommonCrimeBox";
 import WeekData from "./components/WeekData";
 
-import CrimesNight from "./components/crimesNight";
+import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
 import UspSection from "./components/UspSection";
 
@@ -25,7 +25,6 @@ function App() {
         const res = await fetch(
           "http://localhost:3000/api/Total_Num_Of_Crimes"
         );
-        console.log("APP.JS | typeOf: ", typeof numOfCrimes);
         const data = await res.json();
         setNumOfCrimes(data);
       } catch (err) {
