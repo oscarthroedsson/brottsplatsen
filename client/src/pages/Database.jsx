@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //# Components
 import Nav from "../components/Nav";
@@ -23,7 +23,8 @@ export default function Databas() {
   //* Handles menus
   const [showMenu, setShowMenu] = useState(true);
   const [advSearch, setAdvSearch] = useState(false);
-
+  const [categoryArray, setCategoryArray] = useState([]);
+  const [cityArray, setCityArray] = useState([]);
   //* Saves input from user
   const [category, setCategory] = useState(null);
   const [place, setPlace] = useState(null);
@@ -31,6 +32,30 @@ export default function Databas() {
   const [timePeriod, setTimePeriod] = useState({});
 
   const [run, setRun] = useState(false);
+
+  useEffect(() => {
+    const getCategorys = async () => {
+      const res = await fetch("http://localhost:3000/api/categorys");
+      const data = await res.json();
+      let parseCategorys = data.map((category) => {
+        return category._id;
+      });
+      setCategoryArray(parseCategorys);
+    };
+
+    const getCities = async () => {
+      const res = await fetch("http://localhost:3000/api/cities");
+      const data = await res.json();
+      console.log("data: ", data);
+      let parseCities = data.map((city) => {
+        return city._id;
+      });
+      setCityArray(parseCities);
+    };
+
+    getCategorys();
+    getCities();
+  }, []);
 
   //* Example data for stacked Bar Chart
   let valueOne = 242;
@@ -64,11 +89,6 @@ export default function Databas() {
     }
   }
 
-  //? vad fan gör denna?!?!
-  const dataCitites = new Set();
-  data.forEach((e) => dataCitites.add(e.location.name));
-  let cities = Array.from(dataCitites);
-
   return (
     <>
       <Nav></Nav>
@@ -97,14 +117,14 @@ export default function Databas() {
                   <div className="w-full">
                     <div className="mb-5 text-size1-p">
                       <SelectElement
-                        options={categorys}
+                        options={categoryArray}
                         defaultValue={"Välj kategori"}
                         onChange={setCategory}
                       />
                     </div>
                     <div className="mb-5 text-size1-p">
                       <SelectElement
-                        options={cities}
+                        options={cityArray}
                         onChange={setPlace}
                         defaultValue={"Sverige"}
                       />

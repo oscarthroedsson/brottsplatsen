@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 
 export default function CommonCrime() {
-  const [crimePrevMonth, setCrimePrevMonth] = useState([]);
+  const [crimeThisMonth, setCrimePrevMonth] = useState([]);
 
   useEffect(() => {
     const crimes = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/api/get_past_month"
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setCrimePrevMonth(data);
-        } else {
-          console.log("Server returned an error:", response.status);
-        }
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
+      const response = await fetch(
+        "http://localhost:3000/api/common_This_Month"
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        setCrimePrevMonth(data[0]);
+      } else {
+        console.log("Server returned an error:", response.status);
       }
     };
-    crimes();
+    try {
+      crimes();
+    } catch (err) {
+      console.log("Error in CommonCrime", err);
+    }
   }, []);
 
   return (
@@ -30,8 +32,8 @@ export default function CommonCrime() {
           <p className="text-size1-p font-heavy-p text-main-color">JUNI</p>
         </div>
         <div>
-          <p className="text-size4-p font-heavy-p">Våldtäkt</p>
-          <p className="largeP">2087</p>
+          <p className="text-size4-p font-heavy-p">{crimeThisMonth._id}</p>
+          <p className="largeP">{crimeThisMonth.count} st</p>
         </div>
       </div>
       <a href="#" className="text-size0-p text-end highlight px-2">

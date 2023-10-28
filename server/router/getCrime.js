@@ -10,6 +10,10 @@ import commonCrimeController from "../Controllers/commonCrimeController.js";
 import coordinatesController from "../Controllers/coordinatesController.js";
 import sortLatestCrime from "../Controllers/sortLatestCrime.js";
 import nightCrimes from "../Controllers/night_crimes_controller.js";
+import commonThisMonth from "../Controllers/commonThisMonth.js";
+import categorysController from "../Controllers/categorysController.js";
+import crimeByTypeController from "../Controllers/CrimeByTypeController.js";
+import citiesController from "../Controllers/citiesController.js";
 
 //get
 
@@ -30,9 +34,13 @@ router.get("/api/sort_latest_crime", sortLatestCrime);
 
 router.get("/api/night_crimes", nightCrimes);
 
-router.get("/api/categorys");
+router.get("/api/common_This_Month", commonThisMonth);
 
-router.get("/api/crime_by_category");
+router.get("/api/categorys", categorysController);
+
+router.get("/api/cities", citiesController);
+
+router.get("/api/crime_by_category", crimeByTypeController);
 
 //post
 

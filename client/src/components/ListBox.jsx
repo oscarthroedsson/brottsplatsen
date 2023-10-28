@@ -6,15 +6,16 @@ export default function ListBox() {
 
   useEffect(() => {
     const list = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/whole_list");
-        const data = await response.json();
-        setLatestCrimes(data);
-      } catch (error) {
-        console.log("ListBox error: ", error);
-      }
+      const response = await fetch("http://localhost:3000/api/whole_list");
+      const data = await response.json();
+      setLatestCrimes(data);
     };
-    list();
+
+    try {
+      list();
+    } catch (err) {
+      console.log("ListBox error: ", err);
+    }
   }, []);
 
   return (

@@ -12,6 +12,7 @@ export default function CommonCrime(prop) {
       setArray(result);
     };
   }, []);
+  console.log("ARRAY", array);
 
   return (
     <>

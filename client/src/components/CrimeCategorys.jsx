@@ -27,29 +27,40 @@ export default function ListCategorys() {
   //* Sort and updates everytime a category is choosed
   useEffect(() => {
     const categorys = async () => {
-      const result = await fetch("http://localhost:3000/api/categorys")
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setCategoryList(data);
-        });
-      result();
+      const result = await fetch("http://localhost:3000/api/categorys");
+
+      const data = await result.json();
+
+      //gör om en array med objekt till array med strängar
+      const arraySorted = data.map((crime) => {
+        return crime._id;
+      });
+
+      setCategoryList(arraySorted);
     };
+
     categorys();
   }, []);
 
   useEffect(() => {
     const crimes = async () => {
-      const result = await fetch("/api/crimes");
+      console.log("CLIENT | category", choosedCategory);
+      const result = await fetch(
+        `http://localhost:3000/api/crime_by_category?category=${choosedCategory}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await result.json();
-      return data;
+      console.log("data", data);
+      setSortedCrimes(data);
     };
 
-    crimes().then((data) => {
-      setSortedCrimes(data);
-    });
-  }, []);
+    crimes();
+  }, [choosedCategory]);
 
   if (numOfPages < 1) {
     setNumOfPages(1);
@@ -96,20 +107,25 @@ export default function ListCategorys() {
               <img src={police} alt="" />
             </div>
           </div>
-          <SelectElement
-            options={categoryList}
-            onChange={setCategory}
-            defaultValue="Välj kategori"
-          />
+          {categoryList.length > 5 ? (
+            <SelectElement
+              options={categoryList}
+              onChange={setCategory}
+              defaultValue="Välj kategori"
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+
           <div className="centerElements flex-wrap mt-16">
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
-              {sortedCrimes ? (
+              {sortedCrimes.length >= 1 ? (
                 sortedCrimes.map((crime) => {
                   return (
                     <>
                       <li
                         className="w-full lg:w-[400px] xl:w-[350px]"
-                        key={crime.id}
+                        key={crime._id}
                       >
                         <CrimeBox crime={crime} />
                       </li>
@@ -117,7 +133,7 @@ export default function ListCategorys() {
                   );
                 })
               ) : (
-                <p>Loading</p>
+                <p>Välj kategori</p>
               )}
             </ul>
             <div
@@ -148,7 +164,7 @@ export default function ListCategorys() {
   );
 }
 
-function CrimeBox(crime) {
+function CrimeBox({ crime }) {
   return (
     <Link to={`/brott/${crime.type}/${crime.location.name}/${crime.id}`}>
       <div className="infoboxes spreadStart flex-col mb-3 p-5 h-[150px]">
@@ -162,10 +178,15 @@ function CrimeBox(crime) {
         <footer className="overflow-auto justify-between w-full">
           <ul className="spreadStart text-sm">
             <li className="centerElements gap-2">
-              <img src={clock} alt="" className="w-4" /> {hour}:{min}
+              <img src={clock} alt="" className="w-4" />{" "}
+              {new Date(crime.datetime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </li>
             <li className="centerElements gap-2">
-              <img src={calander} alt="" className="w-4" /> {day}/{month}
+              <img src={calander} alt="" className="w-4" />{" "}
+              {new Date(crime.datetime).toLocaleDateString()}
             </li>
             <li className="centerElements gap-2 w-fit">
               <img src={destination} alt="" className="w-4" />
