@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 function GoogleMaps({ searchData }) {
-  const [cordinate, setCordinate] = useState();
+  const [objArray, setObjArray] = useState();
   const [map, setMap] = useState(null);
+
+  const markers = [];
 
   useEffect(() => {
     const getCordinates = async () => {
@@ -19,52 +21,64 @@ function GoogleMaps({ searchData }) {
         }
       );
       const result = await response.json();
-      setCordinate(result);
+      await setObjArray(result);
     };
     getCordinates();
-    console.log("GoogleMaps | result", cordinate);
   }, []);
 
-  const containerStyle = {};
-  const center = {};
+  const containerStyle = {
+    width: "100%",
+    height: "400px",
+    borderRadius: "0px 12px 12px 0px",
+  };
 
   const { isLoaded } = useJsApiLoader({
     id: "ab6140a0414848a8",
     googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ",
   });
 
-  const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+  const onLoad = React.useCallback(
+    function callback(map) {
+      // Tar bort gamla markörer
+      markers.forEach((marker) => marker.setMap(null));
+      markers.length = 0;
 
-    //# | Go over the aarray with objects and create a marker for each object
-    cordinate.forEach((location) => {
-      const infoWindow = new window.google.maps.InfoWindow({
-        content: "<h1>Stockholm</h1><p>This is Stockholm.</p>",
+      // Justerar kartans vy för att inkludera alla markörer
+      const bounds = new window.google.maps.LatLngBounds();
+      objArray.forEach((location) => {
+        bounds.extend(
+          new window.google.maps.LatLng(location.lat, location.lng)
+        );
+      });
+      map.fitBounds(bounds);
+
+      // Skapar en markör för varje objekt i arrayen
+      let offset = 0.0001;
+      objArray.forEach((location, index) => {
+        const marker = new window.google.maps.Marker({
+          position: {
+            lat: parseFloat(location.lat) + offset * index,
+            lng: parseFloat(location.lng),
+          },
+          map: map,
+        });
+        markers.push(marker); // Lägg till den nya markören i referensarrayen
       });
 
-      new window.google.maps.Marker({
-        position: {
-          lat: parseFloat(location.lat),
-          lng: parseFloat(location.lon),
-        },
-        map: map,
-      });
-    });
-
-    setMap(map);
-  }, []);
+      setMap(map);
+    },
+    [objArray]
+  );
 
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  return isLoaded && objArray ? (
     <>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        zoom={11}
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{

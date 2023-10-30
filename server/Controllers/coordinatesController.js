@@ -25,10 +25,10 @@ async function cordinatesCrime(req, res) {
         },
         {
           $addFields: {
-            lon: {
+            lat: {
               $arrayElemAt: ["$coordinates", 0],
             },
-            lat: {
+            lng: {
               $arrayElemAt: ["$coordinates", 1],
             },
           },
@@ -39,8 +39,8 @@ async function cordinatesCrime(req, res) {
             url: { $first: "$url" },
             location: { $first: "$location.name" },
             type: { $first: "$type" },
-            lon: { $first: "$lon" },
             lat: { $first: "$lat" },
+            lng: { $first: "$lng" },
           },
         },
         { $sort: { count: -1 } },
