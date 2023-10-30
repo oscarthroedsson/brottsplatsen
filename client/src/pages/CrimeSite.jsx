@@ -132,3 +132,11 @@ function CrimeMap({ crime }) {
     </>
   );
 }
+
+// if("oscar" ==  "Oscar"){
+//   true
+// }
+
+// if("oscar" === "Oscar"){
+//   false
+// }

@@ -1,58 +1,56 @@
 import wholeColl from "../config/getDataBaseData.js";
+import searchQuery from "../utils/createMatchQuery.js";
 //.category, .place, .timespan.from/to
-async function cordinatesCrime(obj) {
-  console.log("cordinatesCrime", obj);
+async function cordinatesCrime(req, res) {
+  console.log("--------------------");
+  console.log("cordinatesCrime was run");
+  const obj = req.body;
 
-  let from = new Date(obj.timeSpan.fromDate);
-  let to = new Date(obj.timeSpan.toDate);
+  //# Create a dynamic matchiquery depending of the data we get in!
+  let query = searchQuery(obj);
+  console.log("query", query);
 
-  console.log("trends | from: ", from);
-  console.log("trends | to: ", to);
-
-  const result = await wholeColl
-    .aggregate([
-      {
-        $match: {
-          datetime: {
-            $gte: from,
-            $lte: to,
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $match: query,
+        },
+        {
+          $addFields: {
+            coordinates: {
+              $split: ["$location.gps", ","],
+            },
           },
         },
-      },
-      {
-        $addFields: {
-          coordinates: {
-            $split: ["$location.gps", ","],
+        {
+          $addFields: {
+            lon: {
+              $arrayElemAt: ["$coordinates", 0],
+            },
+            lat: {
+              $arrayElemAt: ["$coordinates", 1],
+            },
           },
         },
-      },
-      {
-        $addFields: {
-          lon: {
-            $arrayElemAt: ["$coordinates", 0],
-          },
-          lat: {
-            $arrayElemAt: ["$coordinates", 1],
+        {
+          $group: {
+            _id: "$_id",
+            url: { $first: "$url" },
+            location: { $first: "$location.name" },
+            type: { $first: "$type" },
+            lon: { $first: "$lon" },
+            lat: { $first: "$lat" },
           },
         },
-      },
-      {
-        $group: {
-          _id: "$_id",
-          url: { $first: "$url" },
-          location: { $first: "$location.name" },
-          type: { $first: "$type" },
-          lon: { $first: "$lon" },
-          lat: { $first: "$lat" },
-        },
-      },
-      { $sort: { count: -1 } },
-    ])
-    .toArray();
-
-  console.log("CordinatesCrime | Result: ", result);
-
-  return result;
+        { $sort: { count: -1 } },
+      ])
+      .toArray();
+    console.log("CoordinatesController Result: ", result);
+    res.json(result);
+  } catch (err) {
+    console.log("cordinatesCrime | ERROR: ", err);
+  }
 }
 
 export default cordinatesCrime;

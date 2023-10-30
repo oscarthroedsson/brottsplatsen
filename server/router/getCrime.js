@@ -22,13 +22,7 @@ router.get("/api/Total_Num_Of_Crimes", totNumOfCrimes);
 
 router.get("/api/whole_list", wholeList);
 
-router.get("/api/get_trends", trendsController);
-
 router.get("/api/get_past_month", getPastMonth);
-
-router.get("/api/common_crime", commonCrimeController);
-
-router.get("/api/cordinates_crime", coordinatesController);
 
 router.get("/api/sort_latest_crime", sortLatestCrime);
 
@@ -42,6 +36,11 @@ router.get("/api/cities", citiesController);
 
 router.get("/api/crime_by_category", crimeByTypeController);
 
-//post
+//post Database controllers
+router.post("/api/get_trends", trendsController); //sending post cuse handle data is easier
+
+router.post("/api/common_crime", commonCrimeController); //sending post cuse handle data is easier
+
+router.post("/api/cordinates_crime", coordinatesController); //sending post cuse handle data is easier
 
 export default router;

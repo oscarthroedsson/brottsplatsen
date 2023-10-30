@@ -1,13 +1,14 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 //.category, .place, .timespan.from/to
-async function getMostCommon(obj) {
-  // console.log(obj);
-  let from = new Date(obj.timeSpan.fromDate);
-  let to = new Date(obj.timeSpan.toDate);
+async function trendsController(req, res) {
+  const obj = req.body;
 
-  console.log("trends | from: ", from);
-  console.log("trends | to: ", to);
+  const { timeSpan } = obj;
+
+  let from = new Date(timeSpan.fromDate);
+  let to = new Date(timeSpan.toDate);
+  console.log({ from, to });
 
   const result = await wholeColl
     .aggregate([
@@ -25,9 +26,7 @@ async function getMostCommon(obj) {
     ])
     .toArray();
 
-  console.log("trends | Result: ", result);
-
-  return result;
+  res.json(result);
 }
 
-export default getMostCommon;
+export default trendsController;

@@ -1,9 +1,11 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 //obj = .category, .place, .timespan.from/to
-async function mostCommonCrime(obj) {
-  let from = new Date(obj.timeSpan.fromDate);
-  let to = new Date(obj.timeSpan.toDate);
+async function mostCommonCrime(req, res) {
+  const obj = req.body;
+
+  const from = new Date(obj.timeSpan.fromDate);
+  const to = new Date(obj.timeSpan.toDate);
 
   const result = await wholeColl
     .aggregate([
@@ -23,6 +25,8 @@ async function mostCommonCrime(obj) {
       { $limit: 5 },
     ])
     .toArray();
+
+  res.json(result);
 }
 
 export default mostCommonCrime;

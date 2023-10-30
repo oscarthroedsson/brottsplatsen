@@ -1,42 +1,45 @@
 //Förse med ett listformat
-
 import { useEffect, useState } from "react";
 
-export default function CommonCrime(prop) {
+export default function CommonCrime({ searchData }) {
   const [array, setArray] = useState([]);
 
   useEffect(() => {
     const data = async () => {
-      const response = fetch("http://localhost:3000/api/common_crime", {});
+      console.log("Sends: ", searchData);
+      const response = await fetch("http://localhost:3000/api/common_crime", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchData),
+      });
       const result = await response.json();
       setArray(result);
     };
+    data();
   }, []);
-  console.log("ARRAY", array);
 
   return (
     <>
-      {/* <div>
+      <div>
         <h3 className="mb-8">Områden där Misshandel är vanligast</h3>
-        <ul className="flex gap-2 text-size0-p border-b-2 border-normal-border pb-2 ">
-          {filteredData.map((e) => {
-            return (
-              <>
-                <li key={e.id}>{e.location.name}</li>
-                <p>Snittet är {e.length} i månaden</p>
-              </>
-            );
-          })}
-          ;<li>Stockholm</li>
-          <li>Göteborg</li>
-          <li>Malmö</li>
-        </ul>
-        <ul className="flex gap-2 text-size0-p border-b-2 border-normal-border pb-2 mt-5">
-          <li>Stockholm</li>
-          <li>Göteborg</li>
-          <li>Malmö</li>
-        </ul>
-      </div> */}
+        <div>
+          <ul
+            key={array.id}
+            className="flex gap-2 text-size0-p border-b-2 border-normal-border pb-2 "
+          >
+            {array.map((e) => {
+              return (
+                <>
+                  <li key={e.id}>{e._id}</li>
+                  <p>{e.count} st</p>
+                </>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
     </>
   );
 }

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 //# Components
 import Nav from "../components/Nav";
 import ReactDatePicker from "../components/shared/ReactDatePicker";
+import Trends from "../components/shared/Trends";
 
 import SelectElement from "../components/shared/SelectElement.jsx";
-import StackedBarChart from "../components/shared/StackedBarChart";
 import CommonnCrime from "../components/shared/CommonCrime";
 import GoogleMaps from "../components/shared/GoogleMaps";
 
@@ -25,11 +25,15 @@ export default function Databas() {
   const [advSearch, setAdvSearch] = useState(false);
   const [categoryArray, setCategoryArray] = useState([]);
   const [cityArray, setCityArray] = useState([]);
+
   //* Saves input from user
   const [category, setCategory] = useState(null);
   const [place, setPlace] = useState(null);
   const [month, setMonth] = useState(null);
   const [timePeriod, setTimePeriod] = useState({});
+
+  //* Collect searchdata and props to components
+  const [searchData, setSearchData] = useState({});
 
   const [run, setRun] = useState(false);
 
@@ -46,7 +50,7 @@ export default function Databas() {
     const getCities = async () => {
       const res = await fetch("http://localhost:3000/api/cities");
       const data = await res.json();
-      console.log("data: ", data);
+
       let parseCities = data.map((city) => {
         return city._id;
       });
@@ -57,19 +61,16 @@ export default function Databas() {
     getCities();
   }, []);
 
-  //* Example data for stacked Bar Chart
-  let valueOne = 242;
-  let valueTwo = 256;
-  let valueThree = 321;
-
-  //* Tries the API
-  async function setData() {
-    let inputObject = {
-      category: category,
-      place: place,
-      timeSpan: month ? parseIsoDate(month) : timePeriod,
+  useEffect(() => {
+    const setData = () => {
+      return {
+        category: category,
+        place: place,
+        timeSpan: month ? parseIsoDate(month) : timePeriod,
+      };
     };
-  }
+    setSearchData(setData);
+  }, [category, place, month, timePeriod]);
 
   //* Controll search menu
   function searchFilter() {
@@ -172,13 +173,11 @@ export default function Databas() {
                       onClick={advancedSearch}
                       className="block mt-4 text-size0-p text-main-color"
                     >
-                      {" "}
                       {advSearch ? "Sök mindre" : "Avancerad sökning"}
                     </button>
                     <button
                       onClick={() => {
                         setRun(true);
-                        setData();
                       }}
                       className="mt-8 w-full text-white bg-main-color py-2 rounded-md sm:max-w-xs"
                     >
@@ -210,43 +209,21 @@ export default function Databas() {
               </div>
             </div>
           </aside>
-          <main className="max-w-full">
-            <div className="max-w-min">
-              <div className="p-5 evenShadow rounded-xl ">
-                <p className="text-size1-p">
-                  <b>Trend:</b>{" "}
-                  {advSearch
-                    ? `${timePeriod.fromDate} - ${timePeriod.toDate} `
-                    : month}
-                </p>
-                <p className="text-size0-p">
-                  i{" "}
-                  <span className="text-main-color font-heavy-p">{place}</span>
-                </p>
-                <StackedBarChart
-                  valueOne={valueOne}
-                  valueTwo={valueTwo}
-                  valueThree={valueThree}
-                />
 
-                <div className="">
-                  {run && (
-                    <CommonnCrime
-                      place={place}
-                      category={category}
-                      fromDate={timePeriod.fromDate}
-                      toDate={timePeriod.toDate}
-                    />
-                  )}
+          {/* DASHBOARD COMPONENTS */}
+          <main className="max-w-full">
+            {run && (
+              <>
+                <div>
+                  <Trends searchData={searchData} />
+                  <CommonnCrime searchData={searchData} />
                 </div>
-              </div>
-            </div>
-            <div>
-              <GoogleMaps />
-            </div>
-            <div>
-              <CommonnCrime />
-            </div>
+
+                <div>
+                  <GoogleMaps searchData={searchData} />
+                </div>
+              </>
+            )}
           </main>
         </div>
       </section>

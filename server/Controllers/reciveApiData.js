@@ -3,6 +3,7 @@ import createNewDocument from "../models/newDocumentSchema.js"; //skapar ett nyt
 import wholeColl from "../config/getDataBaseData.js"; //hämtar hela collectionen jag vill söka i från mongoDB
 
 async function reciveApiData() {
+  console.log("--------------------");
   console.log("Controllers | Getting data from the police");
 
   //try to fetch data from api

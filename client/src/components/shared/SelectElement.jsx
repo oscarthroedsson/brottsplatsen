@@ -8,7 +8,7 @@ function classNames(...classes) {
 
 export default function SelectElement({ options, onChange, defaultValue }) {
   const [selected, setSelected] = useState(defaultValue);
-  console.log("options: ", options);
+
   return (
     <Listbox
       value={selected}

@@ -1,33 +1,35 @@
-export default function StackedBarChart({ valueOne, valueTwo, valueThree }) {
-  const total = valueOne + valueTwo + valueThree;
+export default function StackedBarChart({ trendsArray }) {
+  const total =
+    trendsArray[0].count + trendsArray[1].count + trendsArray[0].count;
 
-  valueOne = {
-    value: valueOne,
+  const valueOne = {
+    value: trendsArray[0].count,
     bgColor: "#4951E2",
-    label: "Missahndel",
+    label: trendsArray[0]._id,
     get width() {
       return Math.round((this.value / total) * 100);
     },
   };
 
-  valueTwo = {
-    value: valueTwo,
+  const valueTwo = {
+    value: trendsArray[1].count,
     bgColor: "#829AF6",
-    label: "Rån",
+    label: trendsArray[1]._id,
     get width() {
       return Math.round((this.value / total) * 100);
     },
   };
-  valueThree = {
-    value: valueThree,
+  const valueThree = {
+    value: trendsArray[2].count,
     bgColor: "#3237A1",
-    label: "Mord",
+    label: trendsArray[2]._id,
     get width() {
       return Math.round((this.value / total) * 100);
     },
   };
 
   const data = [valueOne, valueTwo, valueThree];
+
   return (
     <>
       <div className="flex p-5 w-full h-20 ">

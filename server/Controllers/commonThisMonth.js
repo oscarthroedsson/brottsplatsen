@@ -1,5 +1,8 @@
 import wholeColl from "../config/getDataBaseData.js";
 async function commonThisMonth(req, res) {
+  console.log("--------------------");
+  console.log("commonThisMonth was run");
+
   const from = new Date();
   from.setDate(1);
   from.setUTCHours(0, 0, 0, 0);
@@ -8,11 +11,6 @@ async function commonThisMonth(req, res) {
   to.setMonth(to.getMonth() + 1);
   to.setDate(0);
   to.setUTCHours(23, 59, 59, 999);
-
-  console.log("------ commonThisMonth got called ------");
-  console.log("From: ", from);
-  console.log("To: ", to);
-  console.log("----------------------");
 
   const result = await wholeColl
     .aggregate([

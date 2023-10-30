@@ -1,7 +1,8 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 async function getNightCrimes(req, res) {
-  console.log("getNightCrimes körs");
+  console.log("--------------------");
+  console.log("getNightCrimes was run");
   let startDay = new Date();
   let oneDayBack = startDay.getDate() - 1;
   startDay = startDay.setDate(oneDayBack);
