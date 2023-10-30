@@ -1,0 +1,17 @@
+# Generella filer och mappar att ignorera
+node_modules/
+.DS_Store
+.env
+
+# byggmapp
+
+
+# Specifika filer i client-mappen
+client/.env
+
+client/some-file-to-ignore.js
+
+# Specifika filer i server-mappen
+server/.env
+server/node_modules/
+server/some-file-to-ignore.js
