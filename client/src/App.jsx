@@ -48,7 +48,7 @@ function App() {
           <p className="text-center py-4">
             <span className="text-main-color heavy-p font-semi-p">
               Brottskollen.se
-            </span>{" "}
+            </span>
             ger dig
           </p>
           <hgroup>

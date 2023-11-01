@@ -23,7 +23,7 @@ export default function Trends({ searchData }) {
 
   return (
     <>
-      <div className="max-w-min">
+      <div className="max-w-min py-12">
         <div className="p-5 evenShadow rounded-xl ">
           <p className="text-size1-p">
             <b>Trend:</b>

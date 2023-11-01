@@ -186,7 +186,7 @@ export default function Databas() {
                   </div>
                 </div>
               )}
-              <div className="text-center mx-auto py-32 xs:py-32">
+              <div className="text-center mx-auto">
                 <p>
                   <b>{category}</b> har rapporterats 231 gånger mellan
                   tidsintervallet: 1 Januari 2023 tills idag i <b>{place}</b>.

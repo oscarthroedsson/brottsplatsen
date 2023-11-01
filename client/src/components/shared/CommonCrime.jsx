@@ -21,25 +21,31 @@ export default function CommonCrime({ searchData }) {
   }, []);
 
   return (
-    <>
-      <div>
+    <div className="py-12">
+      <div className="p-5 evenShadow rounded-xl">
         <h3 className="mb-8">Områden där Misshandel är vanligast</h3>
-        <div>
-          <ul
-            key={array.id}
-            className="flex gap-2 text-size0-p border-b-2 border-normal-border pb-2 "
-          >
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="text-left pl-1">Stad</th>
+              <th>Antal(st)</th>
+            </tr>
+          </thead>
+          <tbody>
             {array.map((e) => {
               return (
-                <>
-                  <li key={e.id}>{e._id}</li>
-                  <p>{e.count} st</p>
-                </>
+                <tr
+                  key={e.id}
+                  className="hover:bg-light-bg h-[35px] border-solid border-b-[1px] border-light-bg"
+                >
+                  <td className="pl-1">{e._id}</td>
+                  <td className="text-center">{e.count} st</td>
+                </tr>
               );
             })}
-          </ul>
-        </div>
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 }

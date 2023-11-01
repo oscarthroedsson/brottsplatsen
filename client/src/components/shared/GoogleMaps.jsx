@@ -75,7 +75,7 @@ function GoogleMaps({ searchData }) {
   }, []);
 
   return isLoaded && objArray ? (
-    <>
+    <div className="py-12">
       <GoogleMap
         mapContainerStyle={containerStyle}
         zoom={11}
@@ -90,7 +90,7 @@ function GoogleMaps({ searchData }) {
         {/* Child components, such as markers, info windows, etc. */}
         <></>
       </GoogleMap>
-    </>
+    </div>
   ) : (
     console.log("laddar")
   );
