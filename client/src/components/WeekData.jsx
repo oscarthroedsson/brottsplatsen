@@ -48,8 +48,8 @@ const data = [
 
 export default function WeekData() {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="xs:w-64 infoContainer">
+    <div className="flex flex-col justify-center items-center w-80">
+      <div className="w-full primBox ">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             width={500}
@@ -58,7 +58,7 @@ export default function WeekData() {
             margin={{
               top: 15,
               right: 20,
-              left: -10,
+              left: -15,
               bottom: 0,
             }}
           >
@@ -70,7 +70,7 @@ export default function WeekData() {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <a href="#" className="text-size0-p highlight px-2">
+      <a href="#" className="listP highlight px-2">
         Undersök mer
       </a>
     </div>

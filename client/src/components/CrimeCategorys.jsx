@@ -2,9 +2,10 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import clock from "../icons/fillTimeMain.png";
-import calander from "../icons/fillDateDark.png";
-import destination from "../icons/location2.svg";
+import crimeIcon from "../icons/vCrime.png";
+import clock from "../icons/vTime.png";
+import calander from "../icons/vDate.png";
+import destination from "../icons/vPlace_ping.png";
 import SelectElement from "./shared/SelectElement";
 import arrowLeft from "../icons/fillArrowLeftMain.png";
 import arrowRight from "../icons/fillArrowRightMain.png";
@@ -86,19 +87,17 @@ export default function ListCategorys() {
 
   return (
     <>
-      <section className="py-24 xs:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="sectionLayout">
+        <div className="elementLayout1 px-6 lg:px-8">
           <div className="relative lg:twoColumn mb-16">
             <div className="w-full lg:w-1/2">
-              <hgroup className="pt-10  lg:max-w-sm">
-                <h2 className="text-base font-semibold leading-7 text-main-color">
-                  Statistik och Information
-                </h2>
-                <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  Polisens brottskategorier
+              <hgroup className="pt-10 lg:max-w-sm">
+                <h2 className="">Statistik och Information</h2>
+                <p className="h2T mt-2 font-bold text-gray-900 sm:text-4xl">
+                  Polisens händelser
                 </p>
               </hgroup>
-              <p className="mt-3 text-lg">
+              <p className="mt-3">
                 Undersök alla inrapporterade händelser via kategorilistan. Via
                 listan kan du se alla brottskategorier som polisen använder.
               </p>
@@ -167,10 +166,14 @@ export default function ListCategorys() {
 function CrimeBox({ crime }) {
   return (
     <Link to={`/brott/${crime.type}/${crime.location.name}/${crime.id}`}>
-      <div className="infoboxes spreadStart flex-col mb-3 p-5 h-[150px]">
-        <header className="mb-5">
-          <img src="" alt="" />
-          <hgroup className=" flex-col mb-3">
+      <div className="primBox spreadStart flex-col mb-3 p-5 h-[150px]">
+        <header className="mb-5 px-5 flex align-center justify-center relative">
+          <img
+            src={crimeIcon}
+            alt="icon of handcuffs"
+            className="w-5 absolute left-[-0.3rem] top-[0.1rem]"
+          />
+          <hgroup className="">
             <h2 className="text-size1-p font-semi-p">{crime.type}</h2>
             <p className="text-size0-p">{crime.summary}</p>
           </hgroup>
@@ -178,7 +181,7 @@ function CrimeBox({ crime }) {
         <footer className="overflow-auto justify-between w-full">
           <ul className="spreadStart text-sm">
             <li className="centerElements gap-2">
-              <img src={clock} alt="" className="w-4" />{" "}
+              <img src={clock} alt="" className="w-4" />
               {new Date(crime.datetime).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -186,7 +189,10 @@ function CrimeBox({ crime }) {
             </li>
             <li className="centerElements gap-2">
               <img src={calander} alt="" className="w-4" />{" "}
-              {new Date(crime.datetime).toLocaleDateString()}
+              {new Date(crime.datetime).toLocaleDateString("sv-SE", {
+                year: "2-digit",
+                month: "2-digit",
+              })}
             </li>
             <li className="centerElements gap-2 w-fit">
               <img src={destination} alt="" className="w-4" />

@@ -10,6 +10,92 @@
   box-sizing: border-box;
 }
 
+/* src/styles.css */
+@layer components {
+  /* Margin n Padding for components */
+  .sectionLayout {
+    @apply mx-auto py-32 max-w-7xl;
+  }
+  /* Margin n Padding for head elements in components */
+  .elementLayout1 {
+    @apply mx-auto max-w-3xl;
+  }
+
+  .elementLayout2 {
+    @apply w-full mx-auto;
+  }
+
+  /* Backgrounds */
+  .primBG {
+    @apply bg-[#FAFAFA];
+  }
+
+  .gradientBG {
+    @apply bg-gradient-to-r;
+    @apply from-[#EEF4FF];
+    @apply to-[#A7BEFA];
+  }
+
+  /* Typo */
+  .h1T {
+    font-size: clamp(1.875rem, 2vw, 3.125rem);
+    color: #000000;
+    font-weight: 600;
+  }
+  .h2T {
+    @apply text-[3.125rem] text-[#000000] font-[600];
+  }
+  .h3T {
+    @apply text-[3.125rem] text-[#000000] font-[600];
+  }
+  .p1 {
+    @apply text-[1.25rem] text-[#27293F] font-[700];
+  }
+
+  .p2 {
+    @apply text-[0.875rem] text-[#27293F] font-[700];
+  }
+  .listP {
+    @apply text-[0.75rem];
+  }
+  /* Buttons */
+  .btnPrim {
+    @apply bg-[#363ABF] border-[#C8D9FD] border-2 rounded-xl text-white;
+  }
+  .btnSecondary {
+    @apply bg-[#FFFFFF] border-[#363ABF] border-2 rounded-xl text-[#363ABF];
+  }
+  .highlight {
+    @apply text-[#363ABF];
+  }
+
+  /* Boxes */
+  .primBox {
+    @apply bg-[#EEF4FF] border-[#363ABF] border-2 rounded-xl text-[#27293F] p-7;
+  }
+
+  .primBox2 {
+    @apply bg-[#EEF4FF] border-2 rounded-xl;
+  }
+
+  .secBox {
+    @apply shadow-custom;
+    @apply bg-white p-4 rounded;
+  }
+
+  .infoNotis {
+    @apply bg-[#278EDD] border-[#146AB5] border-2 rounded-xl text-[#27293F];
+  }
+
+  .errorNotis {
+    @apply bg-[#FEF2F2] border-[#F97070] border-2 rounded-xl text-[#27293F];
+  }
+
+  .conformationNotis {
+    @apply bg-[#EFFDE8] border-[#46C61C] border-2 rounded-xl text-[#27293F];
+  }
+}
+
 p {
   color: #4b5563;
 }
@@ -193,10 +279,6 @@ p {
 
 /* ----------------- */
 
-.highlight {
-  color: #363abf;
-}
-
 .highlightBold {
   font-weight: 700;
   color: #363abf;
@@ -211,9 +293,9 @@ p {
 /* BOXSHADOWS */
 
 .evenShadow {
-  box-shadow: 0px 0px 29px 0px rgba(54, 58, 191, 0.2);
-  -webkit-box-shadow: 0px 0px 29px 0px rgba(54, 58, 191, 0.2);
-  -moz-box-shadow: 0px 0px 29px 0px rgba(54, 58, 191, 0.2);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
 }
 /* ----------------- */
 

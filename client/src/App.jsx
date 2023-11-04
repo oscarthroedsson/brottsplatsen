@@ -43,26 +43,21 @@ function App() {
   return (
     <>
       <Nav></Nav>
-      <header className="xs:w-full xs:h-auto xs:m-0 xs:rounded-lg xs:rounded-lg xs:p-10  headerBg ">
+      <header className=" .elementLayout1 xs:w-full xs:m-0 xs:rounded-lg headerBg">
         <div className="xs:text-center">
-          <p className="text-center py-4">
-            <span className="text-main-color heavy-p font-semi-p">
-              Brottskollen.se
-            </span>
-            ger dig
+          <p className="p1 text-center py-4">
+            <span className="highlight">Brottskollen.se</span> ger dig
           </p>
           <hgroup>
-            <h1 className="xs:text-4xl text-center font-semi-p">
-              Statistik på Sveriges Kriminalitet
-            </h1>
-            <p className="text-center py-6">helt ocencuerat</p>
+            <h1 className="h1T text-center">Statistik på Polisens händelser</h1>
+            <p className="p1 text-center py-6">helt ocencuerat</p>
           </hgroup>
         </div>
         <div className="text-center">
-          <p className=" text-5xl font-semi-p">{numOfCrimes}</p>
+          <p className="h2T text-text-color">{numOfCrimes}</p>
           <p>rapporterade händelser i år</p>
         </div>
-        <section className=" xs:top-16 md:top-32 flex-wrap flex-auto xsRelative flex items-center">
+        <section className="xs:top-16 md:top-20 flex-wrap flex-auto xsRelative flex items-center">
           <ListBox />
           <CommonCrimeBox />
           <WeekData />

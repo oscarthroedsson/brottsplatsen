@@ -25,18 +25,18 @@ export default function CommonCrime() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="xs:w-64 infoContainer centerStart flex-col">
+    <div className="text-center">
+      <div className="primBox w-80 text-left">
         <div className="mb-4">
-          <p className="text-size0-p">Vanligaste brottet i</p>
-          <p className="text-size1-p font-heavy-p text-main-color">JUNI</p>
+          <p className="p2">Vanligaste brottet i</p>
+          <p className="p1 highlight">JUNI</p>
         </div>
         <div>
           <p className="text-size4-p font-heavy-p">{crimeThisMonth._id}</p>
           <p className="largeP">{crimeThisMonth.count} st</p>
         </div>
       </div>
-      <a href="#" className="text-size0-p text-end highlight px-2">
+      <a href="#" className="listP highlight">
         Undersök de vanligaste brotten
       </a>
     </div>

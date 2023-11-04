@@ -28,8 +28,8 @@ function GoogleMaps({ searchData }) {
 
   const containerStyle = {
     width: "100%",
-    height: "400px",
-    borderRadius: "0px 12px 12px 0px",
+    height: "507px",
+    borderRadius: "12px",
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -78,7 +78,7 @@ function GoogleMaps({ searchData }) {
     <div className="py-12">
       <GoogleMap
         mapContainerStyle={containerStyle}
-        zoom={11}
+        zoom={13}
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{

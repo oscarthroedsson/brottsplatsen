@@ -21,7 +21,7 @@ export default function CommonCrime({ searchData }) {
   }, []);
 
   return (
-    <div className="py-12">
+    <div className="">
       <div className="p-5 evenShadow rounded-xl">
         <h3 className="mb-8">Områden där Misshandel är vanligast</h3>
         <table className="w-full">

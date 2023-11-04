@@ -31,16 +31,14 @@ export default function UspSection() {
     },
   ];
   return (
-    <div className="py-24 xs:py-32">
+    <div className="sectionLayout">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">
-            Brottskollen.info
-          </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Pålitlig information om brottshändelser
+        <div className="mx-auto elementLayout1 lg:text-center">
+          <h2 className="h2 highlight">Brottskollen.info</h2>
+          <p className="text-4xl mt-2 font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Information om brottshändelser
           </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mt-6 text-gray-600">
             Vi övervakar Polisens data i realtid, och uppdaterar dig regelbundet
             med de senaste rapporterna om deras verksamhet. Vårt mål är att
             hålla dig alltid informerad och uppdaterad om vad som händer hos

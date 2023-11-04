@@ -48,7 +48,7 @@ export default function CrimesNight() {
 
   return (
     <>
-      <section className="py-24 xs:py-32">
+      <section className="sectionLayout">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="xl:full ">
             <div className="relative">

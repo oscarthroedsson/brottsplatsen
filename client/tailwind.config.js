@@ -4,6 +4,60 @@ import { Layer } from "recharts";
 /** @type {import('tailwindcss').Config} */
 
 export default {
+  plugins: [
+    function ({ addBase }) {
+      addBase({
+        h1: {
+          fontSize: "1.125rem",
+          color: "#363ABF",
+          fontWeight: "900",
+        },
+        h2: {
+          fontSize: "1.063rem",
+          color: "#363ABF",
+          fontWeight: "800",
+        },
+        h3: {
+          fontSize: "1rem",
+          color: "#363ABF",
+          fontWeight: "700",
+        },
+        h4: {
+          fontSize: "0.938rem",
+          color: "#363ABF",
+          fontWeight: "600",
+        },
+        h5: {
+          fontSize: "1.875rem",
+          color: "#000000",
+          fontWeight: "400",
+        },
+        h6: {
+          fontSize: "1.125rem",
+          color: "#000000",
+          fontWeight: "400",
+        },
+        p: {
+          fontSize: "1rem",
+          color: "#27293F",
+          fontWeight: "400",
+        },
+        a: {
+          color: "#363ABF",
+          textDecoration: "none",
+        },
+        "a:hover": {
+          color: "#363abf",
+        },
+
+        "a:not([href])": {
+          color: "#c8d9fd",
+        },
+
+        // ... definiera stilar för h3, h4, h5, h6 ...
+      });
+    },
+  ],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
@@ -57,6 +111,9 @@ export default {
         "xs-mini": "50px",
         "n-mini": "100px",
         "xl-mini": "150px",
+      },
+      boxShadow: {
+        custom: "0px 0px 5px 4px rgba(0,0,0,0.1)",
       },
       margin: {
         25: "7rem",

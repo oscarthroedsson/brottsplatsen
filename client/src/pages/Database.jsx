@@ -94,8 +94,8 @@ export default function Databas() {
     <>
       <Nav></Nav>
       {/* ADDERA EV MAX-W EFTER MX-AUTO */}
-      <section className="py-20 xs:py-32">
-        <div className="mx-auto  min-w-full px-6 lg:px-8 flex flex-wrap">
+      <section className="py-20 xs:py-20">
+        <div className="mx-auto min-w-full px-6 lg:px-8 flex flex-wrap">
           <aside className="max-w-sm">
             <div>
               <h1 className="text-base font-semibold leading-7 text-indigo-600">
@@ -211,16 +211,18 @@ export default function Databas() {
           </aside>
 
           {/* DASHBOARD COMPONENTS */}
-          <main className="max-w-full">
+          <main className="w-full bg-light-bg">
             {run && (
               <>
-                <div>
-                  <Trends searchData={searchData} />
-                  <CommonnCrime searchData={searchData} />
-                </div>
+                <div className="flex flex-wrap xl:h-1/2">
+                  <div className="py-12 mx-6 xl:w-1/3">
+                    <Trends searchData={searchData} />
+                    <CommonnCrime searchData={searchData} />
+                  </div>
 
-                <div>
-                  <GoogleMaps searchData={searchData} />
+                  <div className="py-12 w-full xl:min-w-1/3 ">
+                    <GoogleMaps searchData={searchData} />
+                  </div>
                 </div>
               </>
             )}

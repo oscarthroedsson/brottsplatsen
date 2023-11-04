@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import arrow from "../icons/arrow.png";
+import arrow from "../icons/vArrow_Right.png";
 
 export default function ListBox() {
   const [latestCrimes, setLatestCrimes] = useState([]);
@@ -19,25 +19,25 @@ export default function ListBox() {
   }, []);
 
   return (
-    <div className="centerElements flex-col ">
-      <div className=" p-3 infoContainer ">
-        <p className="text-size0-p m-1">Senaste Rapporterna</p>
-        <ul>
+    <div className="text-center">
+      <div className="primBox">
+        <table className="table-auto w-64 flex flex-col text-left">
+          <th className="p2 text-left">Senaste Rapporterna</th>
           {latestCrimes.slice(0, 3).map((crime) => (
-            <li
+            <tr
               key={crime._id}
-              className="text-black m-1.5 p-1 px-2 width text-size0-p bg-white flex justify-between hover:bg-light-bg"
+              className="listP text-left justify-between my-1 flex hover:bg-light-bg"
             >
-              <p>{crime.type}</p>
-              <p>{crime.location.name}</p>
-              <button className="bg-dark-bg rounded-sm w-5 flex items-center -rotate-90">
+              <td>{crime.type}</td>
+              <td>{crime.location.name}</td>
+              <button className=" w-5 flex items-center ">
                 <img src={arrow} alt="" />
               </button>
-            </li>
+            </tr>
           ))}
-        </ul>
+        </table>
       </div>
-      <a href="#" className="text-size0-p text-end highlight px-2">
+      <a href="#" className="listP highlight">
         se de senaste 500 rapporterna
       </a>
     </div>
