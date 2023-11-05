@@ -32,10 +32,10 @@ export default function UspSection() {
   ];
   return (
     <div className="sectionLayout">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-2">
         <div className="mx-auto elementLayout1 lg:text-center">
-          <h2 className="h2 highlight">Brottskollen.info</h2>
-          <p className="text-4xl mt-2 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="highlight">Brottskollen.info</h2>
+          <p className="h2T mt-2 font-bold tracking-tight text-gray-900 sm:text-4xl">
             Information om brottshändelser
           </p>
           <p className="mt-6 text-gray-600">
@@ -46,7 +46,7 @@ export default function UspSection() {
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-7xl">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+          <dl className="grid xs:px-5 max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
             {features.map((feature) => (
               <div key={feature.name} className="relative pl-16">
                 <dt className="text-base font-semibold leading-7 text-gray-900">

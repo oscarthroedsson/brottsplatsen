@@ -25,8 +25,8 @@ export default function CommonCrime() {
   }, []);
 
   return (
-    <div className="text-center">
-      <div className="primBox w-80 text-left">
+    <div className="text-center w-80 ">
+      <div className="primBox max-w-64 h-[190px] text-left ">
         <div className="mb-4">
           <p className="p2">Vanligaste brottet i</p>
           <p className="p1 highlight">JUNI</p>

@@ -7,8 +7,6 @@ import clock from "../icons/vTime.png";
 import calander from "../icons/vDate.png";
 import destination from "../icons/vPlace_ping.png";
 import SelectElement from "./shared/SelectElement";
-import arrowLeft from "../icons/fillArrowLeftMain.png";
-import arrowRight from "../icons/fillArrowRightMain.png";
 import police from "../images/police.png";
 
 export default function ListCategorys() {
@@ -88,12 +86,12 @@ export default function ListCategorys() {
   return (
     <>
       <section className="sectionLayout">
-        <div className="elementLayout1 px-6 lg:px-8">
+        <div className="elementLayout1">
           <div className="relative lg:twoColumn mb-16">
             <div className="w-full lg:w-1/2">
               <hgroup className="pt-10 lg:max-w-sm">
                 <h2 className="">Statistik och Information</h2>
-                <p className="h2T mt-2 font-bold text-gray-900 sm:text-4xl">
+                <p className="h2T mt-2 font-bold text-gray-90">
                   Polisens händelser
                 </p>
               </hgroup>

@@ -55,7 +55,7 @@ export default function CrimesNight() {
               <div className="lg:w-2/4">
                 <hgroup>
                   <h2 className="text-base font-semibold leading-7 text-main-color">
-                    Händelser mellan 23:00 och 06:00 i natt
+                    Händelser mellan 23:00 och 06:00
                   </h2>
                   <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     Natten gav oss
@@ -77,7 +77,7 @@ export default function CrimesNight() {
                     <>
                       <div className="relative pl-16">
                         <dl className="">
-                          <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center">
+                          <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center ">
                             <img
                               src={uspObj.img}
                               alt=""
@@ -103,7 +103,7 @@ export default function CrimesNight() {
               return (
                 <article
                   key={crime.id}
-                  className="flex flex-col infoboxes w-full lg:w-[400px] xl:w-[350px]
+                  className="flex flex-col justify-between primBox min-h-[190px] w-full lg:w-[400px] xl:w-[350px]
                   p-4 xl:ml-auto"
                 >
                   {/* Loop som går igenom alla händelser under natten */}

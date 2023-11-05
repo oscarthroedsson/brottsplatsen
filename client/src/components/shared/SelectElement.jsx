@@ -19,9 +19,9 @@ export default function SelectElement({ options, onChange, defaultValue }) {
     >
       {({ open }) => (
         <>
-          <div className="relative mt-2 max-w-xs">
+          <div className="relative ">
             <Listbox.Button
-              className={`relative w-full cursor-default rounded-md bg-light-bg py-2.5 pl-5 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:size2-p sm:leading-6`}
+              className={`relativ w-80 lg:w-64 cursor-default rounded-md bg-light-bg py-2.5 pl-5 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:size2-p sm:leading-6`}
             >
               <span className="flex items-center">
                 <span className="ml-3 block truncate text-font-color">

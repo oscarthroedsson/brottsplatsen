@@ -48,17 +48,18 @@ const data = [
 
 export default function WeekData() {
   return (
-    <div className="flex flex-col justify-center items-center w-80">
-      <div className="w-full primBox ">
+    <div className="flex flex-col justify-center items-center">
+      <div className="primBox w-80 h-[190px]">
         <ResponsiveContainer width="100%" height="100%">
+          {/* Barcharts length is maxed with margin. It can not get any wider */}
           <BarChart
             width={500}
             height={300}
             data={data}
             margin={{
               top: 15,
-              right: 20,
-              left: -15,
+              right: 5,
+              left: -30,
               bottom: 0,
             }}
           >

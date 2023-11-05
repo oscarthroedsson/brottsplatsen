@@ -3,10 +3,6 @@ import { useParams } from "react-router-dom";
 
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
-import timeIcon from "../icons/fillTimeDark.png";
-import dateIcon from "../icons/fillDateDark.png";
-import placeIcon from "../icons/fillLocationDark.png";
-import shareIcon from "../icons/fillShare2Dark.png";
 import infoIcon from "../icons/lineInfoMain.png";
 import { useCallback, useState } from "react";
 

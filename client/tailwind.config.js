@@ -8,14 +8,18 @@ export default {
     function ({ addBase }) {
       addBase({
         h1: {
-          fontSize: "1.125rem",
+          fontSize: {
+            sm: "1rem",
+          },
           color: "#363ABF",
-          fontWeight: "900",
+          fontWeight: "700",
         },
         h2: {
-          fontSize: "1.063rem",
+          fontSize: {
+            sm: "1rem",
+          },
           color: "#363ABF",
-          fontWeight: "800",
+          fontWeight: "600",
         },
         h3: {
           fontSize: "1rem",
@@ -53,8 +57,6 @@ export default {
         "a:not([href])": {
           color: "#c8d9fd",
         },
-
-        // ... definiera stilar för h3, h4, h5, h6 ...
       });
     },
   ],
@@ -81,7 +83,7 @@ export default {
         "text-color": "#27293F",
 
         "light-bg": "#eef4ff",
-        "main-bg": "#F2F5FB",
+        mainBG: "#FAFAFA",
         "dark-bg": "#363ABF",
 
         "normal-border": "#E1EAFE",
