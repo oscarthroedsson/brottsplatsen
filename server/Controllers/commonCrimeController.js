@@ -22,7 +22,6 @@ async function mostCommonCrime(req, res) {
       },
       { $group: { _id: "$location.name", count: { $sum: 1 } } },
       { $sort: { count: -1 } },
-      { $limit: 5 },
     ])
     .toArray();
 

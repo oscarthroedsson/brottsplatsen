@@ -115,7 +115,7 @@ export default {
         "xl-mini": "150px",
       },
       boxShadow: {
-        custom: "0px 0px 5px 4px rgba(0,0,0,0.1)",
+        custom: "0px 0px 5px 4px rgba(0,0,0,0.05)",
       },
       margin: {
         25: "7rem",

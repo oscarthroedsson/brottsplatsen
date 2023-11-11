@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import dates from "../data/dates.js";
 
 export default function CommonCrime() {
   const [crimeThisMonth, setCrimePrevMonth] = useState([]);
@@ -24,21 +25,23 @@ export default function CommonCrime() {
     }
   }, []);
 
+  const month = dates[new Date().getMonth()];
+
   return (
     <div className="text-center w-80 ">
       <div className="primBox max-w-64 h-[190px] text-left ">
         <div className="mb-4">
           <p className="p2">Vanligaste brottet i</p>
-          <p className="p1 highlight">JUNI</p>
+          <p className="p1 highlight">{month}</p>
         </div>
         <div>
           <p className="text-size4-p font-heavy-p">{crimeThisMonth._id}</p>
           <p className="largeP">{crimeThisMonth.count} st</p>
         </div>
       </div>
-      <a href="#" className="listP highlight">
+      {/* <a href="#" className="listP highlight">
         Undersök de vanligaste brotten
-      </a>
+      </a> */}
     </div>
   );
 }

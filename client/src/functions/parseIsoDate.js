@@ -28,4 +28,5 @@ function parseIsoDate(value) {
     return updatedValue;
   }
 }
+
 export default parseIsoDate;

@@ -12,7 +12,7 @@ export default function CalanderSelect({ onChange }) {
   }
 
   return (
-    <div className="w-64 md:w-80">
+    <div className="w-80">
       <DatePicker
         placeholderText="Välj datum"
         selected={date}

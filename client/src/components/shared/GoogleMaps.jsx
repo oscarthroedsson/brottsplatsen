@@ -75,24 +75,22 @@ function GoogleMaps({ searchData }) {
   }, []);
 
   return isLoaded && objArray ? (
-    <div className="py-12">
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        zoom={13}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-        options={{
-          disableDefaultUI: true,
-          mapId: "ab6140a0414848a8",
-          // draggable: false,
-        }}
-      >
-        {/* Child components, such as markers, info windows, etc. */}
-        <></>
-      </GoogleMap>
-    </div>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      zoom={13}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+      options={{
+        disableDefaultUI: true,
+        mapId: "ab6140a0414848a8",
+        // draggable: false,
+      }}
+    >
+      {/* Child components, such as markers, info windows, etc. */}
+      <></>
+    </GoogleMap>
   ) : (
-    console.log("laddar")
+    <p>Laddar</p>
   );
 }
 

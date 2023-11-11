@@ -6,6 +6,8 @@ import crimeIcon from "../icons/vCrime.png";
 import clock from "../icons/vTime.png";
 import calander from "../icons/vDate.png";
 import destination from "../icons/vPlace_ping.png";
+import backwardIcon from "../icons/vBackwardArrow.svg";
+import forwardIcon from "../icons/vForwardArrow.svg";
 import SelectElement from "./shared/SelectElement";
 import police from "../images/police.png";
 
@@ -43,7 +45,6 @@ export default function ListCategorys() {
 
   useEffect(() => {
     const crimes = async () => {
-      console.log("CLIENT | category", choosedCategory);
       const result = await fetch(
         `http://localhost:3000/api/crime_by_category?category=${choosedCategory}`,
         {
@@ -61,12 +62,16 @@ export default function ListCategorys() {
     crimes();
   }, [choosedCategory]);
 
+  //Runs when sortedCrimes is updated and sets the number of pages for pagination
+  useEffect(() => {
+    setNumOfPages(sortedCrimes.length / maxPages);
+  }, [sortedCrimes]);
+
   if (numOfPages < 1) {
     setNumOfPages(1);
   }
 
   function goForward() {
-    // console.log("+", currentPage);
     if (maxListItem + numOfBoxes <= sortedCrimes.length) {
       setCurrentPage(currentPage + 1);
       setMinListItem(minListItem + numOfBoxes);
@@ -75,7 +80,6 @@ export default function ListCategorys() {
   }
 
   function goBackward() {
-    // console.log("-", currentPage);
     if (minListItem - numOfBoxes >= 0) {
       setCurrentPage(currentPage - 1);
       setMinListItem(minListItem - numOfBoxes);
@@ -104,7 +108,7 @@ export default function ListCategorys() {
               <img src={police} alt="" />
             </div>
           </div>
-          {categoryList.length > 5 ? (
+          {categoryList.length > 1 ? (
             <SelectElement
               options={categoryList}
               onChange={setCategory}
@@ -117,7 +121,7 @@ export default function ListCategorys() {
           <div className="centerElements flex-wrap mt-16">
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
               {sortedCrimes.length >= 1 ? (
-                sortedCrimes.map((crime) => {
+                sortedCrimes.slice(minListItem, maxListItem).map((crime) => {
                   return (
                     <>
                       <li
@@ -142,7 +146,7 @@ export default function ListCategorys() {
                 onClick={goBackward}
                 className={`${currentPage - 1 === numOfPages ? "hidden" : ""}`}
               >
-                <img src={arrowLeft} alt="" className={`w-5 hover:w-6`} />
+                <img src={backwardIcon} alt="" className={`w-5 hover:w-6`} />
               </button>
               <p className="mx-5">
                 {currentPage}/{numOfPages}
@@ -151,7 +155,7 @@ export default function ListCategorys() {
                 onClick={goForward}
                 className={`${currentPage - 1 === numOfPages ? "hidden" : ""}`}
               >
-                <img src={arrowRight} alt="" className={`w-5 hover:w-6`} />
+                <img src={forwardIcon} alt="" className={`w-5 hover:w-6`} />
               </button>
             </div>
           </div>
@@ -164,14 +168,14 @@ export default function ListCategorys() {
 function CrimeBox({ crime }) {
   return (
     <Link to={`/brott/${crime.type}/${crime.location.name}/${crime.id}`}>
-      <div className="primBox spreadStart flex-col mb-3 p-5 h-[150px]">
+      <div className="primBox spreadStart flex-col mb-3 p-5 h-[160px]">
         <header className="mb-5 px-5 flex align-center justify-center relative">
           <img
             src={crimeIcon}
             alt="icon of handcuffs"
             className="w-5 absolute left-[-0.3rem] top-[0.1rem]"
           />
-          <hgroup className="">
+          <hgroup className="overflow-scroll">
             <h2 className="text-size1-p font-semi-p">{crime.type}</h2>
             <p className="text-size0-p">{crime.summary}</p>
           </hgroup>
@@ -193,7 +197,7 @@ function CrimeBox({ crime }) {
               })}
             </li>
             <li className="centerElements gap-2 w-fit">
-              <img src={destination} alt="" className="w-4" />
+              <img src={destination} alt="" className="w-3" />
               {crime.location.name}
             </li>
           </ul>

@@ -4,6 +4,7 @@ import StackedBarChart from "./StackedBarChart";
 
 export default function Trends({ searchData }) {
   const [trendsArray, setTrendsArray] = useState();
+  console.log(searchData);
 
   useEffect(() => {
     const data = async () => {
@@ -21,21 +22,36 @@ export default function Trends({ searchData }) {
     data();
   }, []);
 
+  function dateToString() {
+    const fromDate = new Date(searchData.timeSpan.fromDate);
+    let toDate = new Date(searchData.timeSpan.toDate);
+
+    // Kontrollera om toDate är den första dagen i nästa månad
+    if (toDate.getDate() === 1) {
+      toDate = new Date(toDate.getFullYear(), toDate.getMonth(), 0); // Sätt toDate till den sista dagen i föregående månad
+    }
+
+    const formatNumber = (num) => (num < 10 ? `0${num}` : num); // Lägger till en nolla framför enkelsiffriga nummer
+
+    const fromDateString = `${fromDate.getFullYear()}-${formatNumber(
+      fromDate.getMonth() + 1
+    )}-${formatNumber(fromDate.getDate())}`;
+    const toDateString = `${toDate.getFullYear()}-${formatNumber(
+      toDate.getMonth() + 1
+    )}-${formatNumber(toDate.getDate())}`;
+
+    return `${fromDateString} - ${toDateString}`;
+  }
+  dateToString(searchData);
+
   return (
     <>
-      <div className="py-12">
-        <div className="p-5 evenShadow rounded-xl ">
-          <p className="text-size1-p">
-            <b>Trend:</b>
-            {/* {advSearch
-              ? `${timePeriod.fromDate} - ${timePeriod.toDate} `
-            : month}*/}
-          </p>
-          <p className="text-size0-p">
-            {/* i <span className="text-main-color font-heavy-p">{place}</span> */}
-          </p>
-          {trendsArray && <StackedBarChart trendsArray={trendsArray} />}
+      <div className="evenShadow p-5 rounded-xl secBox h-fit">
+        <div>
+          <p className="p1">Trender mellan:</p>
+          <div className="p2 text-main-color">{dateToString()}</div>
         </div>
+        {trendsArray && <StackedBarChart trendsArray={trendsArray} />}
       </div>
     </>
   );

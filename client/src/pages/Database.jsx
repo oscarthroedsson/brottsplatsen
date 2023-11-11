@@ -24,6 +24,8 @@ import trendsIcon from "../icons/fTrends.png";
 import realTimeIcon from "../icons/fRealTime.png";
 import commonIcon from "../icons/fSum_data.png";
 import mapIcon from "../icons/fGoogleMap.png";
+import ListBox from "../components/ListBox.jsx";
+import Latest500 from "../components/shared/Latest500.jsx";
 
 //# Database Component
 export default function Databas() {
@@ -66,7 +68,7 @@ export default function Databas() {
 
     getCategorys();
     getCities();
-  }, []);
+  }, [run]);
 
   useEffect(() => {
     const setData = () => {
@@ -86,13 +88,18 @@ export default function Databas() {
     } else {
       setAdvSearch(true);
     }
+    setAdvSearch(true);
+  }
+
+  function doSearch() {
+    run ? setRun(false) : setRun(true);
   }
 
   return (
     <>
       <Nav></Nav>
       {/* ADDERA EV MAX-W EFTER MX-AUTO */}
-      <section className="bg-mainBG w-full">
+      <section className="bg-mainBG ">
         <div className="sectionLayout">
           <div className="elementLayout1 flex justify-center flex-col">
             <div className="flex flex-wrap justify-center gap-3">
@@ -120,7 +127,7 @@ export default function Databas() {
                 )}
 
                 {advSearch && (
-                  <div className="md:flex md:flex-row md:gap-3">
+                  <div className="flex flex-col md:flex-row lg:flex-col gap-3">
                     <ReactDatePicker
                       onChange={(date) =>
                         setTimePeriod((prevTimePeriod) => ({
@@ -152,32 +159,40 @@ export default function Databas() {
               </div>
 
               {/* //#Search button */}
-              <div>
-                <button
-                  onClick={() => {
-                    setRun(true);
-                  }}
-                  className="w-full sm:w-80 md:w-80 lg:w-64 text-white bg-main-color rounded-md h-10 mt-10 md:mt-1"
-                >
-                  Sök
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  doSearch();
+                }}
+                className="w-80 text-white bg-main-color rounded-md h-10 mt-10 md:mt-1"
+              >
+                Sök
+              </button>
             </div>
           </div>
         </div>
 
         {/* DASHBOARD COMPONENTS */}
-        <main className="w-full">
+        <main className="">
           {run ? (
             <>
-              <div className="flex flex-wrap xl:h-1/2">
-                <div className="py-12 mx-6 xl:w-1/3">
-                  <Trends searchData={searchData} />
-                  <CommonnCrime searchData={searchData} />
-                </div>
+              <div className="sectionLayout !my-0 !pt-10 w-full">
+                <div className="elementLayout1 grid grid-cols-1 grid-rows-3 grid-flow-col gap-10 sm:grid-rows-3 lg:grid-cols-2 lg:grid-rows-2">
+                  <div className="grid overflow-auto lg:row-span-2 w-full rounded-xl lg:h-[76rem]">
+                    <Latest500 searchData={searchData} />
+                  </div>
+                  <div className="grid gap-10 h-fit md:grid-cols-1 md:grid-rows-auto">
+                    <div>
+                      <GoogleMaps searchData={searchData} />
+                    </div>
+                    <div className="">
+                      <Text searchData={searchData} />
+                    </div>
+                  </div>
 
-                <div className="py-12 w-full xl:min-w-1/3 ">
-                  <GoogleMaps searchData={searchData} />
+                  <div className="max-h-96 grid gap-10 grid-cols-1 grid-row-2 md:grid-cols-1 md:grid-rows-auto">
+                    <Trends searchData={searchData} />
+                    <CommonnCrime searchData={searchData} />
+                  </div>
                 </div>
               </div>
             </>
@@ -190,6 +205,7 @@ export default function Databas() {
   );
 }
 
+//# Is shown before the user has searched -> GuideLines how and what to search
 function GuideLines() {
   const features = [
     {
@@ -294,5 +310,34 @@ function GuideLines() {
         </div>
       </section>
     </>
+  );
+}
+
+function Text({ searchData }) {
+  useEffect(() => {
+    const get = async () => {
+      const res = await fetch("http://localhost:3000/api/trends");
+      const data = await res.json();
+      console.log(data);
+    };
+  }, [searchData]);
+
+  return (
+    <div>
+      <p>
+        {searchData.category} har rapporterats 231 gånger mellan
+        tidsintervallet: 1 Januari 2023 tills idag i Stockholm. Misshandel står
+        för 23% av alla rapporter som har kommit in via polisen.
+      </p>
+      <p>
+        Det gör att Misshandel hamnar på en 3e plats bland de vanligaste
+        händelserna som rapporteras in av polisen i Stockholm.
+      </p>
+      <p>
+        Sen förra månaden har det skett en negativ utveckling i Stockholm och
+        denna trenden har vi sett sen datum intervallet.
+      </p>
+      <p>Det är vanligast att misshandel rapporteras i OMRÅDE. </p>
+    </div>
   );
 }

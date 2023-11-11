@@ -43,37 +43,42 @@ function App() {
   return (
     <>
       <Nav></Nav>
-      <header className="headerBg w-full py-20 xl:py-32 h-[580px] xl:h-[600px]">
-        <div className="elementLayout1 text-center">
-          <p className="text-center py-4">
-            <span className="highlight font-bold">Brottskollen.se</span> ger dig
-          </p>
-          <hgroup>
-            <h1 className="h1T text-center">Statistik på Polisens händelser</h1>
-            <p className="p1 text-center py-6">helt ocencuerat</p>
-          </hgroup>
-        </div>
-        <div className="text-center">
-          <p className="h2T text-text-color">{numOfCrimes}</p>
-          <p>rapporterade händelser i år</p>
-        </div>
-        <section className="xs:top-24 sm:top-20 md:top-36 lg:top-32 xl:top-20 flex flex-wrap xsRelative">
-          <ListBox />
-          <CommonCrimeBox />
-          <WeekData />
-        </section>
-      </header>
+      <div className="bg-[#FAFAFA]">
+        <header className="headerBg w-full py-20 xl:py-32 h-[580px] xl:h-[600px]">
+          <div className="elementLayout1 text-center">
+            <p className="text-center py-4">
+              <span className="highlight font-bold">Brottskollen.se</span> ger
+              dig
+            </p>
+            <hgroup>
+              <h1 className="h1T text-center">
+                Statistik på Polisens händelser
+              </h1>
+              <p className="p1 text-center py-6">helt ocencuerat</p>
+            </hgroup>
+          </div>
+          <div className="text-center">
+            <p className="h2T text-text-color">{numOfCrimes}</p>
+            <p>rapporterade händelser i år</p>
+          </div>
+          <section className="xs:top-24 sm:top-20 md:top-36 lg:top-32 xl:top-20 flex flex-wrap xsRelative">
+            <ListBox />
+            <CommonCrimeBox />
+            <WeekData />
+          </section>
+        </header>
 
-      <main className="xs:mt-50 sm:mt-50 md:mt-30 lg:mt-25 xl:mt-25 mx-auto py-24 xs:py-32">
-        {renderNightCrimes && <CrimesNight />}
+        <main className="xs:mt-50 sm:mt-50 md:mt-30 lg:mt-25 xl:mt-25 mx-auto py-24 xs:py-32">
+          {renderNightCrimes && <CrimesNight />}
 
-        <ListCategorys />
+          <ListCategorys />
 
-        <section>
-          <UspSection />
-        </section>
-        {!renderNightCrimes && <CrimesNight />}
-      </main>
+          <section>
+            <UspSection />
+          </section>
+          {!renderNightCrimes && <CrimesNight />}
+        </main>
+      </div>
       <footer></footer>
       <ul>
         {latestCrimes.map((info) => {

@@ -70,7 +70,7 @@ export default function StackedBarChart({ trendsArray }) {
             return (
               <div
                 key={item.label}
-                className="flex justify-center items-center gap-2 text-size1-p"
+                className="flex flex-wrap justify-center items-center gap-2 text-size1-p"
               >
                 {/* //# Label Icon */}
                 <div
@@ -80,7 +80,7 @@ export default function StackedBarChart({ trendsArray }) {
                     height: "10px",
                   }}
                 ></div>
-                <p>{item.label}</p>
+                <p className="text-[0.75rem]">{item.label}</p>
               </div>
             );
           })}

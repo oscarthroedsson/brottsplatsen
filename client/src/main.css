@@ -195,23 +195,6 @@ p {
 
 /* HEADINGS */
 
-.h1 {
-  font-size: 2.25rem; /* 36px */
-  line-height: 2.5rem;
-  font-weight: 600;
-}
-
-.h2 {
-  font-size: 1.875rem; /* 30px */
-  line-height: 2.25rem; /* 36px */
-  font-weight: 600;
-}
-
-.h3 {
-  font-size: 1.5rem; /* 24px */
-  line-height: 2rem; /* 32px */
-}
-
 /** BG FOR THE HEADER ON THE HOMEPAGE */
 .headerBg {
   background-image: url("./images/homeHeaderBG.svg"); /* Replace 'path-to-your-image.svg' with the actual path to your SVG image */

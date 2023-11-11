@@ -20,32 +20,29 @@ export default function ListBox() {
 
   return (
     <div className="text-center ">
-      <div className="primBox w-80 max-w-64 h-[190px]">
-        <table className="table-auto max-w-64 flex flex-col text-left">
+      <div className="primBox w-80 h-[190px]">
+        <table className="w-full flex-col text-left">
           <thead>
             <tr>
               <th className="p2 text-left">Senaste Rapporterna</th>
             </tr>
           </thead>
-          <tbody>
-            {latestCrimes.slice(0, 4).map((crime) => (
-              <tr
-                key={crime._id}
-                className="listP text-left justify-between my-1 flex hover:bg-light-bg"
-              >
+          <tbody className="w-full">
+            {latestCrimes.slice(0, 5).map((crime) => (
+              <tr key={crime._id} className="listP">
                 <td>{crime.type}</td>
                 <td>{crime.location.name}</td>
-                <button className=" w-5 flex items-center ">
-                  <img src={arrow} alt="" />
-                </button>
+                <td className="text-right">
+                  <img src={arrow} alt="" className="w-3" />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <a href="#" className="listP highlight">
+      {/* <a href="#" className="listP highlight">
         se de senaste 500 rapporterna
-      </a>
+      </a> */}
     </div>
   );
 }

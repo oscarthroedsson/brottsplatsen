@@ -1,8 +1,5 @@
 import wholeColl from "../config/getDataBaseData.js";
 async function commonThisMonth(req, res) {
-  console.log("--------------------");
-  console.log("commonThisMonth was run");
-
   const from = new Date();
   from.setDate(1);
   from.setUTCHours(0, 0, 0, 0);
