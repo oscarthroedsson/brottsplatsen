@@ -32,9 +32,9 @@ export default function ListBox() {
               <tr key={crime._id} className="listP">
                 <td>{crime.type}</td>
                 <td>{crime.location.name}</td>
-                <td className="text-right">
+                {/* <td className="text-right">
                   <img src={arrow} alt="" className="w-3" />
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

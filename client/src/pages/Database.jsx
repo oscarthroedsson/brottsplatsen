@@ -26,6 +26,7 @@ import commonIcon from "../icons/fSum_data.png";
 import mapIcon from "../icons/fGoogleMap.png";
 import ListBox from "../components/ListBox.jsx";
 import Latest500 from "../components/shared/Latest500.jsx";
+import Footer from "../components/footer.jsx";
 
 //# Database Component
 export default function Databas() {
@@ -256,7 +257,7 @@ function GuideLines() {
     <>
       <section>
         <hr />
-        <div className="mt-26">
+        <div className="sectionLayout">
           <div className="mx-auto max-w-7xl px-2">
             <div className="mx-auto elementLayout1 lg:text-center">
               <h2 className="highlight">Databasen för</h2>
@@ -309,6 +310,7 @@ function GuideLines() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

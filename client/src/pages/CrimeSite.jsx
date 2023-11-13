@@ -1,25 +1,53 @@
-import Nav from "../components/Nav";
+import Nav from "../components/Nav.jsx";
 import { useParams } from "react-router-dom";
 
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
-import infoIcon from "../icons/lineInfoMain.png";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+import timeIcon from "../icons/vTime.png";
+import dateIcon from "../icons/vDate.png";
+import placeIcon from "../icons/vPlace_ping.png";
+import crimeIcon from "../icons/vCrime.png";
 
 export default function CrimeSite() {
-  //TODO | Måste lägga in API att hämta rätt crime
+  const { type, location, id } = useParams();
+  const [specificCrime, setSpecificCrime] = useState({});
+  const [crimeArray, setCrimeArray] = useState([]);
 
-  const { id } = useParams();
-  const crimeId = parseInt(id);
-  const crime = crimeData.find((obj) => obj.id === crimeId);
-  console.log("Brottet; ", crime);
+  useEffect(() => {
+    const fetchCrime = async () => {
+      const res = await fetch(`http://localhost:3000/api/whole_list`);
+      const data = await res.json();
+      console.log(data);
+      setCrimeArray(data);
+    };
+    fetchCrime();
+  }, []);
 
-  const timePeriod = new Date(crime.datetime);
-  const year = timePeriod.getFullYear();
-  const month = timePeriod.getMonth() + 1;
-  const day = timePeriod.getDay();
-  const hour = timePeriod.getHours();
-  const min = timePeriod.getMinutes();
+  useEffect(() => {
+    console.log("id: ", typeof id);
+    setSpecificCrime(crimeArray.find((crime) => crime._id === parseInt(id)));
+    // console.log("specificCrime: ", specificCrime);
+  }, [crimeArray]);
+
+  function getTime() {
+    let time = new Date(specificCrime.datetime);
+    let hour = time.getHours();
+    let minute = time.getMinutes();
+
+    return `${hour}:${minute}`;
+  }
+
+  function getDate() {
+    let time = new Date(specificCrime.datetime);
+    let month = time.getMonth();
+    let day = time.getDate();
+
+    return `${day}/${month}`;
+  }
+
+  console.log("specificCrime: ", specificCrime);
 
   return (
     <>
@@ -28,39 +56,39 @@ export default function CrimeSite() {
         <section className="flex flex-wrap w-full bg-light-bg lg:flex lg:justify-between rounded-xl">
           <article className="py-4 xs:px-4 sm:px-10 m-auto w-full lg:w-1/3">
             <hgroup className="mb-8">
-              <h1 className="h1 mb-4">{crime.type}</h1>
+              <h1 className="h1 mb-4">{type}</h1>
               <div className="flex gap-3 flex-wrap mb-2">
                 <div className="centerHorizontal gap-1 text-size1-p">
                   <img src={timeIcon} alt="" className="w-5" />
-                  {hour}:{min}
+                  {specificCrime && getTime(specificCrime)}
                 </div>
                 <div className="centerHorizontal gap-1 text-size1-p">
                   <img src={dateIcon} alt="" className="w-5" />
-                  {day}/{month} - {year}
+                  {specificCrime && getDate(specificCrime)}
                 </div>
                 <div className="centerHorizontal gap-1 text-size1-p">
-                  <img src={placeIcon} alt="" className="w-5" />
-                  {crime.location.name}
+                  <img src={placeIcon} alt="" className="w-4" />
+                  specificCrime
                 </div>
               </div>
               <div className="centerHorizontal gap-1">
-                <img src={shareIcon} alt="" className="w-5" />
+                <img src="" alt="" className="w-5" />
                 <p className="text-size1-p">Share</p>
               </div>
             </hgroup>
 
-            <article className="flex align-center gap-2 mb-8 text-size1-p">
-              <img src={infoIcon} alt="" className="w-5 h-5 " />
-              <div>{crime.summary}</div>
+            {/* <article className="flex align-center gap-2 mb-8 text-size1-p">
+              <img src={crimeIcon} alt="" className="w-5 h-5 " />
+              <div>{specificCrime.summary}</div>
               <hr />
-            </article>
+            </article> */}
 
-            <p className="text-center text-size1-p font-medium-p text-main-color">
-              Läs mer om {crime.type} i {crime.location.name}
-            </p>
+            {/* <p className="text-center text-size1-p font-medium-p text-main-color">
+              Läs mer om {specificCrime.type} i {specificCrime}
+            </p> */}
           </article>
           <div className="w-full lg:w-2/3">
-            <CrimeMap crime={crime} />
+            {/* <CrimeMap crime={specificCrime} /> */}
           </div>
         </section>
       </main>
@@ -68,71 +96,61 @@ export default function CrimeSite() {
   );
 }
 
-function CrimeMap({ crime }) {
-  const containerStyle = {
-    width: "100%",
-    height: "400px",
-    borderRadius: "0px 12px 12px 0px",
-  };
-  //Splitting the coordinate value from crime.location.gps and convert it to a float
-  const [lat, lng] = crime.location.gps
-    .split(",")
-    .map((coord) => parseFloat(coord));
+// function CrimeMap({ crime }) {
+//   const containerStyle = {
+//     width: "100%",
+//     height: "400px",
+//     borderRadius: "0px 12px 12px 0px",
+//   };
+//   //Splitting the coordinate value from crime.location.gps and convert it to a float
+//   // const [lat, lng] = crime.location.gps;
 
-  //reg the lat and lng so the map show the location of the crime
-  const center = {
-    lat: lat,
-    lng: lng,
-  };
+//   //reg the lat and lng so the map show the location of the crime
+//   const center = {
+//     lat: "lat",
+//     lng: "lng",
+//   };
 
-  //
-  const { isLoaded } = useJsApiLoader({
-    id: "ab6140a0414848a8",
-    googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ",
-  });
+//   //
+//   const { isLoaded } = useJsApiLoader({
+//     id: "ab6140a0414848a8",
+//     googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ",
+//   });
 
-  const [map, setMap] = useState(null);
+//   const [map, setMap] = useState(null);
 
-  const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
+//   const onLoad = useCallback(function callback(map) {
+//     // This is just an example of getting and using the map instance!!! don't just blindly copy!
+//     const bounds = new window.google.maps.LatLngBounds(center);
 
-    let zoom = 15;
+//     let zoom = 15;
 
-    map.setZoom(zoom);
-    setMap(map);
-  }, []);
+//     map.setZoom(zoom);
+//     setMap(map);
+//   }, []);
 
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null);
-  }, []);
+//   const onUnmount = useCallback(function callback(map) {
+//     setMap(null);
+//   }, []);
 
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      options={{
-        disableDefaultUI: true,
-        mapId: "ab6140a0414848a8",
-        // draggable: false,
-      }}
-    >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
-  ) : (
-    <>
-      <p>Location is Loading...</p>
-    </>
-  );
-}
-
-// if("oscar" ==  "Oscar"){
-//   true
-// }
-
-// if("oscar" === "Oscar"){
-//   false
+//   return isLoaded ? (
+//     <GoogleMap
+//       mapContainerStyle={containerStyle}
+//       center={center}
+//       onLoad={onLoad}
+//       onUnmount={onUnmount}
+//       options={{
+//         disableDefaultUI: true,
+//         mapId: "ab6140a0414848a8",
+//         // draggable: false,
+//       }}
+//     >
+//       {/* Child components, such as markers, info windows, etc. */}
+//       <></>
+//     </GoogleMap>
+//   ) : (
+//     <>
+//       <p>Location is Loading...</p>
+//     </>
+//   );
 // }

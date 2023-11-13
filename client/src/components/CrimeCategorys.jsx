@@ -55,7 +55,7 @@ export default function ListCategorys() {
         }
       );
       const data = await result.json();
-      console.log("data", data);
+
       setSortedCrimes(data);
     };
 
@@ -120,22 +120,20 @@ export default function ListCategorys() {
 
           <div className="centerElements flex-wrap mt-16">
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
-              {sortedCrimes.length >= 1 ? (
-                sortedCrimes.slice(minListItem, maxListItem).map((crime) => {
-                  return (
-                    <>
-                      <li
-                        className="w-full lg:w-[400px] xl:w-[350px]"
-                        key={crime._id}
-                      >
-                        <CrimeBox crime={crime} />
-                      </li>
-                    </>
-                  );
-                })
-              ) : (
-                <p>Välj kategori</p>
-              )}
+              {sortedCrimes.length >= 1
+                ? sortedCrimes.slice(minListItem, maxListItem).map((crime) => {
+                    return (
+                      <>
+                        <li
+                          className="w-full lg:w-[400px] xl:w-[350px]"
+                          key={crime._id}
+                        >
+                          <CrimeBox crime={crime} />
+                        </li>
+                      </>
+                    );
+                  })
+                : null}
             </ul>
             <div
               className={`flex mt-10 align-center p-2 ${
@@ -149,7 +147,7 @@ export default function ListCategorys() {
                 <img src={backwardIcon} alt="" className={`w-5 hover:w-6`} />
               </button>
               <p className="mx-5">
-                {currentPage}/{numOfPages}
+                {currentPage}/{Math.floor(numOfPages)}
               </p>
               <button
                 onClick={goForward}
@@ -167,7 +165,7 @@ export default function ListCategorys() {
 
 function CrimeBox({ crime }) {
   return (
-    <Link to={`/brott/${crime.type}/${crime.location.name}/${crime.id}`}>
+    <Link to={`/brott/${crime.type}/${crime.location.name}/${crime._id}`}>
       <div className="primBox spreadStart flex-col mb-3 p-5 h-[160px]">
         <header className="mb-5 px-5 flex align-center justify-center relative">
           <img

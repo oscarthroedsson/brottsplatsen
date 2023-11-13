@@ -9,6 +9,7 @@ import WeekData from "./components/WeekData";
 import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
 import UspSection from "./components/UspSection";
+import Footer from "./components/footer";
 
 let timeStamp = new Date();
 let hour = timeStamp.getHours();
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <>
+      {" "}
       <Nav></Nav>
       <div className="bg-[#FAFAFA]">
         <header className="headerBg w-full py-20 xl:py-32 h-[580px] xl:h-[600px]">
@@ -79,12 +81,7 @@ function App() {
           {!renderNightCrimes && <CrimesNight />}
         </main>
       </div>
-      <footer></footer>
-      <ul>
-        {latestCrimes.map((info) => {
-          return <li key={info.id}>{info.type}</li>;
-        })}
-      </ul>
+      <Footer />
     </>
   );
 }

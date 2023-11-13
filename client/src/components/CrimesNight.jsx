@@ -32,7 +32,7 @@ export default function CrimesNight() {
     {
       img: location3,
       heading: "Plats",
-      text: `Flest händelser skedde i ${nightCrimes.CommonLocation}`,
+      text: `Flest händelser skedde i ${nightCrimes.location}`,
     },
     {
       img: common,
@@ -98,13 +98,13 @@ export default function CrimesNight() {
               </dl>
             </div>
           </div>
-          <div className="twoColumn mb-16 w-full lg:flex lg:flex-wrap xl:gap-16">
+          <div className="mb-16 w-full lg:flex lg:flex-wrap xl:gap-16">
             {nightCrimes.doc.map((crime) => {
               return (
                 <article
                   key={crime.id}
                   className="flex flex-col justify-between primBox min-h-[190px] w-full lg:w-[400px] xl:w-[350px]
-                  p-4 xl:ml-auto"
+                  p-4"
                 >
                   {/* Loop som går igenom alla händelser under natten */}
                   <div>

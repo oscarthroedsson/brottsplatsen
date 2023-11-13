@@ -44,13 +44,13 @@ export default function Nav() {
               className="xs:hidden md:block md:w-40 lg:w-60"
             />
           </Link>
-          <input
+          {/* <input
             type="text"
             name="search"
             id="searchbar"
             placeholder="Sök på brott/stad/kommun"
             className="xs:h-8 w-2/3 xl:w-3/5 md:text-size1-p md:py-5 md:px-5 outline-none bg-gray-100 px-2 rounded-md pointer-events-auto"
-          />
+          /> */}
           {/* //*Burger menu för <1000px skärm */}
           <button>
             <img

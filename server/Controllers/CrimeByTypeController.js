@@ -3,6 +3,7 @@ import wholeColl from "../config/getDataBaseData.js";
 async function categorysController(req, res) {
   console.log("--------------------");
   console.log("categorysController was run");
+
   const doc = req.query.category;
 
   const result = await wholeColl
