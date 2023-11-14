@@ -1,8 +1,7 @@
 import Nav from "../components/Nav.jsx";
+
 import { useParams } from "react-router-dom";
-
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-
 import { useCallback, useEffect, useState } from "react";
 
 import timeIcon from "../icons/vTime.png";
@@ -19,16 +18,14 @@ export default function CrimeSite() {
     const fetchCrime = async () => {
       const res = await fetch(`http://localhost:3000/api/whole_list`);
       const data = await res.json();
-      console.log(data);
       setCrimeArray(data);
     };
     fetchCrime();
   }, []);
 
   useEffect(() => {
-    console.log("id: ", typeof id);
     setSpecificCrime(crimeArray.find((crime) => crime._id === parseInt(id)));
-    // console.log("specificCrime: ", specificCrime);
+    console.log("specificCrime: ", specificCrime);
   }, [crimeArray]);
 
   function getTime() {
@@ -55,40 +52,40 @@ export default function CrimeSite() {
       <main className="lg:px-16 xl:px-40 md:py-20 ">
         <section className="flex flex-wrap w-full bg-light-bg lg:flex lg:justify-between rounded-xl">
           <article className="py-4 xs:px-4 sm:px-10 m-auto w-full lg:w-1/3">
-            <hgroup className="mb-8">
-              <h1 className="h1 mb-4">{type}</h1>
-              <div className="flex gap-3 flex-wrap mb-2">
-                <div className="centerHorizontal gap-1 text-size1-p">
-                  <img src={timeIcon} alt="" className="w-5" />
-                  {specificCrime && getTime(specificCrime)}
-                </div>
-                <div className="centerHorizontal gap-1 text-size1-p">
-                  <img src={dateIcon} alt="" className="w-5" />
-                  {specificCrime && getDate(specificCrime)}
-                </div>
-                <div className="centerHorizontal gap-1 text-size1-p">
-                  <img src={placeIcon} alt="" className="w-4" />
-                  specificCrime
-                </div>
-              </div>
-              <div className="centerHorizontal gap-1">
-                <img src="" alt="" className="w-5" />
-                <p className="text-size1-p">Share</p>
-              </div>
-            </hgroup>
+            {specificCrime && (
+              <>
+                <hgroup className="mb-8">
+                  <h1 className="h1 mb-4">{type}</h1>
+                  <div className="flex gap-3 flex-wrap mb-2">
+                    <div className="centerHorizontal gap-1 text-size1-p">
+                      <img src={timeIcon} alt="" className="w-4" />
+                      {specificCrime && getTime(specificCrime)}
+                    </div>
+                    <div className="centerHorizontal gap-1 text-size1-p">
+                      <img src={dateIcon} alt="" className="w-4" />
+                      {specificCrime && getDate(specificCrime)}
+                    </div>
+                    <div className="centerHorizontal gap-1 text-size1-p">
+                      <img src={placeIcon} alt="" className="w-3" />
+                      {specificCrime && location}
+                    </div>
+                  </div>
+                  <div className="centerHorizontal gap-1">
+                    <img src="" alt="" className="w-3" />
+                    <p className="text-size1-p">Share</p>
+                  </div>
+                </hgroup>
 
-            {/* <article className="flex align-center gap-2 mb-8 text-size1-p">
-              <img src={crimeIcon} alt="" className="w-5 h-5 " />
-              <div>{specificCrime.summary}</div>
-              <hr />
-            </article> */}
-
-            {/* <p className="text-center text-size1-p font-medium-p text-main-color">
-              Läs mer om {specificCrime.type} i {specificCrime}
-            </p> */}
+                <article className="flex align-center gap-2 mb-8 text-size1-p">
+                  <img src={crimeIcon} alt="" className="w-5 h-4" />
+                  <div>{specificCrime.summary}</div>
+                  <hr />
+                </article>
+              </>
+            )}
           </article>
           <div className="w-full lg:w-2/3">
-            {/* <CrimeMap crime={specificCrime} /> */}
+            {/* {specificCrime && <CrimeMap crime={specificCrime} />} */}
           </div>
         </section>
       </main>
@@ -96,22 +93,22 @@ export default function CrimeSite() {
   );
 }
 
-// function CrimeMap({ crime }) {
+// export function CrimeMap({ crime }) {
+//   console.log("crime", crime);
 //   const containerStyle = {
 //     width: "100%",
 //     height: "400px",
 //     borderRadius: "0px 12px 12px 0px",
 //   };
-//   //Splitting the coordinate value from crime.location.gps and convert it to a float
-//   // const [lat, lng] = crime.location.gps;
 
-//   //reg the lat and lng so the map show the location of the crime
-//   const center = {
-//     lat: "lat",
-//     lng: "lng",
-//   };
+//   // Splitting the coordinate value from crime.location.gps and convert it to a float
+//   console.log("gps:", crime.location.gps.split(","));
+//   const [lat, lng] = crime.location.gps.split(",");
 
-//   //
+//   // reg the lat and lng so the map show the location of the crime
+//   const center = { lat: lat, lng: lng };
+
+//   // if map is loaded, show the map, else show a loading message
 //   const { isLoaded } = useJsApiLoader({
 //     id: "ab6140a0414848a8",
 //     googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ",
@@ -144,10 +141,7 @@ export default function CrimeSite() {
 //         mapId: "ab6140a0414848a8",
 //         // draggable: false,
 //       }}
-//     >
-//       {/* Child components, such as markers, info windows, etc. */}
-//       <></>
-//     </GoogleMap>
+//     />
 //   ) : (
 //     <>
 //       <p>Location is Loading...</p>
