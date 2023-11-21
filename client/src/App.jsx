@@ -8,8 +8,9 @@ import WeekData from "./components/WeekData";
 
 import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
-import News from "./components/shared/News";
+import NewsDebate from "./components/shared/NewsDebate";
 import UspSection from "./components/UspSection";
+import NewsPress from "./components/shared/NewsPress";
 import Footer from "./components/footer";
 
 let timeStamp = new Date();
@@ -44,7 +45,6 @@ function App() {
 
   return (
     <>
-      {" "}
       <Nav></Nav>
       <div className="bg-[#FAFAFA]">
         <header className="headerBg w-full py-20 xl:py-32 h-[580px] xl:h-[600px]">
@@ -75,10 +75,11 @@ function App() {
           {renderNightCrimes && <CrimesNight />}
 
           <ListCategorys />
-          <News />
+          <NewsDebate />
           <section>
             <UspSection />
           </section>
+          <NewsPress />
           {!renderNightCrimes && <CrimesNight />}
         </main>
       </div>

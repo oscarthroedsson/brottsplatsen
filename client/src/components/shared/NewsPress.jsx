@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-let count = 0;
-export default function News() {
+
+export default function NewsPress() {
   const [news, setNews] = useState();
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch("http://localhost:3000/rss/debate_articles");
+      const response = await fetch("http://localhost:3000/rss/press_articles");
       const data = await response.json();
       console.log("CLIENT DATA", data);
       await setNews(data);
     };
     getData();
   }, []);
-  count++;
 
   return (
     <>
       <article className="sectionLayout w-full ">
-        <h2 className="h2T m-2"> Debatt Artiklar</h2>
+        <h2 className="h2T m-2">Pressmeddelanden</h2>
         <div className="flex flex-wrap align-center justify-center md:justify-start">
           {news &&
             news.map((article, index) => {

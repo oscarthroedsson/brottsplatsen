@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 
-async function rssDebateArticles(req, res) {
+async function rssPressArticles(req, res) {
   console.log("rssDebateArticles was CALLED");
 
   const url =
@@ -24,7 +24,7 @@ async function rssDebateArticles(req, res) {
     // res.status(500).send("Error fetching RSS data");
   }
 }
-rssDebateArticles();
+rssPressArticles();
 
 //TODO | Skapa en egen fil för denna funktionen -> Finns även i rssDebateArticles.js
 async function parseXml2jsFormatToNormalArray(data) {
@@ -52,4 +52,4 @@ async function parseXml2jsFormatToNormalArray(data) {
   }
 }
 
-export default rssDebateArticles;
+export default rssPressArticles;
