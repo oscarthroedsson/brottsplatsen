@@ -8,9 +8,9 @@ import WeekData from "./components/WeekData";
 
 import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
-import NewsDebate from "./components/shared/NewsDebate";
+import NewsDebate from "./components/NewsDebate";
 import UspSection from "./components/UspSection";
-import NewsPress from "./components/shared/NewsPress";
+import NewsPress from "./components/NewsPress";
 import Footer from "./components/footer";
 
 let timeStamp = new Date();
