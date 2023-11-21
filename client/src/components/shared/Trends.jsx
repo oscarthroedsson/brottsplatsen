@@ -4,7 +4,7 @@ import StackedBarChart from "./StackedBarChart";
 
 export default function Trends({ searchData }) {
   const [trendsArray, setTrendsArray] = useState();
-  console.log(searchData);
+  // console.log(searchData);
 
   useEffect(() => {
     const data = async () => {
@@ -48,7 +48,7 @@ export default function Trends({ searchData }) {
     <>
       <div className="evenShadow p-5 rounded-xl secBox h-fit">
         <div>
-          <p className="p1">Trender mellan:</p>
+          <p className="font-semibold text-[black]">Trender mellan:</p>
           <div className="p2 text-main-color">{dateToString()}</div>
         </div>
         {trendsArray && <StackedBarChart trendsArray={trendsArray} />}

@@ -5,8 +5,9 @@ function Latest500({ searchData }) {
   const [latestCrimes, setLatestCrime] = useState([]);
   const [sortedCrimes, setSortedCrimes] = useState([]);
   const [sortedByPlace, setSortedByPlace] = useState([]);
+  const [seeSpecifics, setSeeSpecifics] = useState(null);
 
-  console.log(searchData);
+  // console.log(searchData);
 
   //# Fetch the latest 500 crimes
   useEffect(() => {
@@ -84,6 +85,17 @@ function Latest500({ searchData }) {
     return `${hour}:${min}`;
   }
 
+  function toggleCrimeSummary(crimeID) {
+    console.log("crimeID :", crimeID);
+    if (seeSpecifics === crimeID) {
+      // Dölj sammanfattningen om samma crime klickas igen
+      setSeeSpecifics(null);
+    } else {
+      // Visa ny sammanfattning
+      setSeeSpecifics(crimeID);
+    }
+  }
+  // console.log("sortedCrimes :", sortedCrimes);
   return (
     <>
       <div className="">
@@ -122,6 +134,9 @@ function Latest500({ searchData }) {
                         <td className="py-2">{formatTime(crime.datetime)}</td>
                         <td className={`pr-2`}>{formatDate(crime.datetime)}</td>
                       </tr>
+                      <div>
+                        <p className="py-2">{crime.summary}</p>
+                      </div>
                     </>
                   );
                 })
@@ -134,12 +149,26 @@ function Latest500({ searchData }) {
               {sortedCrimes.map((crime) => {
                 return (
                   <>
-                    <tr className="text-[0.75rem] text-center p-10 hover:bg-[#eef4ff] border-b-[0.5px]">
+                    <tr
+                      onClick={() => toggleCrimeSummary(crime._id)}
+                      key={crime._id}
+                      className="text-[0.75rem] text-center p-10 hover:bg-[#eef4ff] border-b-[0.5px]"
+                    >
                       <td className="pl-2">{crime.type}</td>
                       <td className="py-2">{crime.location.name}</td>
                       <td className="py-2">{formatTime(crime.datetime)}</td>
                       <td className="pr-2">{formatDate(crime.datetime)}</td>
                     </tr>
+                    {seeSpecifics === crime._id && (
+                      <tr className="p-4 bg-[#eef4ff]">
+                        <td
+                          colSpan="4"
+                          className=" p-2 text-[0.75rem] text-start"
+                        >
+                          {crime.summary}
+                        </td>
+                      </tr>
+                    )}
                   </>
                 );
               })}

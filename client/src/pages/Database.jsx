@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import ReactDatePicker from "../components/shared/ReactDatePicker";
 import Trends from "../components/shared/Trends";
-
 import SelectElement from "../components/shared/SelectElement.jsx";
 import CommonnCrime from "../components/shared/CommonCrime";
 import GoogleMaps from "../components/shared/GoogleMaps";
+import Text from "../components/Text.jsx";
 
 //# Functions
 import parseIsoDate from "../functions/parseIsoDate.js";
@@ -44,9 +44,8 @@ export default function Databas() {
 
   //* Collect searchdata and props to components
   const [searchData, setSearchData] = useState({});
-
   const [run, setRun] = useState(false);
-
+  //testa bygga detta i en knapp onClock / async function
   useEffect(() => {
     const getCategorys = async () => {
       const res = await fetch("http://localhost:3000/api/categorys");
@@ -312,34 +311,5 @@ function GuideLines() {
       </section>
       <Footer />
     </>
-  );
-}
-
-function Text({ searchData }) {
-  useEffect(() => {
-    const get = async () => {
-      const res = await fetch("http://localhost:3000/api/trends");
-      const data = await res.json();
-      console.log(data);
-    };
-  }, [searchData]);
-
-  return (
-    <div>
-      <p>
-        {searchData.category} har rapporterats 231 gånger mellan
-        tidsintervallet: 1 Januari 2023 tills idag i Stockholm. Misshandel står
-        för 23% av alla rapporter som har kommit in via polisen.
-      </p>
-      <p>
-        Det gör att Misshandel hamnar på en 3e plats bland de vanligaste
-        händelserna som rapporteras in av polisen i Stockholm.
-      </p>
-      <p>
-        Sen förra månaden har det skett en negativ utveckling i Stockholm och
-        denna trenden har vi sett sen datum intervallet.
-      </p>
-      <p>Det är vanligast att misshandel rapporteras i OMRÅDE. </p>
-    </div>
   );
 }

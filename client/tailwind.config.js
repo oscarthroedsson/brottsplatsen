@@ -49,6 +49,7 @@ export default {
         a: {
           color: "#363ABF",
           textDecoration: "none",
+          fontSize: "0.85rem",
         },
         "a:hover": {
           color: "#363abf",
