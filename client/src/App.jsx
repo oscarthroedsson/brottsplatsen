@@ -8,6 +8,7 @@ import WeekData from "./components/WeekData";
 
 import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
+import News from "./components/shared/News";
 import UspSection from "./components/UspSection";
 import Footer from "./components/footer";
 
@@ -74,7 +75,7 @@ function App() {
           {renderNightCrimes && <CrimesNight />}
 
           <ListCategorys />
-
+          <News />
           <section>
             <UspSection />
           </section>

@@ -17,20 +17,25 @@ export default function News() {
 
   return (
     <>
-      <article className="sectionLayout">
+      <article className="sectionLayout w-full ">
         <h2 className="h2T m-2"> Debatt Artiklar</h2>
-        {news &&
-          news.map((article, index) => {
-            return (
-              <article key={index} className="secBox m-5 elementLayout1">
-                <h1>{article.title}</h1>
-                <p className="listP my-2">{article.description}</p>
-                <Link to={article.link} target="_blank">
-                  <a className="a:hover ">Gå till artikel</a>
-                </Link>
-              </article>
-            );
-          })}
+        <div className="flex flex-wrap align-center justify-center md:justify-start">
+          {news &&
+            news.map((article, index) => {
+              return (
+                <article
+                  key={index}
+                  className="secBox m-5 elementLayout1 max-w-sm "
+                >
+                  <h1>{article.title}</h1>
+                  <p className="listP my-2">{article.description}</p>
+                  <Link to={article.link} target="_blank">
+                    <a className="a:hover ">Gå till artikel</a>
+                  </Link>
+                </article>
+              );
+            })}
+        </div>
       </article>
     </>
   );
