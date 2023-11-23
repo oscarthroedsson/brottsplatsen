@@ -72,7 +72,7 @@ export default function CrimesNight() {
             </div>
             <div className="mx-auto mt-16 mb-24 max-w-2xl sm:my-20 lg:max-w-7xl xl:my-26">
               <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-4xl lg:grid-cols-2 lg:gap-y-16">
-                {usp.map((uspObj) => {
+                {usp.map((uspObj, index) => {
                   return (
                     <>
                       <div className="relative pl-16">

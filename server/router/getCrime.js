@@ -18,9 +18,12 @@ import citiesController from "../Controllers/citiesController.js";
 import readRSSFeed from "../Controllers/rssDebateArticles.js";
 import rssPressArticles from "../Controllers/rssPressArticles.js";
 
-//get
+import sumUp_Morning from "../Controllers/SumUpControllers/sumUp_Morning.js";
+import sumUp_AfterNoon from "../Controllers/SumUpControllers/sumUp_Afternoon.js";
+import sumUp_Evning from "../Controllers/SumUpControllers/sumUp_Evning.js";
+import sumUp_Weekend from "../Controllers/SumUpControllers/sumUp_Weekend.js";
 
-//# | inte  implementerade med client
+//# get
 router.get("/api/Total_Num_Of_Crimes", totNumOfCrimes);
 router.get("/api/whole_list", wholeList);
 router.get("/api/get_past_month", getPastMonth);
@@ -34,6 +37,12 @@ router.get("/api/crime_by_category", crimeByTypeController);
 //Read RSS feed
 router.get("/rss/debate_articles", readRSSFeed); //get debate articles from police
 router.get("/rss/press_articles", rssPressArticles); //get pressmeddelanden from police
+
+//get SumUp Controllers
+router.get("/sumUp/sumUp_Morning", sumUp_Morning);
+router.get("/sumUp/sumUp_Afternoon", sumUp_AfterNoon);
+router.get("/sumUp/sumUp_Evning", sumUp_Evning);
+router.get("/sumUp/sumUp_Weekend", sumUp_Weekend);
 
 //post Database controllers
 router.post("/api/get_trends", trendsController); //sending post cuse handle data is easier

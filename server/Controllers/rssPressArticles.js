@@ -10,15 +10,15 @@ async function rssPressArticles(req, res) {
   try {
     const response = await fetch(url);
     const data = await response.text();
-    // console.log("DATA: ", data);
 
     //tranform xml2js string to a clean array.
     let debateArticalsArray = await parseXml2jsFormatToNormalArray(data);
-    // debateArticalsArray.forEach((e) => {
-    //   console.log(e);
-    // });
+    debateArticalsArray.forEach((e) => {
+      console.log(e);
+    });
 
     await res.send(debateArticalsArray);
+    // await res.send(debateArticalsArray);
   } catch (error) {
     console.error("Error fetching RSS data:", error);
     // res.status(500).send("Error fetching RSS data");

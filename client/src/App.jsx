@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import Nav from "./components/nav";
 import ListBox from "./components/ListBox";
 import CommonCrimeBox from "./components/CommonCrimeBox";
-import WeekData from "./components/WeekData";
+import WeekData from "./components/LatestSevendays";
 
 import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
@@ -12,13 +11,13 @@ import NewsDebate from "./components/NewsDebate";
 import UspSection from "./components/UspSection";
 import NewsPress from "./components/NewsPress";
 import Footer from "./components/footer";
+import SumAllSumComp from "./components/sumComponens/SumAllSumComp";
 
 let timeStamp = new Date();
 let hour = timeStamp.getHours();
 let renderNightCrimes = hour > 6 && hour < 12;
 
 function App() {
-  const [latestCrimes, setLastestCrimes] = useState([]);
   const [numOfCrimes, setNumOfCrimes] = useState(0);
 
   useEffect(() => {
@@ -72,13 +71,15 @@ function App() {
         </header>
 
         <main className="xs:mt-50 sm:mt-50 md:mt-30 lg:mt-25 xl:mt-25 mx-auto py-24 xs:py-32">
+          <SumAllSumComp />
+
           {renderNightCrimes && <CrimesNight />}
 
           <ListCategorys />
           <NewsDebate />
-          <section>
-            <UspSection />
-          </section>
+
+          <UspSection />
+
           <NewsPress />
           {!renderNightCrimes && <CrimesNight />}
         </main>

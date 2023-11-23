@@ -1,7 +1,18 @@
 import fetch from "node-fetch"; //importerar fetch för att kunna hämta data från api
 import createNewDocument from "../models/newDocumentSchema.js"; //skapar ett nytt dok för mongoDB
 import wholeColl from "../config/getDataBaseData.js"; //hämtar hela collectionen jag vill söka i från mongoDB
-
+const excludedTypes = [
+  "Sammanfattning dag",
+  "Sammanfattning dygn",
+  "Sammanfattning förmiddag",
+  "Sammanfattning eftermiddag",
+  "Sammanfattning helg",
+  "Sammanfattning kväll",
+  "Sammanfattning kväll och natt",
+  "Sammanfattning natt",
+  "Sammanfattning vecka",
+  "Tillfälligt obemannat",
+];
 async function reciveApiData() {
   console.log("--------------------");
   console.log("Controllers | Getting data from the police");
@@ -19,6 +30,10 @@ async function reciveApiData() {
 
     //Go threw every object in the array
     for (const element of data) {
+      if (excludedTypes.includes(element.type)) {
+        continue;
+      }
+
       //create a new document for mongoDB and run threw a schema
       const event = createNewDocument(element);
 

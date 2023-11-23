@@ -31,8 +31,6 @@ export default function WeekData() {
       const today = new Date();
       const oneWeekAgo = new Date();
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
-      console.log("TODAY", today);
-      console.log("ONE WEEK AGO", oneWeekAgo);
 
       const crimeThisWeek = week.filter((crime) => {
         const crimeDate = new Date(crime.datetime); //
@@ -72,7 +70,6 @@ export default function WeekData() {
       setCounted(sortedArray);
     }
     countPerDay();
-    console.log("COUNT PER DAY", counted);
   }, [week]);
 
   return (

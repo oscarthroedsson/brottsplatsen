@@ -1,6 +1,3 @@
-import { Component } from "react";
-import { Layer } from "recharts";
-
 /** @type {import('tailwindcss').Config} */
 
 export default {
