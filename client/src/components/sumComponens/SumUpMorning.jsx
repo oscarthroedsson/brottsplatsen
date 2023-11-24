@@ -2,7 +2,7 @@
 Sum up noon from 06:00 to 12:00
 */
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function SumMorning() {
   const [docArray, setDocArray] = useState([]);
@@ -17,11 +17,11 @@ export default function SumMorning() {
   }, []);
 
   return (
-    <div className="secBox !pt-0 w-full max-h-96 overflow-scroll lg:max-w-xl">
-      <table className="table-auto w-full ">
+    <div className="secBox px-10 !pt-0 w-full max-h-96 overflow-scroll lg:max-w-xl">
+      <table className="table-auto w-full">
         {/* //# SECTION 1 | ---------------------------------------- */}
 
-        <caption className="caption-top sticky top-0 mb-2 text-[0.7rem] text-main-color bg-white py-3 pb-5">
+        <caption className="caption-top sticky top-0 mb-2 text-[0.7rem] text-main-color bg-white py-3">
           Händelser förmiddag
         </caption>
         <thead className="sticky top-10 bg-white pb-3">
@@ -33,17 +33,15 @@ export default function SumMorning() {
         </thead>
 
         <tbody>
-          {docArray.map((item, index) => {
+          {docArray.map((item) => {
             return (
-              <>
+              <React.Fragment key={item._id}>
                 <tr className="text-[0.8rem]">
-                  <td key={item._id} className="text-start">
-                    {item.type}
-                  </td>
+                  <td className="text-start">{item.type}</td>
                   <td className="text-center">{item.location}</td>
                   <td className="text-end">{item.time}</td>
                 </tr>
-              </>
+              </React.Fragment>
             );
           })}
         </tbody>

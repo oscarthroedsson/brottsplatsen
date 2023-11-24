@@ -21,7 +21,7 @@ export default function SumWeek() {
   }, []);
 
   return (
-    <div className="secBox !pt-0 w-full max-h-96 overflow-scroll lg:max-w-xl">
+    <div className="secBox px-10 !pt-0 w-full max-h-96 overflow-scroll lg:max-w-xl">
       <table className="table-auto w-full ">
         {/* //# SECTION 1 | ---------------------------------------- */}
 

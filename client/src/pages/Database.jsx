@@ -41,8 +41,16 @@ export default function Databas() {
   const [timePeriod, setTimePeriod] = useState({});
 
   //* Collect searchdata and props to components
-  const [searchData, setSearchData] = useState({});
+  const [searchData, setSearchData] = useState({
+    category: null,
+    place: null,
+    timeSpan: {
+      fromDate: null,
+      toDate: null,
+    },
+  });
   const [run, setRun] = useState(false);
+
   //testa bygga detta i en knapp onClock / async function
   useEffect(() => {
     const getCategorys = async () => {
@@ -69,17 +77,7 @@ export default function Databas() {
   }, [run]);
 
   // behöver ej ligga i en egen useEffect
-  // Dela upp i funnktioner
-  useEffect(() => {
-    const setData = () => {
-      return {
-        category: category,
-        place: place,
-        timeSpan: month ? parseIsoDate(month) : timePeriod,
-      };
-    };
-    setSearchData(setData);
-  }, [category, place, month, timePeriod]);
+  // TODO Dela upp i funnktioner
 
   //* Controll advanced search
   function advancedSearch() {
@@ -92,13 +90,16 @@ export default function Databas() {
   }
 
   function doSearch() {
-    run ? setRun(false) : setRun(true); //lägg söklogiken här isdtället för att ha det i en useEffect
+    console.log(searchData);
+
+    run ? setRun(false) : setRun(true);
+
+    //lägg söklogiken här isdtället för att ha det i en useEffect
   }
 
   return (
     <>
       <Nav></Nav>
-      {/* ADDERA EV MAX-W EFTER MX-AUTO */}
       <section className="bg-mainBG ">
         <div className="sectionLayout">
           <div className="elementLayout1 flex justify-center flex-col">
@@ -107,13 +108,17 @@ export default function Databas() {
                 <SelectElement
                   options={categoryArray}
                   defaultValue={"Välj kategori"}
-                  onChange={setCategory} //? köra setData() här?
+                  onChange={(selectedValue) => {
+                    setSearchData({ ...searchData, category: selectedValue });
+                  }}
                 />
               </div>
               <div>
                 <SelectElement
                   options={cityArray}
-                  onChange={setPlace} //? köra setData() här?
+                  onChange={(selectedValue) => {
+                    setSearchData({ ...searchData, place: selectedValue });
+                  }}
                   defaultValue={"Sverige"}
                 />
               </div>
@@ -121,7 +126,12 @@ export default function Databas() {
                 {!advSearch && (
                   <SelectElement
                     options={months}
-                    onChange={setMonth} //? köra setData() här?
+                    onChange={(selectedValue) => {
+                      setSearchData({
+                        ...searchData,
+                        timeSpan: parseIsoDate(selectedValue),
+                      });
+                    }}
                     defaultValue={"Välj månad"}
                   />
                 )}
@@ -129,21 +139,26 @@ export default function Databas() {
                 {advSearch && (
                   <div className="flex flex-col md:flex-row lg:flex-col gap-3">
                     <ReactDatePicker
-                      onChange={
-                        (date) =>
-                          setTimePeriod((prevTimePeriod) => ({
-                            ...prevTimePeriod,
+                      onChange={(date) =>
+                        setSearchData({
+                          ...searchData,
+                          timeSpan: {
+                            ...searchData.timeSpan,
                             fromDate: date,
-                          })) //? köra setData() här?
+                          },
+                        })
                       }
                     />
 
                     <ReactDatePicker
                       onChange={(date) =>
-                        setTimePeriod((prevTimePeriod) => ({
-                          ...prevTimePeriod,
-                          toDate: date,
-                        }))
+                        setSearchData({
+                          ...searchData,
+                          timeSpan: {
+                            ...searchData.timeSpan,
+                            toDate: date,
+                          },
+                        })
                       }
                     />
                   </div>
