@@ -13,7 +13,7 @@ export default function SumWeek() {
 
   useEffect(() => {
     const data = async () => {
-      const res = await fetch("http://localhost:3000/sumUp/sumUp_Morning");
+      const res = await fetch("http://localhost:3000/sumUp/sumUp_Week");
       const data = await res.json();
       setDocArray(data);
     };
@@ -45,7 +45,7 @@ export default function SumWeek() {
                     {item.type}
                   </td>
                   <td className="text-center">{item.location}</td>
-                  <td className="text-end">{item.time}</td>
+                  <td className="text-end">{item.date}</td>
                 </tr>
               </>
             );

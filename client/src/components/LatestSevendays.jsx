@@ -24,16 +24,17 @@ export default function WeekData() {
     data();
   }, []);
 
+  //Madde: behövs nog inte heller göras i en useEffect
+  //! Tar jag bort useEffecten så renderar den non-stop
   useEffect(() => {
     //SORTERA UT DE SENASTE 7 DAGARNA
-
     function countPerDay() {
       const today = new Date();
       const oneWeekAgo = new Date();
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
 
       const crimeThisWeek = week.filter((crime) => {
-        const crimeDate = new Date(crime.datetime); //
+        const crimeDate = new Date(crime.datetime);
         return (
           crimeDate.setHours(0, 0, 0, 0) >= oneWeekAgo.setHours(0, 0, 0, 0) &&
           crimeDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0)

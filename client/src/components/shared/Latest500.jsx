@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import dates from "../../data/dates.js";
 
 function Latest500({ searchData }) {
+  // Takes in the search criterias from the user
   const [latestCrimes, setLatestCrime] = useState([]);
   const [sortedCrimes, setSortedCrimes] = useState([]);
   const [sortedByPlace, setSortedByPlace] = useState([]);
   const [seeSpecifics, setSeeSpecifics] = useState(null);
-
-  // console.log(searchData);
 
   //# Fetch the latest 500 crimes
   useEffect(() => {
@@ -24,7 +23,10 @@ function Latest500({ searchData }) {
   }, []);
 
   //# Sort the crimes by category
+  //Madde: detta behöver inte ligga i en useEffect, kan ligga som en vanlig funktion alternativt att du bryter ut själva sorteringen till en egen funktion som du sen anropar i samma useEffet där du hämtar datan. Onödigt att ha latestCrimes som egen state, du kan spara bara den sorterade ist
+  //! Får för många re-renders om jag tar bort useEffect Kolla mer på maddes kommentar och försök städa upp
   useEffect(() => {
+    // Filters
     const sorted = latestCrimes
       .filter(
         (crime) =>
@@ -43,8 +45,9 @@ function Latest500({ searchData }) {
         if (dateA.getTime() > dateB.getTime()) return -1;
         if (dateA.getTime() < dateB.getTime()) return 1;
 
-        return 0; // Inga ändringar om datum och klockslag är samma
+        return 0; //No changes if date and time are the same
       });
+
     setSortedCrimes(sorted);
 
     //create a specific list for every crime in specific place
@@ -54,7 +57,6 @@ function Latest500({ searchData }) {
         crime.type === searchData.category
       );
     });
-
     setSortedByPlace(specificPlace);
   }, [latestCrimes]); // Kör denna useEffect när latestCrimes uppdateras
 
@@ -95,7 +97,7 @@ function Latest500({ searchData }) {
       setSeeSpecifics(crimeID);
     }
   }
-  // console.log("sortedCrimes :", sortedCrimes);
+
   return (
     <>
       <div className="">

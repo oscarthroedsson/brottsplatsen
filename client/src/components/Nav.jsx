@@ -6,13 +6,16 @@ import { Link } from "react-router-dom";
 
 //Adjust the nav depending on the size of the screen
 export default function Nav() {
+  //Controll if the drop-down nav is visible
   const [menuVisible, setMenuVisible] = useState(false);
   const menuRef = useRef(null);
 
+  //show dropdown when clicked
   const handleMenuIconClick = () => {
     setMenuVisible(!menuVisible);
   };
 
+  //hide dropdown when clicked outside
   const handleDocumentClick = (e) => {
     if (menuVisible && menuRef.current && !menuRef.current.contains(e.target)) {
       setMenuVisible(false);
@@ -24,8 +27,8 @@ export default function Nav() {
     return () => {
       document.removeEventListener("click", handleDocumentClick);
     };
-  }, [menuVisible]);
-  //funktionell kod
+  }, [menuVisible]); //! se över deps array
+
   return (
     <>
       <nav className="w-full flex justify-between items-center px-3 py-5 xxl:px-10">

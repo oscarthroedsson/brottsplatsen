@@ -15,12 +15,11 @@ export default function Trends({ searchData }) {
         },
         body: JSON.stringify(searchData),
       });
-
       const result = await response.json();
       setTrendsArray(result);
     };
     data();
-  }, []);
+  }, []); //? Varför är detta fel? Den ser ut som de andra?!
 
   function dateToString() {
     const fromDate = new Date(searchData.timeSpan.fromDate);

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import dates from "../data/dates.js";
 
 export default function CommonCrime() {
-  const [crimeThisMonth, setCrimePrevMonth] = useState([]);
+  //state handle the crime that is most common this month
+  const [commonCrimeThisMonth, setCommonCrimeThisMonth] = useState([]);
 
   useEffect(() => {
     const crimes = async () => {
@@ -13,7 +14,7 @@ export default function CommonCrime() {
       if (response.ok) {
         const data = await response.json();
 
-        setCrimePrevMonth(data[0]);
+        setCommonCrimeThisMonth(data[0]);
       } else {
         console.log("Server returned an error:", response.status);
       }
@@ -24,7 +25,7 @@ export default function CommonCrime() {
       console.log("Error in CommonCrime", err);
     }
   }, []);
-
+  //Getting the current month in text-format from dates.js
   const month = dates[new Date().getMonth()];
 
   return (
@@ -35,8 +36,10 @@ export default function CommonCrime() {
           <p className="p1 highlight">{month}</p>
         </div>
         <div>
-          <p className="text-size4-p font-heavy-p">{crimeThisMonth._id}</p>
-          <p className="largeP">{crimeThisMonth.count} st</p>
+          <p className="text-size4-p font-heavy-p">
+            {commonCrimeThisMonth._id}
+          </p>
+          <p className="largeP">{commonCrimeThisMonth.count} st</p>
         </div>
       </div>
       {/* <a href="#" className="listP highlight">

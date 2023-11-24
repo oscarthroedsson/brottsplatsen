@@ -20,19 +20,20 @@ export default function ListCategorys() {
   const [minListItem, setMinListItem] = useState(0);
   const [maxListItem, setMaxListItem] = useState(3);
   const [numOfPages, setNumOfPages] = useState(0);
-  let maxPages = 3;
-  let numOfBoxes = 3;
+  const maxPages = 3; //Controlls the visuall for the user to see how many pages there is to see of the crimes
+  const numOfBoxes = 3; // Controlls how many crime boxes is shown on every pagination page.
 
   //Det fungerar med följande state
 
   //* Sort and updates everytime a category is choosed
   useEffect(() => {
+    //Get every type of crime that is in the DB
     const categorys = async () => {
       const result = await fetch("http://localhost:3000/api/categorys");
-
       const data = await result.json();
 
-      //gör om en array med objekt till array med strängar
+      // Make a list of categorys that is in the select on landing-page so the user can choose a category
+      // This is fetched on render so we can show categorys/types in the select that the user can choose from
       const arraySorted = data.map((crime) => {
         return crime._id;
       });
@@ -43,9 +44,12 @@ export default function ListCategorys() {
     categorys();
   }, []);
 
+  //Madde frågar -> varför behöver du göra två olika api-anrop? Borde det vara två olika komponenter?
+  //? | Fråga madde om det är ett okej upplägg när de har två olika syften!?
   useEffect(() => {
     const crimes = async () => {
       const result = await fetch(
+        // Get every crime that has the same type as the category choosen
         `http://localhost:3000/api/crime_by_category?category=${choosedCategory}`,
         {
           method: "GET",
@@ -57,12 +61,27 @@ export default function ListCategorys() {
       const data = await result.json();
 
       setSortedCrimes(data);
+      // setPaginationRules(); //! Ska ersätta useEffecten som är kommenterad
     };
 
     crimes();
+    // Gets triggers when user have choosen a category of the crimes they want to see
   }, [choosedCategory]);
 
   //Runs when sortedCrimes is updated and sets the number of pages for pagination
+
+  // function setPaginationRules() {
+  //   setNumOfPages(sortedCrimes.length / maxPages);
+  //   if (numOfPages < 1) {
+  //     setNumOfPages(1);
+  //   }
+  // }
+
+  //Madde: behöver ej göras i useEffect
+  /* //
+  !| Funktionen ovan ska ersätta useEffect, men då visar det att det enbart finns 1 sida när anv väljer brand, det ska 
+  !| vara 68
+  */
   useEffect(() => {
     setNumOfPages(sortedCrimes.length / maxPages);
   }, [sortedCrimes]);
@@ -71,15 +90,18 @@ export default function ListCategorys() {
     setNumOfPages(1);
   }
 
+  // Logic so the user can go forward in the pagination
   function goForward() {
+    //If-statement let user go forward if they are not on the last page
     if (maxListItem + numOfBoxes <= sortedCrimes.length) {
       setCurrentPage(currentPage + 1);
       setMinListItem(minListItem + numOfBoxes);
       setMaxListItem(maxListItem + numOfBoxes);
     }
   }
-
+  // Logic so the user can go backward in the pagination
   function goBackward() {
+    //If-statement let user go back if they are not on the first page
     if (minListItem - numOfBoxes >= 0) {
       setCurrentPage(currentPage - 1);
       setMinListItem(minListItem - numOfBoxes);

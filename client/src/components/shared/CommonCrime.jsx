@@ -1,14 +1,16 @@
 //Förse med ett listformat
-import { FaceSmileIcon } from "@heroicons/react/20/solid";
+
 import { useEffect, useState } from "react";
 
 export default function CommonCrime({ searchData }) {
   const [array, setArray] = useState([]);
-  const [searchMatch, setSearchMatch] = useState(false);
 
   useEffect(() => {
     const data = async () => {
       // console.log("Sends: ", searchData);
+      /*det vore nice att wrappa all api logik i en gemensam metod så du slipper sätta headers och method varje gång. 
+      Den kan ansvara för felhantering och sen reeturnera det färdiga json objektet*/
+      //? Gå igenom detta med Madde mer noggrant
       const response = await fetch("http://localhost:3000/api/common_crime", {
         method: "POST",
         headers: {
@@ -31,7 +33,7 @@ export default function CommonCrime({ searchData }) {
           <thead className="">
             <tr className="">
               <th className="text-left pl-1">Stad</th>
-              <th>Antal(st)</th>
+              <th>Antal (st)</th>
             </tr>
           </thead>
 

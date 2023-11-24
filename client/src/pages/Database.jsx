@@ -16,7 +16,7 @@ import parseIsoDate from "../functions/parseIsoDate.js";
 import months from "../data/dates";
 
 //# IMG
-import menuArrow from "../icons/arrow.png";
+
 import categorysIcon from "../icons/fCrime.png";
 import placeIcon from "../icons/fPlace.png";
 import timePeriodIcon from "../icons/ftimePeriod.png";
@@ -24,14 +24,12 @@ import trendsIcon from "../icons/fTrends.png";
 import realTimeIcon from "../icons/fRealTime.png";
 import commonIcon from "../icons/fSum_data.png";
 import mapIcon from "../icons/fGoogleMap.png";
-import ListBox from "../components/ListBox.jsx";
 import Latest500 from "../components/shared/Latest500.jsx";
 import Footer from "../components/footer.jsx";
 
 //# Database Component
 export default function Databas() {
   //* Handles menus
-  const [showMenu, setShowMenu] = useState(true);
   const [advSearch, setAdvSearch] = useState(false);
   const [categoryArray, setCategoryArray] = useState([]);
   const [cityArray, setCityArray] = useState([]);
@@ -70,6 +68,8 @@ export default function Databas() {
     getCities();
   }, [run]);
 
+  // behöver ej ligga i en egen useEffect
+  // Dela upp i funnktioner
   useEffect(() => {
     const setData = () => {
       return {
@@ -92,7 +92,7 @@ export default function Databas() {
   }
 
   function doSearch() {
-    run ? setRun(false) : setRun(true);
+    run ? setRun(false) : setRun(true); //lägg söklogiken här isdtället för att ha det i en useEffect
   }
 
   return (
@@ -107,13 +107,13 @@ export default function Databas() {
                 <SelectElement
                   options={categoryArray}
                   defaultValue={"Välj kategori"}
-                  onChange={setCategory}
+                  onChange={setCategory} //? köra setData() här?
                 />
               </div>
               <div>
                 <SelectElement
                   options={cityArray}
-                  onChange={setPlace}
+                  onChange={setPlace} //? köra setData() här?
                   defaultValue={"Sverige"}
                 />
               </div>
@@ -121,7 +121,7 @@ export default function Databas() {
                 {!advSearch && (
                   <SelectElement
                     options={months}
-                    onChange={setMonth}
+                    onChange={setMonth} //? köra setData() här?
                     defaultValue={"Välj månad"}
                   />
                 )}
@@ -129,11 +129,12 @@ export default function Databas() {
                 {advSearch && (
                   <div className="flex flex-col md:flex-row lg:flex-col gap-3">
                     <ReactDatePicker
-                      onChange={(date) =>
-                        setTimePeriod((prevTimePeriod) => ({
-                          ...prevTimePeriod,
-                          fromDate: date,
-                        }))
+                      onChange={
+                        (date) =>
+                          setTimePeriod((prevTimePeriod) => ({
+                            ...prevTimePeriod,
+                            fromDate: date,
+                          })) //? köra setData() här?
                       }
                     />
 

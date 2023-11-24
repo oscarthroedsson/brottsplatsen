@@ -22,6 +22,10 @@ import sumUp_Morning from "../Controllers/SumUpControllers/sumUp_Morning.js";
 import sumUp_AfterNoon from "../Controllers/SumUpControllers/sumUp_Afternoon.js";
 import sumUp_Evning from "../Controllers/SumUpControllers/sumUp_Evning.js";
 import sumUp_Weekend from "../Controllers/SumUpControllers/sumUp_Weekend.js";
+import sumUp_Week from "../Controllers/SumUpControllers/sumUp_Week.js";
+
+// alla apier borde prefixas med /api/ ->
+//? Varför? Är det bara good practice?
 
 //# get
 router.get("/api/Total_Num_Of_Crimes", totNumOfCrimes);
@@ -43,6 +47,7 @@ router.get("/sumUp/sumUp_Morning", sumUp_Morning);
 router.get("/sumUp/sumUp_Afternoon", sumUp_AfterNoon);
 router.get("/sumUp/sumUp_Evning", sumUp_Evning);
 router.get("/sumUp/sumUp_Weekend", sumUp_Weekend);
+router.get("/sumUp/sumUp_Week", sumUp_Week);
 
 //post Database controllers
 router.post("/api/get_trends", trendsController); //sending post cuse handle data is easier

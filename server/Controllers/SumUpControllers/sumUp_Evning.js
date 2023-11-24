@@ -8,7 +8,7 @@ async function sumUpEvning(req, res) {
   */
 
   const startDate = new Date();
-  startDate.setHours(19, 0, 0).toLocaleString("sv-SE");
+  startDate.setHours(17, 0, 0).toLocaleString("sv-SE");
   const endDate = new Date();
   endDate.setHours(24, 59, 0).toLocaleString("sv-SE");
   console.log("startDate: ", startDate);
@@ -44,7 +44,7 @@ async function sumUpEvning(req, res) {
     ])
     .toArray();
 
-  res.send(result);
+  res.json(result);
 }
 
 export default sumUpEvning;

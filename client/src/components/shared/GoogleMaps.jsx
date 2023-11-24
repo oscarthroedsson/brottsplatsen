@@ -2,13 +2,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
+//Handles the visual of the google map
 function GoogleMaps({ searchData }) {
-  const [objArray, setObjArray] = useState();
+  //Reciving the search criterias of that the user want to see
+  //State to handle all the crimes to be shown on the mapp
+  const [arrayOfCrimes, setArrayOfCrimes] = useState();
   const [map, setMap] = useState(null);
 
+  //Array to handle all the markers
   const markers = [];
 
   useEffect(() => {
+    //Get all the cord of the crimes that should be shown
     const getCordinates = async () => {
       const response = await fetch(
         "http://localhost:3000/api/cordinates_crime",
@@ -21,10 +26,10 @@ function GoogleMaps({ searchData }) {
         }
       );
       const result = await response.json();
-      await setObjArray(result);
+      await setArrayOfCrimes(result);
     };
     getCordinates();
-  }, []);
+  }, [searchData]);
 
   const containerStyle = {
     width: "100%",
@@ -34,27 +39,30 @@ function GoogleMaps({ searchData }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "ab6140a0414848a8",
-    googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ",
+    googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ", //!: api key bör inte ligga i koden, lägg i env variabler
   });
 
   const onLoad = React.useCallback(
     function callback(map) {
-      // Tar bort gamla markörer
+      // Erase old markers from previus search
       markers.forEach((marker) => marker.setMap(null));
       markers.length = 0;
 
-      // Justerar kartans vy för att inkludera alla markörer
+      // calculate the view of the map so all arkers are shown
+      //! fungerar så länge jag inte väljer plats
       const bounds = new window.google.maps.LatLngBounds();
-      objArray.forEach((location) => {
+      arrayOfCrimes.forEach((location) => {
         bounds.extend(
           new window.google.maps.LatLng(location.lat, location.lng)
         );
       });
       map.fitBounds(bounds);
 
-      // Skapar en markör för varje objekt i arrayen
-      let offset = 0.0001;
-      objArray.forEach((location, index) => {
+      let offset = 0.0001; /*putting markers a littlebit wrong so markers that are in the same 
+      place doesnt is directly over each other */
+
+      //Create and add markers for every crime
+      arrayOfCrimes.forEach((location, index) => {
         const marker = new window.google.maps.Marker({
           position: {
             lat: parseFloat(location.lat) + offset * index,
@@ -67,14 +75,17 @@ function GoogleMaps({ searchData }) {
 
       setMap(map);
     },
-    [objArray]
+
+    [arrayOfCrimes]
   );
 
   const onUnmount = React.useCallback(function callback(map) {
+    //Madde: du använder inte map, varför ta in den som en parameter?
+    // -> För annars fungerar det inte.
     setMap(null);
   }, []);
 
-  return isLoaded && objArray ? (
+  return isLoaded && arrayOfCrimes ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
       zoom={13}

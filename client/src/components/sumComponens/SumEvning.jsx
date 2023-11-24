@@ -8,13 +8,12 @@ Sum up noon from 06:00 to 12:00
 import { useEffect, useState } from "react";
 
 export default function SumEvning() {
-  const [docArray, setDocArray] = useState([]);
-
+  const [documents, setDocuments] = useState([]);
   useEffect(() => {
     const data = async () => {
-      const res = await fetch("http://localhost:3000/sumUp/sumUp_Afternoon");
+      const res = await fetch("http://localhost:3000/sumUp/sumUp_Evning");
       const data = await res.json();
-      setDocArray(data);
+      setDocuments(data);
     };
     data();
   }, []);
@@ -36,7 +35,7 @@ export default function SumEvning() {
         </thead>
 
         <tbody>
-          {docArray.map((item) => {
+          {documents.map((item) => {
             return (
               <>
                 <tr className="text-[0.8rem]">
