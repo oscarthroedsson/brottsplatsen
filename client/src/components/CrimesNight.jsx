@@ -98,13 +98,13 @@ export default function CrimesNight() {
               </dl>
             </div>
           </div>
-          <div className="mb-16 w-full lg:flex lg:flex-wrap xl:gap-16">
+          <div className="mb-16 w-full lg:flex md:flex-wrap xl:gap-16">
             {nightCrimes.doc.map((crime) => {
               return (
                 <article
                   key={crime.id}
-                  className="flex flex-col justify-between primBox min-h-[190px] w-full lg:w-[400px] xl:w-[350px]
-                  p-4"
+                  className="flex flex-col justify-between primBox min-h-[190px] w-full mb-5 md:w-[500px] xl:w-[350px]
+                  p-4 md:m-auto md:mb-10"
                 >
                   {/* Loop som går igenom alla händelser under natten */}
                   <div>

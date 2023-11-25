@@ -26,7 +26,7 @@ export default function SumWeek() {
         {/* //# SECTION 1 | ---------------------------------------- */}
 
         <caption className="caption-top sticky top-0 mb-2 text-[0.7rem] text-main-color bg-white py-3 pb-5">
-          Händelser Vecka
+          Händelser Vecka Mån 00:00 - Sön 23:59
         </caption>
         <thead className="sticky top-10 bg-white pb-3">
           <tr className="text-[0.9rem]">

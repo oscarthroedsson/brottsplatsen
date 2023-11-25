@@ -19,16 +19,16 @@ export default function SelectElement({ options, onChange, defaultValue }) {
     >
       {({ open }) => (
         <>
-          <div className="relative ">
+          <div className="relative">
             <Listbox.Button
-              className={`relativ w-80 lg:w-64 cursor-default rounded-md bg-light-bg py-2.5 pl-5 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:size2-p sm:leading-6`}
+              className={`relativ w-80 sm:w-72 lg:w-64 cursor-default rounded-md bg-light-bg py-2.5 pl-5 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:size2-p sm:leading-6`}
             >
               <span className="flex items-center">
                 <span className="ml-3 block truncate text-font-color">
                   {selected}
                 </span>
               </span>
-              <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+              <span className="pointer-events-none absolute inset-y-0 left-[17.5rem] sm:left-[15rem] lg:left-[13rem] ml-3 flex items-center pr-2">
                 <ChevronUpDownIcon
                   className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
@@ -43,7 +43,7 @@ export default function SelectElement({ options, onChange, defaultValue }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 w-80 sm:w-72 max-h-56 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {options.map((item) => (
                   <Listbox.Option
                     key={item}

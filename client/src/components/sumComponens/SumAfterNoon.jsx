@@ -25,7 +25,7 @@ export default function SumAfterNoon() {
         {/* //# SECTION 1 | ---------------------------------------- */}
 
         <caption className="caption-top sticky top-0 mb-2 text-[0.7rem] text-main-color bg-white py-3 pb-5">
-          Händelser Eftermiddag
+          Händelser Eftermiddag 12:00 - 16:00
         </caption>
         <thead className="sticky top-10 bg-white pb-3">
           <tr className="text-[0.9rem]">
