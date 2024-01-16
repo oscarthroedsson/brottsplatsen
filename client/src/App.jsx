@@ -11,7 +11,7 @@ import NewsDebate from "./components/NewsDebate";
 import UspSection from "./components/UspSection";
 import NewsPress from "./components/NewsPress";
 import Footer from "./components/footer";
-import SumAllSumComp from "./components/sumComponens/SumAllSumComp";
+import SumUpTable from "./components/sumComponens/SumUpTable";
 
 let timeStamp = new Date();
 let hour = timeStamp.getHours();
@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <Nav></Nav>
+      <Nav />
       <div className="bg-[#FAFAFA]">
         <header className="headerBg w-full py-20 xl:py-32 h-[580px] xl:h-[600px]">
           <div className="elementLayout1 text-center">
@@ -71,7 +71,28 @@ function App() {
         </header>
 
         <main className="xs:mt-50 sm:mt-50 md:mt-30 lg:mt-25 xl:mt-25 mx-auto py-24 xs:py-32">
-          <SumAllSumComp />
+          <section className="flex flex-wrap justify-center w-full gap-10  my-10 p-8 lg:px-20 lg:py-10 ">
+            <SumUpTable
+              timeOfDay="06:00 - 12:00"
+              apiCall="sumUp_Morning"
+              noDataMsg=""
+            />
+            <SumUpTable
+              timeOfDay="12:00 - 16:00"
+              apiCall="sumUp_Afternoon"
+              noDataMsg=""
+            />
+            <SumUpTable
+              timeOfDay="16:00 - 23:59"
+              apiCall="sumUp_Evning"
+              noDataMsg=""
+            />
+            <SumUpTable
+              timeOfDay="under nuvarande vecka"
+              apiCall="sumUp_Week"
+              noDataMsg=""
+            />
+          </section>
 
           {renderNightCrimes && <CrimesNight />}
 
