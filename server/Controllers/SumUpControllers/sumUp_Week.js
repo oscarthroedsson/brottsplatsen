@@ -18,9 +18,6 @@ async function sumUpWeek(req, res) {
   endDate.setDate(now.getDate() - now.getDay() + 8); // Closest Sunday
   endDate.setHours(23, 59, 59); // Sunday kl 23:59
 
-  console.log("startDate: ", startDate);
-  console.log("endDate: ", endDate);
-
   const result = await wholeColl
     .aggregate([
       {

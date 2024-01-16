@@ -11,8 +11,6 @@ async function sumUpEvning(req, res) {
   startDate.setHours(17, 0, 0).toLocaleString("sv-SE");
   const endDate = new Date();
   endDate.setHours(24, 59, 0).toLocaleString("sv-SE");
-  console.log("startDate: ", startDate);
-  console.log("endDate: ", endDate);
 
   const result = await wholeColl
     .aggregate([
@@ -44,7 +42,9 @@ async function sumUpEvning(req, res) {
     ])
     .toArray();
 
-  res.json(result);
+  console.log("result: ", result);
+
+  res.send(result);
 }
 
 export default sumUpEvning;

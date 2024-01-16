@@ -78,14 +78,14 @@ function App() {
               noDataMsg=""
             />
             <SumUpTable
-              timeOfDay="12:00 - 16:00"
+              timeOfDay="12:00 - 17:00"
               apiCall="sumUp_Afternoon"
               noDataMsg=""
             />
             <SumUpTable
-              timeOfDay="16:00 - 23:59"
+              timeOfDay="17:00 - 23:59"
               apiCall="sumUp_Evning"
-              noDataMsg=""
+              noDataMsg="Klockan är inte 16:00 riktigt än"
             />
             <SumUpTable
               timeOfDay="under nuvarande vecka"
