@@ -66,6 +66,7 @@ export default function CrimesNight() {
                   natt mellan 23:00 igår till 06:00 i morse.
                 </p>
               </div>
+
               <div className="xs:hidden xl:flex items-center justify-center absolute left-[55rem] h-40 w-96">
                 <img src={nightImg} alt="" />
               </div>

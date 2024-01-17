@@ -13,87 +13,56 @@ import police from "../images/police.png";
 
 export default function ListCategorys() {
   //Nya state för pagination
-  const [choosedCategory, setCategory] = useState("");
-  const [sortedCrimes, setSortedCrimes] = useState([]);
+
   const [categoryList, setCategoryList] = useState([]);
+
+  const [crimeArray, setCrimeArray] = useState(0);
+  const [numOfPages, setNumOfPages] = useState(0);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [minListItem, setMinListItem] = useState(0);
   const [maxListItem, setMaxListItem] = useState(3);
-  const [numOfPages, setNumOfPages] = useState(0);
+
   const maxPages = 3; //Controlls the visuall for the user to see how many pages there is to see of the crimes
   const numOfBoxes = 3; // Controlls how many crime boxes is shown on every pagination page.
 
-  //Det fungerar med följande state
+  //Get every type of crime that is in the DB
 
-  //* Sort and updates everytime a category is choosed
   useEffect(() => {
-    //Get every type of crime that is in the DB
     const categorys = async () => {
       const result = await fetch("http://localhost:3000/api/categorys");
       const data = await result.json();
-
-      // Make a list of categorys that is in the select on landing-page so the user can choose a category
-      // This is fetched on render so we can show categorys/types in the select that the user can choose from
-      const arraySorted = data.map((crime) => {
-        return crime._id;
+      const categorys = data.map((category) => {
+        return category._id;
       });
-
-      setCategoryList(arraySorted);
+      setCategoryList(categorys);
     };
-
     categorys();
   }, []);
 
-  //Madde frågar -> varför behöver du göra två olika api-anrop? Borde det vara två olika komponenter?
-  //? | Fråga madde om det är ett okej upplägg när de har två olika syften!?
-  useEffect(() => {
-    const crimes = async () => {
-      const result = await fetch(
-        // Get every crime that has the same type as the category choosen
-        `http://localhost:3000/api/crime_by_category?category=${choosedCategory}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await result.json();
-
-      setSortedCrimes(data);
-      // setPaginationRules(); //! Ska ersätta useEffecten som är kommenterad
-    };
-
-    crimes();
-    // Gets triggers when user have choosen a category of the crimes they want to see
-  }, [choosedCategory]);
-
-  //Runs when sortedCrimes is updated and sets the number of pages for pagination
-
-  // function setPaginationRules() {
-  //   setNumOfPages(sortedCrimes.length / maxPages);
-  //   if (numOfPages < 1) {
-  //     setNumOfPages(1);
-  //   }
-  // }
-
-  //Madde: behöver ej göras i useEffect
-  /* //
-  !| Funktionen ovan ska ersätta useEffect, men då visar det att det enbart finns 1 sida när anv väljer brand, det ska 
-  !| vara 68
-  */
-  useEffect(() => {
-    setNumOfPages(sortedCrimes.length / maxPages);
-  }, [sortedCrimes]);
-
-  if (numOfPages < 1) {
-    setNumOfPages(1);
-  }
+  const crimes = async (categoryChoice) => {
+    const result = await fetch(
+      // Get every crime that has the same type as the category choosen
+      `http://localhost:3000/api/crime_by_category?category=${categoryChoice}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await result.json();
+    await setNumOfPages(data / maxPages);
+    await setCrimeArray(data);
+    if (numOfPages == 0) {
+      setNumOfPages(1);
+    }
+  };
 
   // Logic so the user can go forward in the pagination
   function goForward() {
     //If-statement let user go forward if they are not on the last page
-    if (maxListItem + numOfBoxes <= sortedCrimes.length) {
+    if (maxListItem + numOfBoxes <= crimeArray.length) {
       setCurrentPage(currentPage + 1);
       setMinListItem(minListItem + numOfBoxes);
       setMaxListItem(maxListItem + numOfBoxes);
@@ -130,10 +99,11 @@ export default function ListCategorys() {
               <img src={police} alt="" />
             </div>
           </div>
+
           {categoryList.length > 1 ? (
             <SelectElement
               options={categoryList}
-              onChange={setCategory}
+              onChange={crimes}
               defaultValue="Välj kategori"
             />
           ) : (
@@ -142,8 +112,8 @@ export default function ListCategorys() {
 
           <div className="centerElements flex-wrap mt-16">
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
-              {sortedCrimes.length >= 1
-                ? sortedCrimes.slice(minListItem, maxListItem).map((crime) => {
+              {crimeArray
+                ? crimeArray.slice(minListItem, maxListItem).map((crime) => {
                     return (
                       <>
                         <li
@@ -155,29 +125,31 @@ export default function ListCategorys() {
                       </>
                     );
                   })
-                : null}
+                : ""}
             </ul>
-            <div
-              className={`flex mt-10 align-center p-2 ${
-                choosedCategory === "" ? "hidden" : ""
-              }`}
-            >
-              <button
-                onClick={goBackward}
-                className={`${currentPage - 1 === numOfPages ? "hidden" : ""}`}
-              >
-                <img src={backwardIcon} alt="" className={`w-5 hover:w-6`} />
-              </button>
-              <p className="mx-5">
-                {currentPage}/{Math.floor(numOfPages)}
-              </p>
-              <button
-                onClick={goForward}
-                className={`${currentPage - 1 === numOfPages ? "hidden" : ""}`}
-              >
-                <img src={forwardIcon} alt="" className={`w-5 hover:w-6`} />
-              </button>
-            </div>
+            {crimeArray && (
+              <div className={`flex mt-10 align-center p-2`}>
+                <button
+                  onClick={goBackward}
+                  className={`${
+                    currentPage - 1 === numOfPages ? "hidden" : ""
+                  }`}
+                >
+                  <img src={backwardIcon} alt="" className={`w-5 hover:w-6`} />
+                </button>
+                <p className="mx-5">
+                  {currentPage}/{Math.floor(crimeArray.length / maxPages)}
+                </p>
+                <button
+                  onClick={goForward}
+                  className={`${
+                    currentPage - 1 === numOfPages ? "hidden" : ""
+                  }`}
+                >
+                  <img src={forwardIcon} alt="" className={`w-5 hover:w-6`} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>

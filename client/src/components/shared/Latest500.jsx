@@ -47,7 +47,6 @@ function Latest500({ searchData }) {
 
         return 0; //No changes if date and time are the same
       });
-
     setSortedCrimes(sorted);
 
     //create a specific list for every crime in specific place

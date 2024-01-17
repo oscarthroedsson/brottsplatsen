@@ -8,7 +8,6 @@ async function cordinatesCrime(req, res) {
 
   //# Create a dynamic matchiquery depending of the data we get in!
   let query = searchQuery(obj);
-  console.log("query", query);
 
   try {
     const result = await wholeColl
@@ -46,7 +45,7 @@ async function cordinatesCrime(req, res) {
         { $sort: { count: -1 } },
       ])
       .toArray();
-    console.log("CoordinatesController Result: ", result);
+
     res.json(result);
   } catch (err) {
     console.log("cordinatesCrime | ERROR: ", err);

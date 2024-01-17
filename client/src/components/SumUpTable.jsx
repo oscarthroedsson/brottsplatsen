@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
+const apikey = import.meta.env.VITE_API_AUTH;
 
 export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
   const [docArray, setDocArray] = useState([]);
 
   useEffect(() => {
+    let ignore = false;
     const data = async () => {
-      const res = await fetch(`http://localhost:3000/sumUp/${apiCall}`);
+      const res = await fetch(
+        `http://localhost:3000/sumUp/${apiCall}?auth=${apikey}`
+      );
       const data = await res.json();
       setDocArray(data);
     };
     data();
+
+    //clean up function
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   if (noDataMsg && docArray.length < 1) {

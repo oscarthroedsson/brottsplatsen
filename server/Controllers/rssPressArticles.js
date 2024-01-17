@@ -13,10 +13,6 @@ async function rssPressArticles(req, res) {
 
     //tranform xml2js string to a clean array.
     let debateArticalsArray = await parseXml2jsFormatToNormalArray(data);
-    debateArticalsArray.forEach((e) => {
-      console.log(e);
-    });
-
     await res.send(debateArticalsArray);
     // await res.send(debateArticalsArray);
   } catch (error) {

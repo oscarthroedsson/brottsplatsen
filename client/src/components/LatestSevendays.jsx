@@ -19,59 +19,56 @@ export default function WeekData() {
     const data = async () => {
       const response = await fetch("http://localhost:3000/api/whole_list");
       const data = await response.json();
-      setWeek(data);
+      await setWeek(data);
+      countPerDay();
     };
     data();
   }, []);
 
-  //Madde: behövs nog inte heller göras i en useEffect
-  //! Tar jag bort useEffecten så renderar den non-stop
-  useEffect(() => {
-    //SORTERA UT DE SENASTE 7 DAGARNA
-    function countPerDay() {
-      const today = new Date();
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
+  //SORTERA UT DE SENASTE 7 DAGARNA
+  function countPerDay() {
+    const today = new Date();
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
 
-      const crimeThisWeek = week.filter((crime) => {
-        const crimeDate = new Date(crime.datetime);
-        return (
-          crimeDate.setHours(0, 0, 0, 0) >= oneWeekAgo.setHours(0, 0, 0, 0) &&
-          crimeDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0)
-        );
-      });
+    const crimeThisWeek = week.filter((crime) => {
+      const crimeDate = new Date(crime.datetime);
+      return (
+        crimeDate.setHours(0, 0, 0, 0) >= oneWeekAgo.setHours(0, 0, 0, 0) &&
+        crimeDate.setHours(0, 0, 0, 0) <= today.setHours(0, 0, 0, 0)
+      );
+    });
 
-      const crimesPerDay = crimeThisWeek.reduce((acc, crime) => {
-        const crimeDay = new Date(crime.datetime).toDateString();
-        if (!acc[crimeDay]) {
-          acc[crimeDay] = 1;
-        } else {
-          acc[crimeDay]++;
-        }
-        return acc;
-      }, {});
+    const crimesPerDay = crimeThisWeek.reduce((acc, crime) => {
+      const crimeDay = new Date(crime.datetime).toDateString();
+      if (!acc[crimeDay]) {
+        acc[crimeDay] = 1;
+      } else {
+        acc[crimeDay]++;
+      }
+      return acc;
+    }, {});
 
-      const result = Object.keys(crimesPerDay).map((dayString) => {
-        const date = new Date(dayString);
-        const day = date.getDate(); // Få dagen som ett nummer
-        const month = date.getMonth() + 1; // Få månaden som ett nummer (lägg till 1 eftersom getMonth() är nollbaserad)
-        const formattedDay = `${day}/${month}`; // Skapa en sträng i formatet 'dag/månad'
+    const result = Object.keys(crimesPerDay).map((dayString) => {
+      const date = new Date(dayString);
+      const day = date.getDate(); // Få dagen som ett nummer
+      const month = date.getMonth() + 1; // Få månaden som ett nummer (lägg till 1 eftersom getMonth() är nollbaserad)
+      const formattedDay = `${day}/${month}`; // Skapa en sträng i formatet 'dag/månad'
 
-        return {
-          name: formattedDay,
-          antal: crimesPerDay[dayString],
-          sortDate: date,
-        };
-      });
-      let sortedArray = result.sort((a, b) => a.sortDate - b.sortDate);
+      return {
+        name: formattedDay,
+        antal: crimesPerDay[dayString],
+        sortDate: date,
+      };
+    });
 
-      // Ta bort sortDate-egenskapen om den inte behövs längre
-      sortedArray = result.map(({ name, antal }) => ({ name, antal }));
+    let sortedArray = result.sort((a, b) => a.sortDate - b.sortDate);
+    sortedArray = result.map(({ name, antal }) => ({ name, antal }));
 
-      setCounted(sortedArray);
-    }
-    countPerDay();
-  }, [week]);
+    setCounted(sortedArray);
+  }
+
+  // }, [week]);
 
   return (
     <div className="flex flex-col justify-center items-center">

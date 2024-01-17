@@ -42,8 +42,6 @@ async function sumUpEvning(req, res) {
     ])
     .toArray();
 
-  console.log("result: ", result);
-
   res.send(result);
 }
 

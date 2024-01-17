@@ -13,7 +13,6 @@ export default function CommonCrime() {
 
       if (response.ok) {
         const data = await response.json();
-
         setCommonCrimeThisMonth(data[0]);
       } else {
         console.log("Server returned an error:", response.status);

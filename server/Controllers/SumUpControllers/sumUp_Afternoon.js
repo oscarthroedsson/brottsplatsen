@@ -11,8 +11,6 @@ async function sumUpAfterNoon(req, res) {
   startDate.setHours(13, 0, 0).toLocaleString("sv-SE");
   const endDate = new Date();
   endDate.setHours(17, 59, 0).toLocaleString("sv-SE");
-  console.log("startDate: ", startDate);
-  console.log("endDate: ", endDate);
 
   const result = await wholeColl
     .aggregate([

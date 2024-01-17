@@ -4,14 +4,13 @@ import Nav from "./components/nav";
 import ListBox from "./components/ListBox";
 import CommonCrimeBox from "./components/CommonCrimeBox";
 import WeekData from "./components/LatestSevendays";
-
 import CrimesNight from "./components/CrimesNight";
 import ListCategorys from "./components/CrimeCategorys";
 import NewsDebate from "./components/NewsDebate";
 import UspSection from "./components/UspSection";
 import NewsPress from "./components/NewsPress";
 import Footer from "./components/footer";
-import SumUpTable from "./components/sumComponens/SumUpTable";
+import SumUpTable from "./components/SumUpTable";
 
 let timeStamp = new Date();
 let hour = timeStamp.getHours();
@@ -19,7 +18,7 @@ let renderNightCrimes = hour > 6 && hour < 12;
 
 function App() {
   const [numOfCrimes, setNumOfCrimes] = useState(0);
-
+  console.log("hej");
   useEffect(() => {
     let ignore = false;
     const fetchData = async () => {
@@ -33,7 +32,6 @@ function App() {
         console.error("useEffect app.js got error: ", err);
       }
     };
-
     fetchData();
 
     //clean up function

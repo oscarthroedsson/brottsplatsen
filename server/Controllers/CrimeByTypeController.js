@@ -20,7 +20,6 @@ async function categorysController(req, res) {
       },
     ])
     .toArray();
-  console.log("CrimeByType: ", result);
 
   res.json(result);
 }

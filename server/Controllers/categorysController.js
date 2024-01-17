@@ -1,9 +1,6 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 async function categorysController(req, res) {
-  console.log("--------------------");
-  console.log("categorysController was run");
-
   const result = await wholeColl
     .aggregate([
       {

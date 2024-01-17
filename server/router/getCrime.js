@@ -23,7 +23,6 @@ import sumUp_AfterNoon from "../Controllers/SumUpControllers/sumUp_Afternoon.js"
 // import sumUp_Evning from "../Controllers/SumUpControllers/sumUp_Evning.js";
 
 import sumUp_Evning from "../Controllers/SumUpControllers/sumUp_Evning.js";
-
 import sumUp_Weekend from "../Controllers/SumUpControllers/sumUp_Weekend.js";
 import sumUp_Week from "../Controllers/SumUpControllers/sumUp_Week.js";
 
@@ -51,6 +50,10 @@ router.get("/rss/debate_articles", readRSSFeed); //get debate articles from poli
 router.get("/rss/press_articles", rssPressArticles); //get pressmeddelanden from police
 
 router.get("/sumUp/:function", (req, res) => {
+  console.log("env NYCKEL: ", process.env.API_AUTH);
+
+  console.log("Auth:", req.query.auth);
+
   const functionMap = {
     sumUp_Morning: sumUp_Morning,
     sumUp_Afternoon: sumUp_AfterNoon,
@@ -60,7 +63,6 @@ router.get("/sumUp/:function", (req, res) => {
   };
 
   const funcName = req.params.function;
-
   if (functionMap.hasOwnProperty(funcName)) {
     console.log("den har funktionen som skickas in");
     functionMap[funcName](req, res); // Kör funktionen

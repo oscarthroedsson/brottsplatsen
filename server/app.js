@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 import express from "express";
 import connectToDatabase from "./config/connectToDb.js";
 import "./Controllers/reciveApiData.js";
 import indexRouter from "./router/getCrime.js";
-import cors from "cors";
 
 // Aktivera CORS för alla rutter (inte rekommenderat för produktion)
 

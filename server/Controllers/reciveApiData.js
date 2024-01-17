@@ -46,7 +46,6 @@ async function reciveApiData() {
       });
     }
   } catch (e) {
-    //? | Skicka mail om att det inte fungerar?
     console.log("ERROR API: ", e);
   }
   //set 30min timer after the code has run- the code is re-run after 30min

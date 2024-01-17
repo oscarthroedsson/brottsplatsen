@@ -2,7 +2,6 @@ import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 
 async function rssDebateArticles(req, res) {
-  console.log("rssDebateArticles was CALLED");
   const url =
     "https://polisen.se/aktuellt/rss/hela-landet/debatt-och-kommentarer/";
 

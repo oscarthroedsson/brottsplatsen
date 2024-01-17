@@ -39,7 +39,6 @@ async function getPastMonth(req, res) {
       },
     ])
     .toArray();
-  console.log("result: ", result);
 
   res.json(result);
 }
