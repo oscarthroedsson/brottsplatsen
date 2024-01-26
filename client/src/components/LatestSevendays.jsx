@@ -8,21 +8,27 @@ import {
   LabelList,
 } from "recharts";
 import "../main.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function WeekData() {
   const [week, setWeek] = useState([]);
-  const [counted, setCounted] = useState([]);
 
   useEffect(() => {
-    const data = async () => {
+    const getWeekData = async () => {
       const response = await fetch("http://localhost:3000/api/whole_list");
       const data = await response.json();
       await setWeek(data);
-      countPerDay();
     };
-    data();
+    try {
+      getWeekData();
+    } catch (err) {
+      console.log("Error in CommonCrime", err);
+    }
   }, []);
+
+  const counted = useMemo(() => {
+    return countPerDay();
+  }, [week]);
 
   //SORTERA UT DE SENASTE 7 DAGARNA
   function countPerDay() {
@@ -64,7 +70,7 @@ export default function WeekData() {
     let sortedArray = result.sort((a, b) => a.sortDate - b.sortDate);
     sortedArray = result.map(({ name, antal }) => ({ name, antal }));
 
-    setCounted(sortedArray);
+    return sortedArray;
   }
 
   return (

@@ -15,12 +15,8 @@ function Latest500({ searchData }) {
       const result = await response.json();
       setLatestCrime(result);
     };
-    try {
-      data();
-    } catch (err) {
-      console.log(`Error in Latest500: ${err}`);
-    }
-  }, []);
+    data();
+  });
 
   //# Sort the crimes by category
   //Madde: detta behöver inte ligga i en useEffect, kan ligga som en vanlig funktion alternativt att du bryter ut själva sorteringen till en egen funktion som du sen anropar i samma useEffet där du hämtar datan. Onödigt att ha latestCrimes som egen state, du kan spara bara den sorterade ist

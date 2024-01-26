@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import arrow from "../icons/vArrow_Right.png";
 
 export default function ListBox() {
   const [latestCrimes, setLatestCrimes] = useState([]);
@@ -10,12 +9,7 @@ export default function ListBox() {
       const data = await response.json();
       setLatestCrimes(data);
     };
-
-    try {
-      list();
-    } catch (err) {
-      console.log("ListBox error: ", err);
-    }
+    list();
   }, []);
 
   return (
@@ -32,17 +26,11 @@ export default function ListBox() {
               <tr key={crime._id} className="listP">
                 <td>{crime.type}</td>
                 <td>{crime.location.name}</td>
-                {/* <td className="text-right">
-                  <img src={arrow} alt="" className="w-3" />
-                </td> */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {/* <a href="#" className="listP highlight">
-        se de senaste 500 rapporterna
-      </a> */}
     </div>
   );
 }

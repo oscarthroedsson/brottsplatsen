@@ -23,7 +23,6 @@ function Text({ searchData }) {
     return data;
   }
   //initiate the fetch funciton/arrow function
-  let data = get();
 
   //--------------------------------------------------------------------------------
 
