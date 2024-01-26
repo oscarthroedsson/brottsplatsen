@@ -1,5 +1,5 @@
 /*Visar en lista av alla händelser och låter besökaren se alla brott korrelerade till händelsen*/
-import { Link } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 
 import crimeIcon from "../icons/vCrime.png";
@@ -116,18 +116,20 @@ export default function ListCategorys() {
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
               {/* If crime array has items it going to show pagination of the crimes */}
               {crimeArray
-                ? crimeArray.slice(minListItem, maxListItem).map((crime) => {
-                    return (
-                      <>
-                        <li
-                          className="w-full lg:w-[400px] xl:w-[350px]"
-                          key={crime._id}
-                        >
-                          <CrimeBox crime={crime} />
-                        </li>
-                      </>
-                    );
-                  })
+                ? crimeArray
+                    .slice(minListItem, maxListItem)
+                    .map((crime, index) => {
+                      return (
+                        <>
+                          <li
+                            className="w-full lg:w-[400px] xl:w-[350px]"
+                            key={crime._id}
+                          >
+                            <CrimeBox key={index} crime={crime} />
+                          </li>
+                        </>
+                      );
+                    })
                 : ""}
             </ul>
             {/* Arrows that controll the pagination */}
@@ -163,42 +165,40 @@ export default function ListCategorys() {
 
 function CrimeBox({ crime }) {
   return (
-    <Link to={`/brott/${crime.type}/${crime.location.name}/${crime._id}`}>
-      <div className="primBox spreadStart flex-col mb-3 p-5 h-[160px]">
-        <header className="mb-5 px-5 flex align-center justify-center relative">
-          <img
-            src={crimeIcon}
-            alt="icon of handcuffs"
-            className="w-5 absolute left-[-0.3rem] top-[0.1rem]"
-          />
-          <hgroup className="overflow-scroll">
-            <h2 className="text-size1-p font-semi-p">{crime.type}</h2>
-            <p className="text-size0-p">{crime.summary}</p>
-          </hgroup>
-        </header>
-        <footer className="overflow-auto justify-between w-full">
-          <ul className="spreadStart text-sm">
-            <li className="centerElements gap-2">
-              <img src={clock} alt="" className="w-4" />
-              {new Date(crime.datetime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </li>
-            <li className="centerElements gap-2">
-              <img src={calander} alt="" className="w-4" />{" "}
-              {new Date(crime.datetime).toLocaleDateString("sv-SE", {
-                year: "2-digit",
-                month: "2-digit",
-              })}
-            </li>
-            <li className="centerElements gap-2 w-fit">
-              <img src={destination} alt="" className="w-3" />
-              {crime.location.name}
-            </li>
-          </ul>
-        </footer>
-      </div>
-    </Link>
+    <div className="primBox spreadStart flex-col mb-3 p-5 h-[160px]">
+      <header className="mb-5 px-5 flex align-center justify-center relative">
+        <img
+          src={crimeIcon}
+          alt="icon of handcuffs"
+          className="w-5 absolute left-[-0.3rem] top-[0.1rem]"
+        />
+        <hgroup className="overflow-scroll">
+          <h2 className="text-size1-p font-semi-p">{crime.type}</h2>
+          <p className="text-size0-p">{crime.summary}</p>
+        </hgroup>
+      </header>
+      <footer className="overflow-auto justify-between w-full">
+        <ul className="spreadStart text-sm">
+          <li className="centerElements gap-2">
+            <img src={clock} alt="" className="w-4" />
+            {new Date(crime.datetime).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </li>
+          <li className="centerElements gap-2">
+            <img src={calander} alt="" className="w-4" />{" "}
+            {new Date(crime.datetime).toLocaleDateString("sv-SE", {
+              year: "2-digit",
+              month: "2-digit",
+            })}
+          </li>
+          <li className="centerElements gap-2 w-fit">
+            <img src={destination} alt="" className="w-3" />
+            {crime.location.name}
+          </li>
+        </ul>
+      </footer>
+    </div>
   );
 }

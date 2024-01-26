@@ -2,7 +2,6 @@ import {
   BarChart,
   Bar,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
@@ -67,8 +66,6 @@ export default function WeekData() {
 
     setCounted(sortedArray);
   }
-
-  // }, [week]);
 
   return (
     <div className="flex flex-col justify-center items-center">

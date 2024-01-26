@@ -8,6 +8,7 @@ function GoogleMaps({ searchData }) {
   //State to handle all the crimes to be shown on the mapp
   const [arrayOfCrimes, setArrayOfCrimes] = useState();
   const [map, setMap] = useState(null);
+  const apiKeyGoogleMaps = import.meta.env.VITE_GOOGLE_MAP_KEY;
 
   //Array to handle all the markers
   const markers = [];
@@ -39,7 +40,7 @@ function GoogleMaps({ searchData }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "ab6140a0414848a8",
-    googleMapsApiKey: "AIzaSyBusRS-9Qru8pYjzF_AroJ88h4dWDeoFoQ", //!: api key bör inte ligga i koden, lägg i env variabler
+    googleMapsApiKey: apiKeyGoogleMaps,
   });
 
   const onLoad = React.useCallback(
