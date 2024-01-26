@@ -1,7 +1,11 @@
 {
+  "name": "client",
+  "private": true,
+  "version": "0.0.1",
   "scripts": {
     "both": "concurrently -n \"client,server\" -p \"{name} |\" \"cd client && npm run dev\" \"cd server && nodemon app.js\"",
-    "test": "node server/${npm_config_file}"
+    "test": "node server/${npm_config_file}",
+    "start": "cd server && node app.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.1",

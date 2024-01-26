@@ -1,11 +1,12 @@
 {
-  "name": "brottsplatsen.se",
+  "name": "client",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "start-client": "react-scripts start",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && (cd ../server && npm insntall)",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
