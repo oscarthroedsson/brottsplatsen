@@ -18,12 +18,14 @@ export default function CommonCrime() {
         console.log("Server returned an error:", response.status);
       }
     };
+
     try {
       crimes();
     } catch (err) {
       console.log("Error in CommonCrime", err);
     }
   }, []);
+
   //Getting the current month in text-format from dates.js
   const month = dates[new Date().getMonth()];
 

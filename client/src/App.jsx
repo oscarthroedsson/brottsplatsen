@@ -18,16 +18,19 @@ let renderNightCrimes = hour > 6 && hour < 12;
 
 function App() {
   const [numOfCrimes, setNumOfCrimes] = useState(0);
-  console.log("hej");
+
   useEffect(() => {
     let ignore = false;
+
     const fetchData = async () => {
       try {
         const res = await fetch(
           "http://localhost:3000/api/Total_Num_Of_Crimes"
         );
         const data = await res.json();
-        setNumOfCrimes(data);
+        if (!ignore) {
+          setNumOfCrimes(data);
+        }
       } catch (err) {
         console.error("useEffect app.js got error: ", err);
       }

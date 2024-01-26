@@ -21,7 +21,7 @@ export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
     };
   }, []);
 
-  if (noDataMsg && docArray.length < 1) {
+  if (docArray.length < 1) {
     return;
   }
 

@@ -16,7 +16,7 @@ export default function ListCategorys() {
 
   const [categoryList, setCategoryList] = useState([]);
 
-  const [crimeArray, setCrimeArray] = useState(0);
+  const [crimeArray, setCrimeArray] = useState([]);
   const [numOfPages, setNumOfPages] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,8 +38,9 @@ export default function ListCategorys() {
       setCategoryList(categorys);
     };
     categorys();
-  }, []);
+  }, []); // Getting the categorys i have in the DB so user can choose
 
+  // When cateogory is choosen, we run this and fetch all relevant crimes.
   const crimes = async (categoryChoice) => {
     const result = await fetch(
       // Get every crime that has the same type as the category choosen
@@ -51,12 +52,13 @@ export default function ListCategorys() {
         },
       }
     );
+
     const data = await result.json();
-    await setNumOfPages(data / maxPages);
+    console.log("data: ", data.length);
+    console.log("maxPages: ", maxPages);
+    await setNumOfPages(data.length / maxPages); // We find out how many  pages we  are going to have in our pagination.
     await setCrimeArray(data);
-    if (numOfPages == 0) {
-      setNumOfPages(1);
-    }
+    console.log("numOfPages: ", numOfPages); //
   };
 
   // Logic so the user can go forward in the pagination
@@ -112,6 +114,7 @@ export default function ListCategorys() {
 
           <div className="centerElements flex-wrap mt-16">
             <ul className="flex flex-wrap spreadCenter lg:gap-3 w-full">
+              {/* If crime array has items it going to show pagination of the crimes */}
               {crimeArray
                 ? crimeArray.slice(minListItem, maxListItem).map((crime) => {
                     return (
@@ -127,29 +130,30 @@ export default function ListCategorys() {
                   })
                 : ""}
             </ul>
-            {crimeArray && (
+            {/* Arrows that controll the pagination */}
+            {crimeArray.length > 0 ? (
               <div className={`flex mt-10 align-center p-2`}>
                 <button
                   onClick={goBackward}
-                  className={`${
-                    currentPage - 1 === numOfPages ? "hidden" : ""
-                  }`}
+                  className={`${currentPage === 1 ? "hidden" : ""}`}
                 >
                   <img src={backwardIcon} alt="" className={`w-5 hover:w-6`} />
                 </button>
+
                 <p className="mx-5">
                   {currentPage}/{Math.floor(crimeArray.length / maxPages)}
                 </p>
+
                 <button
                   onClick={goForward}
                   className={`${
-                    currentPage - 1 === numOfPages ? "hidden" : ""
+                    currentPage === Math.floor(numOfPages) ? "hidden" : ""
                   }`}
                 >
                   <img src={forwardIcon} alt="" className={`w-5 hover:w-6`} />
                 </button>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
