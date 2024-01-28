@@ -18,6 +18,7 @@ let renderNightCrimes = hour > 6 && hour < 12;
 
 function App() {
   const [numOfCrimes, setNumOfCrimes] = useState(0);
+  const authCode = import.meta.env.VITE_API_AUTH;
 
   useEffect(() => {
     let ignore = false;
@@ -25,8 +26,14 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/Total_Num_Of_Crimes"
+          "http://localhost:3000/api/Total_Num_Of_Crimes",
+          {
+            headers: {
+              "x-api-key": authCode,
+            },
+          }
         );
+
         const data = await res.json();
         if (!ignore) {
           setNumOfCrimes(data);
@@ -78,9 +85,10 @@ function App() {
               apiCall="sumUp_Morning"
               noDataMsg=""
             />
+
             <SumUpTable
               timeOfDay="12:00 - 17:00"
-              apiCall="sumUp_Afternoon"
+              apiCall="sumUp_AfterNoon"
               noDataMsg=""
             />
             <SumUpTable

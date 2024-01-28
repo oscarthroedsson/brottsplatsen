@@ -22,7 +22,6 @@ async function rssPressArticles(req, res) {
 }
 rssPressArticles();
 
-//TODO | Skapa en egen fil för denna funktionen -> Finns även i rssDebateArticles.js
 async function parseXml2jsFormatToNormalArray(data) {
   let cleanArray = [];
   try {

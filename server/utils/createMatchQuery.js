@@ -1,7 +1,6 @@
 // # | Takes in a object and returns a varible to make a dynamic search query in mongoDB
 
 function createMatchQuery(obj) {
-  console.log("createMatchQuery was run");
   const matchQuery = {};
 
   if (obj.category) {

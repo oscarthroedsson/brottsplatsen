@@ -25,9 +25,6 @@ import sumUp_Evning from "../Controllers/SumUpControllers/sumUp_Evning.js";
 import sumUp_Weekend from "../Controllers/SumUpControllers/sumUp_Weekend.js";
 import sumUp_Week from "../Controllers/SumUpControllers/sumUp_Week.js";
 
-// alla apier borde prefixas med /api/ ->
-//? Varför? Är det bara good practice?
-
 //# get
 /*
 Only get the categories and citys that exist in the DB so we  garante a hit on users search. 
@@ -49,9 +46,6 @@ router.get("/rss/debate_articles", readRSSFeed); //get debate articles from poli
 router.get("/rss/press_articles", rssPressArticles); //get pressmeddelanden from police
 
 router.get("/sumUp/:function", (req, res) => {
-  console.log("env NYCKEL: ", process.env.API_AUTH);
-  console.log("Auth:", req.query.auth);
-
   const functionMap = {
     sumUp_Morning: sumUp_Morning,
     sumUp_Afternoon: sumUp_AfterNoon,

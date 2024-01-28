@@ -4,11 +4,17 @@ import dates from "../data/dates.js";
 export default function CommonCrime() {
   //state handle the crime that is most common this month
   const [commonCrimeThisMonth, setCommonCrimeThisMonth] = useState([]);
-
+  const authCode = import.meta.env.VITE_API_AUTH;
+  console.log("authCode :", authCode);
   useEffect(() => {
     const crimes = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/common_This_Month"
+        "http://localhost:3000/api/common_This_Month",
+        {
+          headers: {
+            "x-api-key": authCode,
+          },
+        }
       );
 
       if (response.ok) {

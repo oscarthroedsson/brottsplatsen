@@ -43,7 +43,7 @@ async function sumUpMorning(req, res) {
       },
     ])
     .toArray();
-
+  console.log("RESULT: ", result);
   res.json(result);
 }
 

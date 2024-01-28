@@ -14,9 +14,6 @@ const excludedTypes = [
   "Tillfälligt obemannat",
 ];
 async function reciveApiData() {
-  console.log("--------------------");
-  console.log("Controllers | Getting data from the police");
-
   //try to fetch data from api
   try {
     const response = await fetch("https://polisen.se/api/events", {

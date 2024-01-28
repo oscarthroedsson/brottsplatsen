@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function NewsPress() {
   const [news, setNews] = useState();
-
+  const authCode = import.meta.env.VITE_API_AUTH;
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch("http://localhost:3000/rss/press_articles");
+      const response = await fetch("http://localhost:3000/rss/press_articles", {
+        headers: {
+          "x-api-key": authCode,
+        },
+      });
       const data = await response.json();
       await setNews(data);
     };

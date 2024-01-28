@@ -47,7 +47,7 @@ async function sumUpWeek(req, res) {
       },
     ])
     .toArray();
-
+  console.log("RESULT: ", result);
   res.json(result);
 }
 

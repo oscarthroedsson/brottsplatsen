@@ -50,7 +50,7 @@ async function sumUpWeekend(req, res) {
       },
     ])
     .toArray();
-
+  console.log("RESULT: ", result);
   res.send(result);
 }
 

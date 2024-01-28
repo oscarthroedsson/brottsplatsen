@@ -9,11 +9,15 @@ import React, { useEffect, useState } from "react";
 
 export default function CrimesNight() {
   const [nightCrimes, setNightCrimes] = useState({ doc: [] });
-
+  const authCode = import.meta.env.VITE_API_AUTH;
   useEffect(() => {
     try {
       const crimes = async () => {
-        const response = await fetch("http://localhost:3000/api/night_crimes");
+        const response = await fetch("http://localhost:3000/api/night_crimes", {
+          headers: {
+            "x-api-key": authCode,
+          },
+        });
         const data = await response.json();
         setNightCrimes(data[0]);
       };

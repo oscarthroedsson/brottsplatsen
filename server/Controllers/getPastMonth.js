@@ -1,8 +1,6 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 async function getPastMonth(req, res) {
-  console.log("--------------------");
-  console.log("getPastMonth was run");
   let from = new Date();
   from.setDate(1);
   from.setMonth(from.getMonth() - 1);
@@ -11,7 +9,7 @@ async function getPastMonth(req, res) {
   to.setMonth(to.getMonth() + 1);
   to.setDate(0);
 
-  let month = new Date().getMonth() + 1;
+  // let month = new Date().getMonth() + 1;
 
   const result = await wholeColl
     .aggregate([

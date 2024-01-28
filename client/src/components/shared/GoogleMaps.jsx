@@ -9,7 +9,7 @@ function GoogleMaps({ searchData }) {
   const [arrayOfCrimes, setArrayOfCrimes] = useState();
   const [map, setMap] = useState(null);
   const apiKeyGoogleMaps = import.meta.env.VITE_GOOGLE_MAP_KEY;
-
+  const authCode = import.meta.env.VITE_API_AUTH;
   //Array to handle all the markers
   const markers = [];
 
@@ -21,6 +21,7 @@ function GoogleMaps({ searchData }) {
         {
           method: "post",
           headers: {
+            "x-api-key": authCode,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(searchData),

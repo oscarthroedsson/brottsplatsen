@@ -10,6 +10,7 @@ och använder dekonstruktion för att retunera relevanta variabler för texten
 */
 
 function Text({ searchData }) {
+  const authCode = import.meta.env.VITE_API_AUTH;
   if (searchData.place == null) {
     searchData.place = "Sverige";
   }
@@ -18,7 +19,11 @@ function Text({ searchData }) {
 
   //gets the whole list
   async function get() {
-    const res = await fetch("http://localhost:3000/api/whole_list");
+    const res = await fetch("http://localhost:3000/api/whole_list", {
+      headers: {
+        "x-api-key": authCode,
+      },
+    });
     const data = await res.json();
     return data;
   }

@@ -2,8 +2,6 @@ import wholeColl from "../config/getDataBaseData.js";
 import searchQuery from "../utils/createMatchQuery.js";
 //.category, .place, .timespan.from/to
 async function cordinatesCrime(req, res) {
-  console.log("--------------------");
-  console.log("cordinatesCrime was run");
   const obj = req.body;
 
   //# Create a dynamic matchiquery depending of the data we get in!

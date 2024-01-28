@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 
 export default function ListBox() {
   const [latestCrimes, setLatestCrimes] = useState([]);
-
+  const authCode = import.meta.env.VITE_API_AUTH;
   useEffect(() => {
     const list = async () => {
-      const response = await fetch("http://localhost:3000/api/whole_list");
+      const response = await fetch("http://localhost:3000/api/whole_list", {
+        headers: {
+          "x-api-key": authCode,
+        },
+      });
       const data = await response.json();
       setLatestCrimes(data);
     };

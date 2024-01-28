@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function CommonCrime({ searchData }) {
   const [array, setArray] = useState([]);
+  const authCode = import.meta.env.VITE_API_AUTH;
 
   useEffect(() => {
     const data = async () => {
@@ -14,6 +15,7 @@ export default function CommonCrime({ searchData }) {
       const response = await fetch("http://localhost:3000/api/common_crime", {
         method: "POST",
         headers: {
+          "x-api-key": authCode,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(searchData),

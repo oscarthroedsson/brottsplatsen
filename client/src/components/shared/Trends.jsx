@@ -5,12 +5,14 @@ import StackedBarChart from "./StackedBarChart";
 export default function Trends({ searchData }) {
   const [trendsArray, setTrendsArray] = useState();
   // console.log(searchData);
+  const authCode = import.meta.env.VITE_API_AUTH;
 
   useEffect(() => {
     const data = async () => {
       const response = await fetch("http://localhost:3000/api/get_trends", {
         method: "POST",
         headers: {
+          "x-api-key": authCode,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(searchData),

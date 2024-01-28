@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
-const apikey = import.meta.env.VITE_API_AUTH;
 
 export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
   const [docArray, setDocArray] = useState([]);
+  const authCode = import.meta.env.VITE_API_AUTH;
 
+  console.log("authCode: ", authCode);
   useEffect(() => {
     let ignore = false;
+
     const data = async () => {
-      const res = await fetch(
-        `http://localhost:3000/sumUp/${apiCall}?auth=${apikey}`
-      );
-      const data = await res.json();
-      setDocArray(data);
+      const res = await fetch(`http://localhost:3000/sumUp/${apiCall}`, {
+        method: "GET",
+        headers: {
+          "x-api-key": authCode,
+        },
+      });
+
+      if (!ignore) {
+        const data = await res.json();
+        setDocArray(data);
+      }
     };
     data();
 
@@ -20,9 +28,9 @@ export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
       ignore = true;
     };
   }, []);
-
+  console.log("docArray: ", docArray);
   if (docArray.length < 1) {
-    return;
+    return null;
   }
 
   return (
@@ -41,15 +49,17 @@ export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
         </thead>
 
         <tbody className="pb-2">
-          {docArray.map((item) => {
-            return (
-              <tr className="text-[0.8rem] mx-2" key={item._id}>
-                <td className="text-start">{item.type}</td>
-                <td className="text-center">{item.location}</td>
-                <td className="text-end">{item.time}</td>
-              </tr>
-            );
-          })}
+          {docArray.length > 0
+            ? docArray.map((item) => {
+                return (
+                  <tr className="text-[0.8rem] mx-2" key={item._id}>
+                    <td className="text-start">{item.type}</td>
+                    <td className="text-center">{item.location}</td>
+                    <td className="text-end">{item.time}</td>
+                  </tr>
+                );
+              })
+            : null}
         </tbody>
       </table>
     </div>

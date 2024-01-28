@@ -25,12 +25,16 @@ export default function ListCategorys() {
 
   const maxPages = 3; //Controlls the visuall for the user to see how many pages there is to see of the crimes
   const numOfBoxes = 3; // Controlls how many crime boxes is shown on every pagination page.
-
+  const authCode = import.meta.env.VITE_API_AUTH;
   //Get every type of crime that is in the DB
 
   useEffect(() => {
     const categorys = async () => {
-      const result = await fetch("http://localhost:3000/api/categorys");
+      const result = await fetch("http://localhost:3000/api/categorys", {
+        headers: {
+          "x-api-key": authCode,
+        },
+      });
       const data = await result.json();
       const categorys = data.map((category) => {
         return category._id;
@@ -48,17 +52,17 @@ export default function ListCategorys() {
       {
         method: "GET",
         headers: {
+          "x-api-key": authCode,
           "Content-Type": "application/json",
         },
       }
     );
 
     const data = await result.json();
-    console.log("data: ", data.length);
-    console.log("maxPages: ", maxPages);
+
     await setNumOfPages(data.length / maxPages); // We find out how many  pages we  are going to have in our pagination.
     await setCrimeArray(data);
-    console.log("numOfPages: ", numOfPages); //
+    await setCurrentPage(1);
   };
 
   // Logic so the user can go forward in the pagination

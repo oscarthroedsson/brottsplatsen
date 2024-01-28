@@ -1,13 +1,8 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 async function sortLatestCrime(obj) {
-  console.log("--------------------");
-  console.log("sortLatestCrime was run");
-  let from = new Date(obj.timeSpan.fromDate);
-  let to = new Date(obj.timeSpan.toDate);
-
-  console.log("trends | from: ", from);
-  console.log("trends | to: ", to);
+  // let from = new Date(obj.timeSpan.fromDate);
+  // let to = new Date(obj.timeSpan.toDate);
 
   const result = await wholeColl
     .aggregate([
