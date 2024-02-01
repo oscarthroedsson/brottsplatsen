@@ -21,11 +21,11 @@ connectToDatabase();
 const validateApiKey = (req, res, next) => {
   console.log("VALIDATE APUIKEY");
   const authKey = process.env.API_AUTH;
-  console.log("authKey BAJS: ", authKey);
+  console.log("authKey: ", authKey);
 
   const apiKey =
     req.headers["x-api-key"] || req.query.apiKey || req.body.apiKey;
-  console.log("apiKey BAJS: ", apiKey);
+  console.log("apiKey: ", apiKey);
 
   if (apiKey && apiKey === authKey) {
     next(); // to the next middlewear
