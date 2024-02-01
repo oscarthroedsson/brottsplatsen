@@ -12,11 +12,14 @@ function Latest500({ searchData }) {
   //# Fetch the latest 500 crimes
   useEffect(() => {
     const data = async () => {
-      const response = await fetch("http://localhost:3000/api/whole_list", {
-        headers: {
-          "x-api-key": authCode,
-        },
-      });
+      const response = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/whole_list",
+        {
+          headers: {
+            "x-api-key": authCode,
+          },
+        }
+      );
       const result = await response.json();
       setLatestCrime(result);
     };

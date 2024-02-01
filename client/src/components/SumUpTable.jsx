@@ -9,12 +9,15 @@ export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
     let ignore = false;
 
     const data = async () => {
-      const res = await fetch(`http://localhost:3000/sumUp/${apiCall}`, {
-        method: "GET",
-        headers: {
-          "x-api-key": authCode,
-        },
-      });
+      const res = await fetch(
+        `https://brottsplatsen-555fb93c7458.herokuapp.com/sumUp/${apiCall}`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": authCode,
+          },
+        }
+      );
 
       if (!ignore) {
         const data = await res.json();

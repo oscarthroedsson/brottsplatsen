@@ -6,11 +6,14 @@ export default function NewsPress() {
   const authCode = import.meta.env.VITE_API_AUTH;
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch("http://localhost:3000/rss/press_articles", {
-        headers: {
-          "x-api-key": authCode,
-        },
-      });
+      const response = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/rss/press_articles",
+        {
+          headers: {
+            "x-api-key": authCode,
+          },
+        }
+      );
       const data = await response.json();
       await setNews(data);
     };

@@ -9,7 +9,7 @@ export default function CommonCrime() {
   useEffect(() => {
     const crimes = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/common_This_Month",
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/common_This_Month",
         {
           headers: {
             "x-api-key": authCode,

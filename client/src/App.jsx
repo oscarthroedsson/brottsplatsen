@@ -26,7 +26,7 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/Total_Num_Of_Crimes",
+          "https://brottsplatsen-555fb93c7458.herokuapp.com/api/Total_Num_Of_Crimes",
           {
             headers: {
               "x-api-key": authCode,

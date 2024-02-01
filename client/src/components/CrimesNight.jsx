@@ -13,11 +13,14 @@ export default function CrimesNight() {
   useEffect(() => {
     try {
       const crimes = async () => {
-        const response = await fetch("http://localhost:3000/api/night_crimes", {
-          headers: {
-            "x-api-key": authCode,
-          },
-        });
+        const response = await fetch(
+          "https://brottsplatsen-555fb93c7458.herokuapp.com/api/night_crimes",
+          {
+            headers: {
+              "x-api-key": authCode,
+            },
+          }
+        );
         const data = await response.json();
         setNightCrimes(data[0]);
       };

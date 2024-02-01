@@ -30,11 +30,14 @@ export default function ListCategorys() {
 
   useEffect(() => {
     const categorys = async () => {
-      const result = await fetch("http://localhost:3000/api/categorys", {
-        headers: {
-          "x-api-key": authCode,
-        },
-      });
+      const result = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/categorys",
+        {
+          headers: {
+            "x-api-key": authCode,
+          },
+        }
+      );
       const data = await result.json();
       const categorys = data.map((category) => {
         return category._id;
@@ -48,7 +51,7 @@ export default function ListCategorys() {
   const crimes = async (categoryChoice) => {
     const result = await fetch(
       // Get every crime that has the same type as the category choosen
-      `http://localhost:3000/api/crime_by_category?category=${categoryChoice}`,
+      `https://brottsplatsen-555fb93c7458.herokuapp.com/api/crime_by_category?category=${categoryChoice}`,
       {
         method: "GET",
         headers: {

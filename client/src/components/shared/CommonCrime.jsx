@@ -12,14 +12,17 @@ export default function CommonCrime({ searchData }) {
       /*det vore nice att wrappa all api logik i en gemensam metod så du slipper sätta headers och method varje gång. 
       Den kan ansvara för felhantering och sen reeturnera det färdiga json objektet*/
       //? Gå igenom detta med Madde mer noggrant
-      const response = await fetch("http://localhost:3000/api/common_crime", {
-        method: "POST",
-        headers: {
-          "x-api-key": authCode,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(searchData),
-      });
+      const response = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/common_crime",
+        {
+          method: "POST",
+          headers: {
+            "x-api-key": authCode,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(searchData),
+        }
+      );
       const result = await response.json();
       setArray(result);
     };

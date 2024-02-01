@@ -17,7 +17,7 @@ function GoogleMaps({ searchData }) {
     //Get all the cord of the crimes that should be shown
     const getCordinates = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/cordinates_crime",
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/cordinates_crime",
         {
           method: "post",
           headers: {

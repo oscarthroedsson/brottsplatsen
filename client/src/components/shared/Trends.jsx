@@ -9,14 +9,17 @@ export default function Trends({ searchData }) {
 
   useEffect(() => {
     const data = async () => {
-      const response = await fetch("http://localhost:3000/api/get_trends", {
-        method: "POST",
-        headers: {
-          "x-api-key": authCode,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(searchData),
-      });
+      const response = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/get_trends",
+        {
+          method: "POST",
+          headers: {
+            "x-api-key": authCode,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(searchData),
+        }
+      );
       const result = await response.json();
       setTrendsArray(result);
     };

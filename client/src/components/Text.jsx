@@ -19,11 +19,14 @@ function Text({ searchData }) {
 
   //gets the whole list
   async function get() {
-    const res = await fetch("http://localhost:3000/api/whole_list", {
-      headers: {
-        "x-api-key": authCode,
-      },
-    });
+    const res = await fetch(
+      "https://brottsplatsen-555fb93c7458.herokuapp.com/api/whole_list",
+      {
+        headers: {
+          "x-api-key": authCode,
+        },
+      }
+    );
     const data = await res.json();
     return data;
   }

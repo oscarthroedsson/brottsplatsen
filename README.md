@@ -95,7 +95,9 @@ export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
 
   useEffect(() => {
     const data = async () => {
-      const res = await fetch(`http://localhost:3000/sumUp/${apiCall}`);
+      const res = await fetch(
+        `https://brottsplatsen-555fb93c7458.herokuapp.com/sumUp/${apiCall}`
+      );
       const data = await res.json();
       setDocArray(data);
     };

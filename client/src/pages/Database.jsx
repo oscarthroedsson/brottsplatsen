@@ -54,7 +54,9 @@ export default function Databas() {
   //testa bygga detta i en knapp onClock / async function
   useEffect(() => {
     const getCategorys = async () => {
-      const res = await fetch("http://localhost:3000/api/categorys");
+      const res = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/categorys"
+      );
       const data = await res.json();
       let parseCategorys = data.map((category) => {
         return category._id;
@@ -63,7 +65,9 @@ export default function Databas() {
     };
 
     const getCities = async () => {
-      const res = await fetch("http://localhost:3000/api/cities");
+      const res = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/cities"
+      );
       const data = await res.json();
 
       let parseCities = data.map((city) => {

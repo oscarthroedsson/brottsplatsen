@@ -7,7 +7,7 @@ export default function NewsDebate() {
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
-        "http://localhost:3000/rss/debate_articles",
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/rss/debate_articles",
         {
           headers: {
             "x-api-key": authCode,

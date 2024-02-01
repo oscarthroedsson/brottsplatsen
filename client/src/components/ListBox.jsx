@@ -5,11 +5,14 @@ export default function ListBox() {
   const authCode = import.meta.env.VITE_API_AUTH;
   useEffect(() => {
     const list = async () => {
-      const response = await fetch("http://localhost:3000/api/whole_list", {
-        headers: {
-          "x-api-key": authCode,
-        },
-      });
+      const response = await fetch(
+        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/whole_list",
+        {
+          headers: {
+            "x-api-key": authCode,
+          },
+        }
+      );
       const data = await response.json();
       setLatestCrimes(data);
     };
