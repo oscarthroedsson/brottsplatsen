@@ -1,5 +1,3 @@
-import { reconstructFieldPath } from "express-validator/src/field-selection";
-
 /*
 1. Kollar om jag har place om inte, tilldelar jag "Sverige"
 2. Initierar get() och retunerar hela listan
