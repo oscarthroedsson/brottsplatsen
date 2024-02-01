@@ -19,7 +19,7 @@ import months from "../data/dates";
 
 import categorysIcon from "../icons/fCrime.png";
 import placeIcon from "../icons/fPlace.png";
-import timePeriodIcon from "../icons/ftimePeriod.png";
+import timePeriodIcon from "../icons/fTimePeriod.png";
 import trendsIcon from "../icons/fTrends.png";
 import realTimeIcon from "../icons/fRealTime.png";
 import commonIcon from "../icons/fSum_data.png";
