@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import Nav from "./components/nav";
+import Nav from "./components/Nav";
 import ListBox from "./components/ListBox";
 import CommonCrimeBox from "./components/CommonCrimeBox";
 import WeekData from "./components/LatestSevendays";
