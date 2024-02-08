@@ -1,9 +1,8 @@
 import wholeColl from "../config/getDataBaseData.js";
 
-async function sortLatestCrime(obj) {
-  // let from = new Date(obj.timeSpan.fromDate);
-  // let to = new Date(obj.timeSpan.toDate);
+//? vart används denna?
 
+async function sortLatestCrime(obj) {
   const result = await wholeColl
     .aggregate([
       {

@@ -68,7 +68,6 @@ router.get("/sumUp/:function", (req, res) => {
   const funcName = req.params.function;
 
   if (functionMap.hasOwnProperty(funcName)) {
-    console.log("den har funktionen som skickas in");
     functionMap[funcName](req, res); // Runs the function
   } else {
     res.status(404).send("Function not found");

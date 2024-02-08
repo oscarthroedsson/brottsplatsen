@@ -1,18 +1,8 @@
 import fetch from "node-fetch"; //importerar fetch för att kunna hämta data från api
 import createNewDocument from "../models/newDocumentSchema.js"; //skapar ett nytt dok för mongoDB
 import wholeColl from "../config/getDataBaseData.js"; //hämtar hela collectionen jag vill söka i från mongoDB
-const excludedTypes = [
-  "Sammanfattning dag",
-  "Sammanfattning dygn",
-  "Sammanfattning förmiddag",
-  "Sammanfattning eftermiddag",
-  "Sammanfattning helg",
-  "Sammanfattning kväll",
-  "Sammanfattning kväll och natt",
-  "Sammanfattning natt",
-  "Sammanfattning vecka",
-  "Tillfälligt obemannat",
-];
+import { excludedTypes } from "../data/excludeTypes.js";
+
 async function reciveApiData() {
   //try to fetch data from api
   try {

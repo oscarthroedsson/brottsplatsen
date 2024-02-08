@@ -1,22 +1,28 @@
 import wholeColl from "../config/getDataBaseData.js";
 
 async function getCities(req, res) {
-  const result = await wholeColl
-    .aggregate([
-      {
-        $group: {
-          _id: "$location.name",
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $group: {
+            _id: "$location.name",
+          },
         },
-      },
-      {
-        $sort: {
-          _id: 1,
+        {
+          $sort: {
+            _id: 1,
+          },
         },
-      },
-    ])
-    .toArray();
+      ])
+      .toArray();
 
-  res.json(result);
+    res.json(result);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
+  }
 }
 
 export default getCities;

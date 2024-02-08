@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
-export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
+export default function SumUpTable({ timeOfDay, apiCall }) {
   const [docArray, setDocArray] = useState([]);
   const authCode = import.meta.env.VITE_API_AUTH;
 
-  console.log("authCode: ", authCode);
   useEffect(() => {
     let ignore = false;
 
@@ -31,7 +30,7 @@ export default function SumUpTable({ timeOfDay, apiCall, noDataMsg }) {
       ignore = true;
     };
   }, []);
-  console.log("docArray: ", docArray);
+
   if (docArray.length < 1) {
     return null;
   }

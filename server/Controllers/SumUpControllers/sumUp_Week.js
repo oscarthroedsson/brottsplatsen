@@ -18,37 +18,43 @@ async function sumUpWeek(req, res) {
   endDate.setDate(now.getDate() - now.getDay() + 8); // Closest Sunday
   endDate.setHours(23, 59, 59); // Sunday kl 23:59
 
-  const result = await wholeColl
-    .aggregate([
-      {
-        $match: {
-          datetime: {
-            $gte: startDate,
-            $lte: endDate,
-          },
-        },
-      },
-      {
-        $sort: {
-          datetime: -1, // Sort falling order
-        },
-      },
-      {
-        $project: {
-          type: 1, // Behåll 'type'
-          location: "$location.name", // Hämta 'location.name'
-          date: {
-            $dateToString: {
-              format: "%H:%M %d/%m", // Formatera datum till 'HH:MM dd/mm'
-              date: "$datetime",
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $match: {
+            datetime: {
+              $gte: startDate,
+              $lte: endDate,
             },
           },
         },
-      },
-    ])
-    .toArray();
-  console.log("RESULT: ", result);
-  res.json(result);
+        {
+          $sort: {
+            datetime: -1, // Sort falling order
+          },
+        },
+        {
+          $project: {
+            type: 1, // Behåll 'type'
+            location: "$location.name", // Hämta 'location.name'
+            date: {
+              $dateToString: {
+                format: "%H:%M %d/%m", // Formatera datum till 'HH:MM dd/mm'
+                date: "$datetime",
+              },
+            },
+          },
+        },
+      ])
+      .toArray();
+
+    res.json(result);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
+  }
 }
 
 export default sumUpWeek;

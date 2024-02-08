@@ -10,33 +10,39 @@ async function commonThisMonth(req, res) {
   to.setDate(0);
   to.setUTCHours(23, 59, 59, 999);
 
-  const result = await wholeColl
-    .aggregate([
-      {
-        $match: {
-          datetime: {
-            $gte: from,
-            $lte: to,
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $match: {
+            datetime: {
+              $gte: from,
+              $lte: to,
+            },
           },
         },
-      },
-      {
-        $group: {
-          _id: "$type",
-          count: { $sum: 1 },
+        {
+          $group: {
+            _id: "$type",
+            count: { $sum: 1 },
+          },
         },
-      },
-      {
-        $sort: {
-          count: -1,
+        {
+          $sort: {
+            count: -1,
+          },
         },
-      },
-      {
-        $limit: 1,
-      },
-    ])
-    .toArray();
-  res.json(result);
+        {
+          $limit: 1,
+        },
+      ])
+      .toArray();
+    res.json(result);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
+  }
 }
 
 export default commonThisMonth;

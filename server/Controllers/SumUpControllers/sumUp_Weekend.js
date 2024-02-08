@@ -18,40 +18,42 @@ async function sumUpWeekend(req, res) {
   endDate.setDate(now.getDate() - now.getDay() + 8); // Closest Sunday
   endDate.setHours(0, 59, 59, 999); // Sunday kl 23:59
 
-  console.log("startDate: ", startDate);
-  console.log("endDate: ", endDate);
-
-  const result = await wholeColl
-    .aggregate([
-      {
-        $match: {
-          datetime: {
-            $gte: startDate,
-            $lte: endDate,
-          },
-        },
-      },
-      {
-        $sort: {
-          datetime: -1, // Sort falling order
-        },
-      },
-      {
-        $project: {
-          type: 1, // Keep 'type'
-          location: "$location.name", // get 'location.name'
-          time: {
-            $dateToString: {
-              format: "%H:%M", // Formate date to 'HH:MM'
-              date: "$datetime",
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $match: {
+            datetime: {
+              $gte: startDate,
+              $lte: endDate,
             },
           },
         },
-      },
-    ])
-    .toArray();
-  console.log("RESULT: ", result);
-  res.send(result);
+        {
+          $sort: {
+            datetime: -1, // Sort falling order
+          },
+        },
+        {
+          $project: {
+            type: 1, // Keep 'type'
+            location: "$location.name", // get 'location.name'
+            time: {
+              $dateToString: {
+                format: "%H:%M", // Formate date to 'HH:MM'
+                date: "$datetime",
+              },
+            },
+          },
+        },
+      ])
+      .toArray();
+    res.send(result);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
+  }
 }
 
 export default sumUpWeekend;

@@ -46,7 +46,9 @@ async function cordinatesCrime(req, res) {
 
     res.json(result);
   } catch (err) {
-    console.log("cordinatesCrime | ERROR: ", err);
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
   }
 }
 

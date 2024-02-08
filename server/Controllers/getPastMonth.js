@@ -9,36 +9,40 @@ async function getPastMonth(req, res) {
   to.setMonth(to.getMonth() + 1);
   to.setDate(0);
 
-  // let month = new Date().getMonth() + 1;
-
-  const result = await wholeColl
-    .aggregate([
-      {
-        $match: {
-          datetime: {
-            $gte: from,
-            $lte: to,
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $match: {
+            datetime: {
+              $gte: from,
+              $lte: to,
+            },
           },
         },
-      },
-      {
-        $group: {
-          _id: "$type",
-          count: { $sum: 1 },
+        {
+          $group: {
+            _id: "$type",
+            count: { $sum: 1 },
+          },
         },
-      },
-      {
-        $sort: {
-          count: -1,
+        {
+          $sort: {
+            count: -1,
+          },
         },
-      },
-      {
-        $limit: 1,
-      },
-    ])
-    .toArray();
+        {
+          $limit: 1,
+        },
+      ])
+      .toArray();
 
-  res.json(result);
+    res.json(result);
+  } catch (err) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
+  }
 }
 
 export default getPastMonth;

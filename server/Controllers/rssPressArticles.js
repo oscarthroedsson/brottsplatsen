@@ -1,6 +1,8 @@
 import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 
+//TODO res är undefined fixa
+
 async function rssPressArticles(req, res) {
   console.log("rssDebateArticles was CALLED");
 
@@ -40,8 +42,6 @@ async function parseXml2jsFormatToNormalArray(data) {
         link: e.link[0],
       };
     }));
-
-    //! | catches errors and print it in terminal
   } catch (err) {
     console.log(`Error while trying to sort the XML2j data, ${err}`);
   }

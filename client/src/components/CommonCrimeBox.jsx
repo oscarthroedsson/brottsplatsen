@@ -4,8 +4,9 @@ import dates from "../data/dates.js";
 export default function CommonCrime() {
   //state handle the crime that is most common this month
   const [commonCrimeThisMonth, setCommonCrimeThisMonth] = useState([]);
+
   const authCode = import.meta.env.VITE_API_AUTH;
-  console.log("authCode :", authCode);
+
   useEffect(() => {
     const crimes = async () => {
       const response = await fetch(
@@ -20,8 +21,6 @@ export default function CommonCrime() {
       if (response.ok) {
         const data = await response.json();
         setCommonCrimeThisMonth(data[0]);
-      } else {
-        console.log("Server returned an error:", response.status);
       }
     };
 

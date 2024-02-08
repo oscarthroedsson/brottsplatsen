@@ -7,25 +7,31 @@ async function mostCommonCrime(req, res) {
   const from = new Date(obj.timeSpan.fromDate);
   const to = new Date(obj.timeSpan.toDate);
 
-  const result = await wholeColl
-    .aggregate([
-      {
-        $match: {
-          datetime: {
-            $gte: from,
-            $lte: to,
+  try {
+    const result = await wholeColl
+      .aggregate([
+        {
+          $match: {
+            datetime: {
+              $gte: from,
+              $lte: to,
+            },
+          },
+          $match: {
+            type: obj.category,
           },
         },
-        $match: {
-          type: obj.category,
-        },
-      },
-      { $group: { _id: "$location.name", count: { $sum: 1 } } },
-      { $sort: { count: -1 } },
-    ])
-    .toArray();
+        { $group: { _id: "$location.name", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+      ])
+      .toArray();
 
-  res.json(result);
+    res.json(result);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while processing your request." });
+  }
 }
 
 export default mostCommonCrime;

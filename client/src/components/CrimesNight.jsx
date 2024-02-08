@@ -25,9 +25,7 @@ export default function CrimesNight() {
         setNightCrimes(data[0]);
       };
       crimes();
-    } catch (err) {
-      console.log("CrimesNight | error in useEffect: ", err);
-    }
+    } catch (err) {}
   }, []);
 
   let usp = [
