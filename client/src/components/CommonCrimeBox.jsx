@@ -1,33 +1,26 @@
 import { useEffect, useState } from "react";
 import dates from "../data/dates.js";
+import { fetchApi } from "../config/apiCall.js";
 
 export default function CommonCrime() {
   //state handle the crime that is most common this month
   const [commonCrimeThisMonth, setCommonCrimeThisMonth] = useState([]);
 
-  const authCode = import.meta.env.VITE_API_AUTH;
-
   useEffect(() => {
     const crimes = async () => {
-      const response = await fetch(
-        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/common_This_Month",
-        {
-          headers: {
-            "x-api-key": authCode,
-          },
-        }
-      );
+      const commonCrime = await fetchApi("api/common_This_Month");
 
-      if (response.ok) {
-        const data = await response.json();
-        setCommonCrimeThisMonth(data[0]);
+      if (!commonCrime) {
+        return null;
+      } else {
+        setCommonCrimeThisMonth(commonCrime[0]);
       }
     };
 
     try {
       crimes();
     } catch (err) {
-      console.log("Error in CommonCrime", err);
+      return null;
     }
   }, []);
 

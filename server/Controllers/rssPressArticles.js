@@ -3,7 +3,7 @@ import { parseStringPromise } from "xml2js";
 
 //TODO res är undefined fixa
 
-async function rssPressArticles(req, res) {
+async function rssPressArticles(_req, res) {
   console.log("rssDebateArticles was CALLED");
 
   const url =
@@ -15,11 +15,10 @@ async function rssPressArticles(req, res) {
 
     //tranform xml2js string to a clean array.
     let debateArticalsArray = await parseXml2jsFormatToNormalArray(data);
-    await res.send(debateArticalsArray);
-    // await res.send(debateArticalsArray);
+
+    res.send(debateArticalsArray);
   } catch (error) {
-    console.error("Error fetching RSS data:", error);
-    // res.status(500).send("Error fetching RSS data");
+    console.log("Error in rssPressArticles | ", error);
   }
 }
 rssPressArticles();

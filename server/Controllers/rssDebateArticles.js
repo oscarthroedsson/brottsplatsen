@@ -8,7 +8,6 @@ async function rssDebateArticles(req, res) {
   try {
     const response = await fetch(url);
     const data = await response.text();
-    // console.log("DATA: ", data);
 
     //tranform xml2js string to a clean array.
     let debateArticalsArray = await parseXml2jsFormatToNormalArray(data);
@@ -19,7 +18,6 @@ async function rssDebateArticles(req, res) {
     await res.send(debateArticalsArray);
   } catch (error) {
     console.error("Error fetching RSS data:", error);
-    // res.status(500).send("Error fetching RSS data");
   }
 }
 

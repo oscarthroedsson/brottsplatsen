@@ -10,6 +10,7 @@ import backwardIcon from "../icons/vBackwardArrow.svg";
 import forwardIcon from "../icons/vForwardArrow.svg";
 import SelectElement from "./shared/SelectElement";
 import police from "../images/police.png";
+import { fetchApi } from "../config/apiCall.js";
 
 export default function ListCategorys() {
   //Nya state för pagination
@@ -25,46 +26,31 @@ export default function ListCategorys() {
 
   const maxPages = 3; //Controlls the visuall for the user to see how many pages there is to see of the crimes
   const numOfBoxes = 3; // Controlls how many crime boxes is shown on every pagination page.
-  const authCode = import.meta.env.VITE_API_AUTH;
-  //Get every type of crime that is in the DB
 
   useEffect(() => {
-    const categorys = async () => {
-      const result = await fetch(
-        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/categorys",
-        {
-          headers: {
-            "x-api-key": authCode,
-          },
-        }
-      );
-      const data = await result.json();
-      const categorys = data.map((category) => {
-        return category._id;
-      });
-      setCategoryList(categorys);
-    };
-    categorys();
+    try {
+      const categorys = async () => {
+        const response = await fetchApi("api/categorys");
+        const categoryList = response.map((category) => {
+          return category._id;
+        });
+        setCategoryList(categoryList);
+      };
+      categorys();
+    } catch (err) {
+      console.log("error: ", err);
+    }
   }, []); // Getting the categorys i have in the DB so user can choose
 
   // When cateogory is choosen, we run this and fetch all relevant crimes.
   const crimes = async (categoryChoice) => {
-    const result = await fetch(
-      // Get every crime that has the same type as the category choosen
-      `https://brottsplatsen-555fb93c7458.herokuapp.com/api/crime_by_category?category=${categoryChoice}`,
-      {
-        method: "GET",
-        headers: {
-          "x-api-key": authCode,
-          "Content-Type": "application/json",
-        },
-      }
+    // Get every crime that has the same type as the category choosen
+    const respons = await fetchApi(
+      `api/crime_by_category?category=${categoryChoice}`
     );
 
-    const data = await result.json();
-
-    await setNumOfPages(data.length / maxPages); // We find out how many  pages we  are going to have in our pagination.
-    await setCrimeArray(data);
+    await setNumOfPages(respons.length / maxPages); // We find out how many  pages we  are going to have in our pagination.
+    await setCrimeArray(respons);
     await setCurrentPage(1);
   };
 

@@ -7,7 +7,7 @@ import "./Controllers/reciveApiData.js";
 import indexRouter from "./router/getCrime.js";
 
 //env nyckel
-const authKey = process.env.API_KEY;
+const authKey = process.env.API_AUTH;
 const portKey = process.env.PORT;
 // Aktivera CORS för alla rutter (inte rekommenderat för produktion)
 
@@ -19,18 +19,16 @@ connectToDatabase();
 
 //validatet every API auth code that is sent with the API
 const validateApiKey = (req, res, next) => {
-  console.log("VALIDATE APUIKEY");
-  const authKey = process.env.API_AUTH;
-  console.log("authKey: ", authKey);
-
   const apiKey =
     req.headers["x-api-key"] || req.query.apiKey || req.body.apiKey;
-  console.log("apiKey: ", apiKey);
 
-  if (apiKey && apiKey === authKey) {
+  if (!apiKey) {
+    return res.status(401).json({ message: "No API key" });
+  }
+  if (apiKey === authKey) {
     next(); // to the next middlewear
   } else {
-    res.status(401).json({ message: "Ogiltig eller saknad API-nyckel" });
+    return res.status(401).json({ message: "Ogiltig eller saknad API-nyckel" });
   }
 };
 

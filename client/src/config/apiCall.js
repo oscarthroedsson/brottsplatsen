@@ -1,26 +1,27 @@
-const baseUrl = import.meta.env.VITE_API_AUTH;
-const authCode = import.meta.env.VITE_BASE_URL;
+const authCode = import.meta.env.VITE_API_AUTH;
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
-export async function fetchApiEndbpoint(endpoint) {
+export async function fetchApi(endpoint, method = undefined) {
   try {
-    const response = await fetch(`${baseUrl}/api/${endpoint}`, {
+    const response = await fetch(`${baseUrl}${endpoint}`, {
       headers: {
+        method: method || "GET",
         "x-api-key": authCode,
       },
     });
-    const data = await response.json();
-    if (data) {
+
+    if (response.ok) {
+      const data = await response.json();
       return data;
-    } else {
-      return "error";
     }
   } catch (err) {
-    throw Error();
+    return null;
   }
 }
 
 //Needs to take in the specific function you want to use
 export async function fetchSumUpEndPoint(func) {
+  console.log("func:", func);
   try {
     const response = await fetch(`${baseUrl}/sumUp/${func}`, {
       headers: {
@@ -34,6 +35,6 @@ export async function fetchSumUpEndPoint(func) {
       return "error";
     }
   } catch (err) {
-    throw Error();
+    return null;
   }
 }

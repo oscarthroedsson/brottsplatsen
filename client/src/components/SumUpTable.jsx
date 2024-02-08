@@ -1,37 +1,21 @@
 import { useEffect, useState } from "react";
+import { fetchApi } from "../config/apiCall";
 
 export default function SumUpTable({ timeOfDay, apiCall }) {
-  const [docArray, setDocArray] = useState([]);
-  const authCode = import.meta.env.VITE_API_AUTH;
+  const [documentArray, setDocArray] = useState([]);
 
   useEffect(() => {
-    let ignore = false;
-
     const data = async () => {
-      const res = await fetch(
-        `https://brottsplatsen-555fb93c7458.herokuapp.com/sumUp/${apiCall}`,
-        {
-          method: "GET",
-          headers: {
-            "x-api-key": authCode,
-          },
-        }
-      );
+      const res = await fetchApi(`sumUp/${apiCall}`);
 
-      if (!ignore) {
-        const data = await res.json();
-        setDocArray(data);
+      if (res) {
+        setDocArray(res);
       }
     };
     data();
+  }, [apiCall]);
 
-    //clean up function
-    return () => {
-      ignore = true;
-    };
-  }, []);
-
-  if (docArray.length < 1) {
+  if (documentArray.length < 1) {
     return null;
   }
 
@@ -51,8 +35,8 @@ export default function SumUpTable({ timeOfDay, apiCall }) {
         </thead>
 
         <tbody className="pb-2">
-          {docArray.length > 0
-            ? docArray.map((item) => {
+          {documentArray.length > 0
+            ? documentArray.map((item) => {
                 return (
                   <tr className="text-[0.8rem] mx-2" key={item._id}>
                     <td className="text-start">{item.type}</td>

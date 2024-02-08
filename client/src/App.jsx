@@ -91,6 +91,7 @@ function App() {
               apiCall="sumUp_AfterNoon"
               noDataMsg=""
             />
+
             <SumUpTable
               timeOfDay="17:00 - 23:59"
               apiCall="sumUp_Evning"

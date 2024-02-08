@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchApi } from "../config/apiCall";
 
 export default function NewsPress() {
   const [news, setNews] = useState();
-  const authCode = import.meta.env.VITE_API_AUTH;
+
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(
-        "https://brottsplatsen-555fb93c7458.herokuapp.com/rss/press_articles",
-        {
-          headers: {
-            "x-api-key": authCode,
-          },
-        }
-      );
-      const data = await response.json();
-      await setNews(data);
+      const newsArticles = await fetchApi("rss/press_articles");
+      await setNews(newsArticles);
     };
     getData();
   }, []);

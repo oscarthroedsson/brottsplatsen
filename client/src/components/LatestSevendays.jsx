@@ -9,23 +9,15 @@ import {
 } from "recharts";
 import "../main.css";
 import { useEffect, useMemo, useState } from "react";
+import { fetchApi } from "../config/apiCall";
 
 export default function WeekData() {
   const [week, setWeek] = useState([]);
-  const authCode = import.meta.env.VITE_API_AUTH;
 
   useEffect(() => {
     const getWeekData = async () => {
-      const response = await fetch(
-        "https://brottsplatsen-555fb93c7458.herokuapp.com/api/whole_list",
-        {
-          headers: {
-            "x-api-key": authCode,
-          },
-        }
-      );
-      const data = await response.json();
-      await setWeek(data);
+      const weekData = await fetchApi("api/whole_list");
+      await setWeek(weekData);
     };
     try {
       getWeekData();

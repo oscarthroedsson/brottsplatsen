@@ -93,9 +93,7 @@ async function getNightCrimes(req, res) {
       return;
     }
 
-    // Output should be in the format you described
-
-    res.json(result);
+    res.json(result[0]);
   } catch (err) {
     res
       .status(500)

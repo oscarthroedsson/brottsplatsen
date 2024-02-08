@@ -6,11 +6,12 @@ async function sumUpAfterNoon(req, res) {
   Vill du komma åt fredag så +6 dagar inte +5 dagar
   osv
   */
-
+  sumUpAfterNoon;
   const startDate = new Date();
   startDate.setHours(13, 0, 0).toLocaleString("sv-SE");
   const endDate = new Date();
   endDate.setHours(17, 59, 0).toLocaleString("sv-SE");
+
   try {
     const result = await wholeColl
       .aggregate([
